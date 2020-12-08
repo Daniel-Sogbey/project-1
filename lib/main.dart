@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './providers/questions.dart';
+import './providers/posts.dart';
 import './screens/answers-screen.dart';
-import './screens/create-question-screen.dart';
-import './screens/home-screen.dart';
+import './screens/create_post_screen.dart';
+import './screens/tabs_screen.dart';
+import './screens/user_activity_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,17 +15,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => Questions(),
+      create: (context) => Posts(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'SolveShare',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: HomeScreen(),
+        home: TabsScreen(),
         routes: {
-          CreateQuestionScreen.routeName: (context) => CreateQuestionScreen(),
+          CreatePostScreen.routeName: (context) => CreatePostScreen(),
           AnswersScreen.routeName: (context) => AnswersScreen(),
+          UserActivityScreen.routeName: (context) => UserActivityScreen(),
         },
       ),
     );

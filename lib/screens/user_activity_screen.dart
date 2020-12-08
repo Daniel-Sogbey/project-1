@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../constants/constants.dart';
+import '../providers/posts.dart';
 import '../screens/create_post_screen.dart';
 import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
-import '../widgets/post_list.dart';
-import '../widgets/search-bar.dart';
+import '../widgets/user_activity_item.dart';
 
-class HomeScreen extends StatelessWidget {
-  static const routeName = '/';
+class UserActivityScreen extends StatelessWidget {
+  static const routeName = '/activity';
   @override
   Widget build(BuildContext context) {
+    final postsData = Provider.of<Posts>(context);
     return Scaffold(
       drawer: AppDrawer(),
       body: SafeArea(
         child: Column(
-          children: [
+          children: <Widget>[
             Row(
               children: <Widget>[
                 _buildMenuBar(),
@@ -24,14 +27,22 @@ class HomeScreen extends StatelessWidget {
                 AppHeader(),
               ],
             ),
-            SearchBar(),
-            Expanded(
-              child: QuestionList(),
+            Container(
+              child: Text(
+                'All Your Activities',
+                style: kUpdatePostTextStyle,
+              ),
             ),
-            // Container(
-            //   height: 15.0,
-            //   color: Colors.amber,
-            // ),
+            Divider(),
+            Expanded(
+              child: ListView.builder(
+                itemCount: postsData.posts.length,
+                itemBuilder: (ctx, i) => UserActivityItem(
+                  post: postsData.posts[i],
+                  postId: postsData.posts[i].postId,
+                ),
+              ),
+            ),
           ],
         ),
       ),

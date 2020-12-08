@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 
 import '../constants/constants.dart';
-import '../models/question.dart';
+import '../models/post.dart';
 import '../screens/answers-screen.dart';
-import '../widgets/answerCount.dart';
+import '../widgets/countBadge.dart';
 
 class QuestionItem extends StatelessWidget {
-  final Question questions;
+  final Post posts;
 
-  QuestionItem({this.questions});
+  QuestionItem({this.posts});
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 4.0, right: 4.0, bottom: 10.0),
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
         border: Border.all(
           width: 0.2,
-          color: Colors.pinkAccent,
+          color: Colors.black12,
         ),
       ),
       child: Column(
@@ -35,12 +36,12 @@ class QuestionItem extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(left: 10.0),
                 child: Text(
-                  'University of Cape Coast',
+                  'Uni. of Cape Coast',
                   style: kInfoStyle,
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 40.0),
+                margin: EdgeInsets.only(left: 20.0),
                 padding: EdgeInsets.all(5.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.0),
@@ -51,7 +52,7 @@ class QuestionItem extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Level 300',
+                  posts.category,
                   style: kInfoStyle,
                 ),
               ),
@@ -61,8 +62,8 @@ class QuestionItem extends StatelessWidget {
             margin:
                 EdgeInsets.only(top: 20.0, left: 5.0, right: 5.0, bottom: 5.0),
             child: Text(
-              questions.questionText,
-              style: kQuestionTextStyle,
+              posts.postText,
+              style: kPostTextStyle,
             ),
           ),
           Row(
@@ -76,13 +77,13 @@ class QuestionItem extends StatelessWidget {
                   icon: Icon(
                     Icons.save_alt,
                     color: Colors.black26,
-                    size: 30.0,
+                    size: 22.0,
                   ),
                 ),
               ),
               Row(
                 children: <Widget>[
-                  AnswerCount(),
+                  CountBadge(),
                   InkWell(
                     borderRadius: BorderRadius.circular(15.0),
                     splashColor: Colors.lightBlue,
