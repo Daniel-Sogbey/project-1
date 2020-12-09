@@ -42,6 +42,7 @@ const kPostTextStyle = TextStyle(
   fontWeight: FontWeight.w600,
   fontFamily: 'Montserrat',
   letterSpacing: 1.10,
+  height: 1.5,
 );
 
 const kAnswerTextStyle = TextStyle(
@@ -105,4 +106,46 @@ const kTopAppBarTextStyle = TextStyle(
   fontSize: 18.0,
   fontWeight: FontWeight.w900,
   color: Colors.pink,
+);
+
+final kAnswerLabelTextStyle = TextStyle(
+  fontSize: 20.0,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w900,
+  color: FocusNode().hasFocus ? Colors.black26 : Colors.black26,
+);
+
+const kAnswerTextInputStyle = TextStyle(
+  fontSize: 16.0,
+  letterSpacing: 1.2,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w600,
+);
+
+const kWaitingForAnswerTextStyle = TextStyle(
+  fontSize: 17.0,
+  fontFamily: 'Montserrat',
+  letterSpacing: 1.5,
+  fontWeight: FontWeight.w900,
+);
+
+const kSendAnswerTextStyle = TextStyle(
+  fontSize: 22.0,
+  color: Colors.pinkAccent,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w900,
+  letterSpacing: 1.2,
+);
+
+const kCheckCountTextStyle = TextStyle(
+  fontWeight: FontWeight.w900,
+  fontSize: 20.0,
+  fontFamily: 'Montserrat',
+  color: Colors.green,
+);
+
+const kTrendingText = TextStyle(
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w900,
+  fontSize: 18.0,
 );

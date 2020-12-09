@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 import '../models/post.dart';
 import '../providers/posts.dart';
-import '../screens/answers-screen.dart';
+import '../screens/answers_screen.dart';
 import '../screens/create_post_screen.dart';
 
 class UserActivityItem extends StatelessWidget {
@@ -35,13 +35,18 @@ class UserActivityItem extends StatelessWidget {
           style: kUpdatePostTextStyle,
         ),
         subtitle: InkWell(
+          borderRadius: BorderRadius.circular(10.0),
           onTap: () {
-            Navigator.of(context).pushNamed(AnswersScreen.routeName);
+            Navigator.of(context).pushNamed(
+              AnswersScreen.routeName,
+              arguments: postId,
+            );
           },
           splashColor: Colors.blue,
           enableFeedback: true,
           child: Container(
-            margin: EdgeInsets.only(top: 5.0),
+            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.all(5),
             child: Text(
               'Answers',
               style: kUpdatePostAnswerTextStyle,

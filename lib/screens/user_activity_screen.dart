@@ -27,6 +27,7 @@ class UserActivityScreen extends StatelessWidget {
                 AppHeader(),
               ],
             ),
+            Divider(),
             Container(
               child: Text(
                 'All Your Activities',

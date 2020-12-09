@@ -34,8 +34,8 @@ class _TabsScreenState extends State<TabsScreen> {
         onTap: _selectPage,
         items: <Widget>[
           Icon(
-            // Icons.home,
-            FontAwesomeIcons.home,
+            Icons.home,
+            // FontAwesomeIcons.home,
             color: Colors.pinkAccent,
           ),
           Icon(

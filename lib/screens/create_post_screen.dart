@@ -68,6 +68,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       return;
     }
     _form.currentState.save();
+    // print('${_editedPost.postId} from post');
 
     if (_editedPost.postId != null) {
       Provider.of<Posts>(context, listen: false).updatePost(
@@ -95,6 +96,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   AppHeader(),
                 ],
               ),
+              Divider(),
               Container(
                 padding: EdgeInsets.all(30.0),
                 child: SingleChildScrollView(

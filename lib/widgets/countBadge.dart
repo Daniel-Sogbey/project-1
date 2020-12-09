@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import '../constants/constants.dart';
 
 class CountBadge extends StatelessWidget {
+  final int number;
+
+  CountBadge({this.number});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +23,7 @@ class CountBadge extends StatelessWidget {
           ),
         ),
         child: Text(
-          '200',
+          number.toString(),
           style: kCountBadgeStyle,
           softWrap: true,
         ),
