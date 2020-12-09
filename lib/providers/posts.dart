@@ -24,6 +24,13 @@ class Posts with ChangeNotifier {
           'of votes in the general elections on the 7th of December this year?',
       category: 'politics',
     ),
+    Post(
+      postId: 'q3',
+      postText:
+          'With the rise in hip hop and dance hall music do you think this generation is '
+          'forgetting about our local music and how to effectively practise our cultural songs and dances?',
+      category: 'society',
+    ),
   ];
 
   //

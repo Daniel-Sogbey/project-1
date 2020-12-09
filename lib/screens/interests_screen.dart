@@ -83,16 +83,25 @@ class _InterestsScreenState extends State<InterestsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    'Pick your Interests',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w900,
+                Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        'Pick your Interests',
+                        style: kPickInterestTextStyle,
+                      ),
                     ),
-                  ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        left: 10.0,
+                        bottom: 15.0,
+                        top: 2.0,
+                      ),
+                      child: Text('Don\'t forget to save your interests',
+                          style: kPickInterestSubTextStyle),
+                    ),
+                  ],
                 ),
                 Icon(
                   Icons.arrow_forward,
@@ -103,10 +112,11 @@ class _InterestsScreenState extends State<InterestsScreen> {
                   child: IconButton(
                     onPressed: () {
                       posts.saveFilters(_filters);
+                      Navigator.of(context).pushNamed('/');
                     },
                     icon: Icon(
                       Icons.cloud_done,
-                      color: Colors.blue,
+                      color: Colors.pinkAccent,
                       size: 35.0,
                     ),
                   ),
