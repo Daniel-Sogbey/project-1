@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants/constants.dart';
 import '../screens/interests_screen.dart';
+import '../screens/trending_screen.dart';
 import '../widgets/countBadge.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -74,7 +75,7 @@ class AppDrawer extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed('/');
+                Navigator.of(context).pushNamed(TrendingScreen.routeName);
               },
               child: Container(
                 margin: EdgeInsets.only(left: 10.0),

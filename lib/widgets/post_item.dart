@@ -8,11 +8,11 @@ import '../screens/answers_screen.dart';
 import '../screens/create_answer_screen.dart';
 import '../widgets/countBadge.dart';
 
-class QuestionItem extends StatelessWidget {
+class PostItem extends StatelessWidget {
   final Post posts;
   final answersCount;
 
-  QuestionItem({this.posts, this.answersCount});
+  PostItem({this.posts, this.answersCount});
   @override
   Widget build(BuildContext context) {
     final answersCount = Provider.of<Answers>(context)

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../constants/constants.dart';
 import '../screens/create_post_screen.dart';
 import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
@@ -27,15 +26,8 @@ class HomeScreen extends StatelessWidget {
             ),
             Divider(),
             SearchBar(),
-            Container(
-              padding: EdgeInsets.all(5.0),
-              child: Text(
-                'Catch up with trending questions!',
-                style: kTrendingText,
-              ),
-            ),
             Expanded(
-              child: QuestionList(),
+              child: PostList(),
             ),
             // Container(
             //   height: 15.0,

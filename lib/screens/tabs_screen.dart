@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../screens/home-screen.dart';
+import '../screens/trending_screen.dart';
 import '../screens/user_activity_screen.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class _TabsScreenState extends State<TabsScreen> {
   final List<Widget> _pages = [
     HomeScreen(),
     UserActivityScreen(),
-    HomeScreen(),
+    TrendingScreen(),
   ];
 
   int _selectedPageIndex = 0;

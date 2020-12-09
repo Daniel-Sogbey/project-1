@@ -9,6 +9,7 @@ import './screens/create_answer_screen.dart';
 import './screens/create_post_screen.dart';
 import './screens/interests_screen.dart';
 import './screens/tabs_screen.dart';
+import './screens/trending_screen.dart';
 import './screens/user_activity_screen.dart';
 
 void main() {
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
           UserActivityScreen.routeName: (context) => UserActivityScreen(),
           AnswersScreen.routeName: (context) => AnswersScreen(),
           InterestsScreen.routeName: (context) => InterestsScreen(),
+          TrendingScreen.routeName: (context) => TrendingScreen(),
         },
       ),
     );

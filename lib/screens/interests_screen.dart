@@ -1,5 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../constants/constants.dart';
+import '../providers/posts.dart';
+import '../widgets/app-drawer.dart';
+import '../widgets/app_header.dart';
 
 class InterestsScreen extends StatefulWidget {
   static const routeName = '/interests';
@@ -21,123 +27,201 @@ class _InterestsScreenState extends State<InterestsScreen> {
   var _entertainment = false;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(InterestsScreen oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    final currentState = Provider.of<Posts>(context).filters;
+    _science = currentState['science'];
+    _life = currentState['life'];
+    _technology = currentState['technology'];
+    _music = currentState['music'];
+    _politics = currentState['politics'];
+    _religion = currentState['religion'];
+    _society = currentState['society'];
+    _art = currentState['art'];
+    _sport = currentState['sport'];
+    _entertainment = currentState['entertainment'];
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Map<String, bool> _filters = {
+      'science': _science,
+      'life': _life,
+      'technology': _technology,
+      'music': _music,
+      'politics': _politics,
+      'religion': _religion,
+      'society': _society,
+      'art': _art,
+      'sport': _sport,
+      'entertainment': _entertainment,
+    };
+    final posts = Provider.of<Posts>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Interests'),
-      ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            child: Text('Pick your Interests'),
-          ),
-          Expanded(
-            child: ListView(
+      drawer: AppDrawer(),
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Row(
               children: <Widget>[
-                _buildSwitchListTile(
-                  'Science',
-                  'Only topics related to Science',
-                  (newValue) {
-                    setState(() {
-                      _science = newValue;
-                    });
-                  },
-                  _science,
+                _buildMenuBar(),
+                AppHeader(),
+              ],
+            ),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    'Pick your Interests',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
                 ),
-                _buildSwitchListTile(
-                  'Life',
-                  'Only topics related to daily life experiences',
-                  (newValue) {
-                    setState(() {
-                      _life = newValue;
-                    });
-                  },
-                  _life,
+                Icon(
+                  Icons.arrow_forward,
+                  size: 30.0,
+                  color: Colors.black45,
                 ),
-                _buildSwitchListTile(
-                  'Technology',
-                  'Only topics related to Technology',
-                  (newValue) {
-                    setState(() {
-                      _technology = newValue;
-                    });
-                  },
-                  _technology,
-                ),
-                _buildSwitchListTile(
-                  'Religion',
-                  'Only topics related to Religion',
-                  (newValue) {
-                    setState(() {
-                      _religion = newValue;
-                    });
-                  },
-                  _religion,
-                ),
-                _buildSwitchListTile(
-                  'Music',
-                  'Only topics related to Music',
-                  (newValue) {
-                    setState(() {
-                      _music = newValue;
-                    });
-                  },
-                  _music,
-                ),
-                _buildSwitchListTile(
-                  'Society',
-                  'Only topics related to Society',
-                  (newValue) {
-                    setState(() {
-                      _society = newValue;
-                    });
-                  },
-                  _society,
-                ),
-                _buildSwitchListTile(
-                  'Art',
-                  'Only topics related to Art',
-                  (newValue) {
-                    setState(() {
-                      _art = newValue;
-                    });
-                  },
-                  _art,
-                ),
-                _buildSwitchListTile(
-                  'Entertainment',
-                  'Only topics related to Entertainment',
-                  (newValue) {
-                    setState(() {
-                      _entertainment = newValue;
-                    });
-                  },
-                  _entertainment,
-                ),
-                _buildSwitchListTile(
-                  'Sport',
-                  'Only topics related to Sport',
-                  (newValue) {
-                    setState(() {
-                      _sport = newValue;
-                    });
-                  },
-                  _sport,
-                ),
-                _buildSwitchListTile(
-                  'Politics',
-                  'Only topics related to Politics',
-                  (newValue) {
-                    setState(() {
-                      _politics = newValue;
-                    });
-                  },
-                  _politics,
+                InkWell(
+                  child: IconButton(
+                    onPressed: () {
+                      posts.saveFilters(_filters);
+                    },
+                    icon: Icon(
+                      Icons.cloud_done,
+                      color: Colors.blue,
+                      size: 35.0,
+                    ),
+                  ),
                 ),
               ],
             ),
-          )
-        ],
+            Divider(),
+            Expanded(
+              child: ListView(
+                children: <Widget>[
+                  _buildSwitchListTile(
+                    'Science',
+                    'Only topics related to Science',
+                    (newValue) {
+                      setState(() {
+                        _science = newValue;
+                      });
+                    },
+                    _science,
+                  ),
+                  _buildSwitchListTile(
+                    'Life',
+                    'Only topics related to daily life experiences',
+                    (newValue) {
+                      setState(() {
+                        _life = newValue;
+                      });
+                    },
+                    _life,
+                  ),
+                  _buildSwitchListTile(
+                    'Technology',
+                    'Only topics related to Technology',
+                    (newValue) {
+                      setState(() {
+                        _technology = newValue;
+                      });
+                    },
+                    _technology,
+                  ),
+                  _buildSwitchListTile(
+                    'Religion',
+                    'Only topics related to Religion',
+                    (newValue) {
+                      setState(() {
+                        _religion = newValue;
+                      });
+                    },
+                    _religion,
+                  ),
+                  _buildSwitchListTile(
+                    'Music',
+                    'Only topics related to Music',
+                    (newValue) {
+                      setState(() {
+                        _music = newValue;
+                      });
+                    },
+                    _music,
+                  ),
+                  _buildSwitchListTile(
+                    'Society',
+                    'Only topics related to Society',
+                    (newValue) {
+                      setState(() {
+                        _society = newValue;
+                      });
+                    },
+                    _society,
+                  ),
+                  _buildSwitchListTile(
+                    'Art',
+                    'Only topics related to Art',
+                    (newValue) {
+                      setState(() {
+                        _art = newValue;
+                      });
+                    },
+                    _art,
+                  ),
+                  _buildSwitchListTile(
+                    'Entertainment',
+                    'Only topics related to Entertainment',
+                    (newValue) {
+                      setState(() {
+                        _entertainment = newValue;
+                      });
+                    },
+                    _entertainment,
+                  ),
+                  _buildSwitchListTile(
+                    'Sport',
+                    'Only topics related to Sport',
+                    (newValue) {
+                      setState(() {
+                        _sport = newValue;
+                      });
+                    },
+                    _sport,
+                  ),
+                  _buildSwitchListTile(
+                    'Politics',
+                    'Only topics related to Politics',
+                    (newValue) {
+                      setState(() {
+                        _politics = newValue;
+                      });
+                    },
+                    _politics,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -152,22 +236,83 @@ Widget _buildSwitchListTile(
     inactiveTrackColor: Colors.pinkAccent,
     title: Text(
       title,
-      style: TextStyle(
-        fontSize: 20.0,
-        fontFamily: 'Montserrat',
-        fontWeight: FontWeight.w900,
-      ),
+      style: kSwitchTitleTextStyle,
     ),
     subtitle: Text(
       subtitle,
-      style: TextStyle(
-        fontSize: 16.0,
-        fontFamily: 'Montserrat',
-        fontWeight: FontWeight.w900,
-        color: Colors.black45,
-      ),
+      style: kSwitchSubtitleTextStyle,
     ),
     onChanged: onChangedHandler,
     value: interest,
+  );
+}
+
+Widget _buildMenuBar() {
+  return Builder(
+    builder: (context) => FlatButton(
+      splashColor: Colors.red,
+      // borderRadius: BorderRadius.circular(20),
+      onPressed: () {
+        Scaffold.of(context).openDrawer();
+      },
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  // margin: EdgeInsets.only(left: 5.0),
+                  height: 1.5,
+                  width: 20.0,
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  width: 5.0,
+                ),
+                Container(
+                  width: 8.0,
+                  child: CircleAvatar(
+                    radius: 3.0,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 4.0,
+            ),
+            Container(
+              height: 1.5,
+              width: 25.0,
+              color: Colors.black,
+            ),
+            SizedBox(
+              height: 4.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 8.0,
+                  child: CircleAvatar(
+                    radius: 3.0,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+                SizedBox(
+                  width: 5.0,
+                ),
+                Container(
+                  height: 1.5,
+                  width: 20.0,
+                  color: Colors.black,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
   );
 }

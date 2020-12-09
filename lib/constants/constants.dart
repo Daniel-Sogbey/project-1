@@ -45,6 +45,18 @@ const kPostTextStyle = TextStyle(
   height: 1.5,
 );
 
+const kSwitchSubtitleTextStyle = TextStyle(
+  fontSize: 16.0,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w900,
+  color: Colors.black45,
+);
+const kSwitchTitleTextStyle = TextStyle(
+  fontSize: 20.0,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w900,
+);
+
 const kAnswerTextStyle = TextStyle(
   color: Colors.black26,
   fontSize: 16.0,
@@ -148,4 +160,12 @@ const kTrendingText = TextStyle(
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w900,
   fontSize: 18.0,
+);
+
+const kOnStartTextStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontSize: 20.0,
+  fontWeight: FontWeight.w900,
+  letterSpacing: 1.2,
+  height: 1.3,
 );

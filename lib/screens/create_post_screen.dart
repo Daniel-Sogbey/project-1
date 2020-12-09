@@ -21,19 +21,19 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   //   category: '',
   // );
 
-  var category = 'Science';
+  var category = 'science';
 
   var _categories = <String>[
-    'Science',
-    'Technology',
-    'Life',
-    'Religion',
-    'Music',
-    'Society',
-    'Art',
-    'Entertainment',
-    'Sports',
-    'Politics',
+    'science',
+    'technology',
+    'life',
+    'religion',
+    'music',
+    'society',
+    'art',
+    'entertainment',
+    'sports',
+    'politics',
   ];
 
   Post _editedPost = Post(
