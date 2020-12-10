@@ -182,3 +182,17 @@ const kSwitchTitleTextStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w900,
 );
+
+const kErrorOccurredTextStyle = TextStyle(
+  fontSize: 18.0,
+  fontWeight: FontWeight.w900,
+  fontFamily: 'Montserrat',
+);
+
+const kOkayDismissTextStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w900,
+  color: Colors.pinkAccent,
+  fontSize: 17.0,
+  letterSpacing: 1.6,
+);

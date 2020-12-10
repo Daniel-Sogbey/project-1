@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 import '../models/post.dart';
 
@@ -43,17 +46,34 @@ class Posts with ChangeNotifier {
     return _posts.firstWhere((post) => post.postId == postId);
   }
 
-  void addPost(Post post) {
-    final newPost = Post(
-      postId: DateTime.now().toString(),
-      category: post.category,
-      postText: post.postText,
-    );
-    _posts.insert(0, newPost);
-    print(post.postId);
-    print(post.category);
-    print(post.postText);
-    notifyListeners();
+  Future<void> addPost(Post post) async {
+    const url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json';
+
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode(
+          {
+            'postId': post.postId,
+            'category': post.category,
+            'postText': post.postText,
+          },
+        ),
+      );
+      final newPost = Post(
+        postId: json.decode(response.body)['name'],
+        category: post.category,
+        postText: post.postText,
+      );
+      _posts.insert(0, newPost);
+      print(post.postId);
+      print(post.category);
+      print(post.postText);
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
   }
 
   void updatePost(String postId, Post newPost) {
