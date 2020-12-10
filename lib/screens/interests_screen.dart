@@ -26,6 +26,8 @@ class _InterestsScreenState extends State<InterestsScreen> {
   var _sport = false;
   var _entertainment = false;
 
+  var _isInit = true;
+
   @override
   void initState() {
     super.initState();
@@ -39,17 +41,21 @@ class _InterestsScreenState extends State<InterestsScreen> {
 
   @override
   void didChangeDependencies() {
-    final currentState = Provider.of<Posts>(context).filters;
-    _science = currentState['science'];
-    _life = currentState['life'];
-    _technology = currentState['technology'];
-    _music = currentState['music'];
-    _politics = currentState['politics'];
-    _religion = currentState['religion'];
-    _society = currentState['society'];
-    _art = currentState['art'];
-    _sport = currentState['sport'];
-    _entertainment = currentState['entertainment'];
+    if (_isInit) {
+      final currentState = Provider.of<Posts>(context).filters;
+      _science = currentState['science'];
+      _life = currentState['life'];
+      _technology = currentState['technology'];
+      _music = currentState['music'];
+      _politics = currentState['politics'];
+      _religion = currentState['religion'];
+      _society = currentState['society'];
+      _art = currentState['art'];
+      _sport = currentState['sport'];
+      _entertainment = currentState['entertainment'];
+    }
+    _isInit = false;
+
     super.didChangeDependencies();
   }
 

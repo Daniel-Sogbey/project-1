@@ -26,12 +26,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
   var _categories = <String>[
     'science',
-    'technology',
+    'education'
+        'technology',
     'life',
     'religion',
+    'engineering',
     'music',
     'society',
     'art',
+    'movies',
     'entertainment',
     'sports',
     'politics',
@@ -80,7 +83,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         _editedPost.postId,
         _editedPost,
       );
-      Future.delayed(Duration(seconds: 3), () {
+      Future.delayed(Duration(seconds: 2), () {
         setState(() {
           _isLoading = false;
         });
@@ -115,7 +118,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           ),
         );
       } finally {
-        Future.delayed(Duration(seconds: 3), () {
+        Future.delayed(Duration(seconds: 2), () {
           setState(() {
             _isLoading = false;
           });

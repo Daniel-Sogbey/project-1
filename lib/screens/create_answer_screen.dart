@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_1/constants/constants.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/constants.dart';
 import '../models/answer.dart';
 import '../providers/answers.dart';
 import '../widgets/app-drawer.dart';
@@ -23,6 +24,7 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
     questionAnswerId: '',
   );
   final _form = GlobalKey<FormState>();
+  var _isLoading = false;
 
   @override
   void didChangeDependencies() {
@@ -34,15 +36,54 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
     super.didChangeDependencies();
   }
 
-  void _saveForm() {
+  Future<void> _saveForm() async {
     final _isValid = _form.currentState.validate();
     if (_isValid) {
       _form.currentState.save();
       // print('${_editedAnswer.answerId} from answer');
       // print(_editedAnswer.questionAnswerId);
       // print(_editedAnswer.answerText);
-      Provider.of<Answers>(context, listen: false).addAnswer(_editedAnswer);
-      Navigator.of(context).pop();
+      setState(() {
+        _isLoading = true;
+      });
+      try {
+        await Provider.of<Answers>(context, listen: false)
+            .addAnswer(_editedAnswer);
+      } catch (error) {
+        await showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text(
+              'Ooooopps error occurred',
+              style: kErrorOccurredTextStyle,
+            ),
+            content: Text(
+              'Make your you are connected to the internet',
+              style: kErrorOccurredContentTextStyle,
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Text(
+                  'Okay',
+                  style: kOkayDismissTextStyle,
+                ),
+                splashColor: Colors.amber,
+                padding: EdgeInsets.all(10.0),
+              ),
+            ],
+          ),
+        );
+      } finally {
+        Future.delayed(Duration(seconds: 2), () {
+          setState(() {
+            _isLoading = false;
+          });
+          Navigator.of(context).pop();
+        });
+      }
     }
   }
 
@@ -70,51 +111,65 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
                   style: kWaitingForAnswerTextStyle,
                 ),
               ),
-              Form(
-                key: _form,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(top: 10.0),
-                      padding: EdgeInsets.all(30.0),
-                      child: TextFormField(
-                        style: kAnswerTextInputStyle,
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          labelText: 'Provide an answer',
-                          labelStyle: kAnswerLabelTextStyle,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                            borderSide: BorderSide(
-                              color: Colors.black26,
-                              width: 1.5,
+              _isLoading
+                  ? Center(
+                      heightFactor: 4.0,
+                      widthFactor: 4,
+                      child: Container(
+                        width: 150.0,
+                        height: 130.0,
+                        child: LoadingIndicator(
+                          indicatorType: Indicator.orbit,
+                          color: Colors.pinkAccent,
+                        ),
+                      ),
+                    )
+                  : Form(
+                      key: _form,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.only(top: 10.0),
+                            padding: EdgeInsets.all(30.0),
+                            child: TextFormField(
+                              style: kAnswerTextInputStyle,
+                              maxLines: null,
+                              decoration: InputDecoration(
+                                labelText: 'Provide an answer',
+                                labelStyle: kAnswerLabelTextStyle,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderSide: BorderSide(
+                                    color: Colors.black26,
+                                    width: 1.5,
+                                  ),
+                                ),
+                              ),
+                              keyboardType: TextInputType.multiline,
+                              onSaved: (value) {
+                                _editedAnswer = Answer(
+                                  answerId: _editedAnswer.answerId,
+                                  questionAnswerId: postId,
+                                  answerText: value,
+                                  isAccepted: _editedAnswer.isAccepted,
+                                );
+                              },
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please enter an answer before sending.';
+                                }
+
+                                if (value.length <= 0) {
+                                  return 'Answer too short';
+                                }
+
+                                return null;
+                              },
                             ),
                           ),
-                        ),
-                        keyboardType: TextInputType.multiline,
-                        onSaved: (value) {
-                          _editedAnswer = Answer(
-                            answerId: _editedAnswer.answerId,
-                            questionAnswerId: postId,
-                            answerText: value,
-                          );
-                        },
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter an answer before sending.';
-                          }
-
-                          if (value.length <= 0) {
-                            return 'Answer too short';
-                          }
-
-                          return null;
-                        },
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
               Container(
                 padding: EdgeInsets.only(left: 30.0),
                 child: InkWell(

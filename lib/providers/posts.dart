@@ -7,33 +7,35 @@ import '../models/post.dart';
 
 class Posts with ChangeNotifier {
   List<Post> _posts = [
-    Post(
-      postId: 'q1',
-      postText: 'A particle has mass 10kg. Calculate the force on the'
-          ' particle assuming it is at rest? Take g= 10m/s/s.',
-      category: 'science',
-    ),
-    Post(
-      postId: 'q2',
-      postText: 'If there is an increase in the open sourcing of AI'
-          ' and Machine Learning tools by giant companies like Google, do you think this'
-          ' fields of technology will be taken for granted by the future generation?',
-      category: 'technology',
-    ),
-    Post(
-      postId: 'q3',
-      postText:
-          'What will happen if the two major parties in Ghana get the same number '
-          'of votes in the general elections on the 7th of December this year?',
-      category: 'politics',
-    ),
-    Post(
-      postId: 'q3',
-      postText:
-          'With the rise in hip hop and dance hall music do you think this generation is '
-          'forgetting about our local music and how to effectively practise our cultural songs and dances?',
-      category: 'society',
-    ),
+    // Post(
+    //   postId: 'q1',
+    //   postText: 'A particle has mass 10kg. Calculate the force on the '
+    //       'particle assuming it is at rest? Take g= 10m/s/s.',
+    //   category: 'science',
+    // ),
+    // Post(
+    //   postId: 'q2',
+    //   postText:
+    //       'If there is an increase in the open sourcing of AI and Machine Learning tools by '
+    //       'giant companies like Google, do you think this fields of '
+    //       'technology will be taken for granted by the future generation?',
+    //   category: 'technology',
+    // ),
+    // Post(
+    //   postId: 'q3',
+    //   postText: 'What will happen if the two major parties in Ghana get the'
+    //       ' same number of votes in the general elections on the 7th'
+    //       ' of December this year?',
+    //   category: 'politics',
+    // ),
+    // Post(
+    //   postId: 'q3',
+    //   postText:
+    //       'With the rise in hip hop and dance hall music do you think this generation is'
+    //       ' forgetting about our local music and how to effectively '
+    //       'practise our cultural songs and dances?',
+    //   category: 'society',
+    // ),
   ];
 
   //
@@ -44,6 +46,34 @@ class Posts with ChangeNotifier {
 
   Post findPostById(String postId) {
     return _posts.firstWhere((post) => post.postId == postId);
+  }
+
+  Future<void> fetchPosts() async {
+    const url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json';
+
+    try {
+      final response = await http.get(url);
+      final postsData = json.decode(response.body) as Map<String, dynamic>;
+      final List<Post> loadedPosts = [];
+      postsData.forEach(
+        (postId, singlePostData) {
+          loadedPosts.insert(
+            0,
+            Post(
+              postId: postId,
+              postText: singlePostData['postText'],
+              category: singlePostData['category'],
+            ),
+          );
+        },
+      );
+      _posts = loadedPosts;
+      notifyListeners();
+      // print(json.decode(response.body));
+    } catch (error) {
+      throw error;
+    }
   }
 
   Future<void> addPost(Post post) async {
@@ -104,7 +134,7 @@ class Posts with ChangeNotifier {
     'entertainment': false,
   };
 
-  void saveFilters(Map<String, bool> filterData) {
+  Future<void> saveFilters(Map<String, bool> filterData) async {
     filters = filterData;
     availablePosts = _posts.where((post) {
       if (post.category == 'science' && filterData['science']) {

@@ -7,9 +7,14 @@ import '../widgets/answer_item.dart';
 import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
 
-class AnswersScreen extends StatelessWidget {
+class AnswersScreen extends StatefulWidget {
   static const routeName = '/answers';
 
+  @override
+  _AnswersScreenState createState() => _AnswersScreenState();
+}
+
+class _AnswersScreenState extends State<AnswersScreen> {
   @override
   Widget build(BuildContext context) {
     final questionAnswerId =

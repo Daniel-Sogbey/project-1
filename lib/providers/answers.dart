@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 import '../models/answer.dart';
 
@@ -19,14 +22,58 @@ class Answers with ChangeNotifier {
         .toList();
   }
 
-  void addAnswer(Answer answer) {
-    final newAnswer = Answer(
-      answerId: DateTime.now().toString(),
-      questionAnswerId: answer.questionAnswerId,
-      answerText: answer.answerText,
-    );
+  Future<void> fetchAnswers() async {
+    const url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/answers.json';
 
-    _answers.add(newAnswer);
-    notifyListeners();
+    try {
+      final response = await http.get(url);
+      final answersData = json.decode(response.body) as Map<String, dynamic>;
+      final List<Answer> loadedAnswers = [];
+      answersData.forEach((answerId, singleAnswerData) {
+        loadedAnswers.add(
+          Answer(
+            answerId: answerId,
+            answerText: singleAnswerData['answerText'],
+            questionAnswerId: singleAnswerData['questionAnswerId'],
+            // isAccepted: singleAnswerData['isAccepted'],
+          ),
+        );
+      });
+      _answers = loadedAnswers;
+      // print(json.decode(response.body));
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  Future<void> addAnswer(Answer answer) async {
+    const url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/answers.json';
+
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode(
+          {
+            'questionAnswerId': answer.questionAnswerId,
+            'answerText': answer.answerText,
+          },
+        ),
+      );
+      print(json.decode(response.body)['name']);
+      final newAnswer = Answer(
+        answerId: json.decode(response.body)['name'],
+        questionAnswerId: answer.questionAnswerId,
+        answerText: answer.answerText,
+        // isAccepted: answer.isAccepted,
+      );
+
+      _answers.add(newAnswer);
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
   }
 }

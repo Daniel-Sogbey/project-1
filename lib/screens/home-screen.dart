@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:provider/provider.dart';
 
+import '../constants/constants.dart';
+import '../providers/answers.dart';
+import '../providers/posts.dart';
 import '../screens/create_post_screen.dart';
 import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
@@ -14,6 +19,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var _isInit = true;
+  var _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<Posts>(context).fetchPosts().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+      Provider.of<Answers>(context).fetchAnswers();
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +57,38 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Divider(),
             SearchBar(),
-            Expanded(
-              child: PostList(),
-            ),
+            _isLoading
+                ? Column(
+                    children: [
+                      Center(
+                        heightFactor: 2.0,
+                        widthFactor: 4,
+                        child: Container(
+                          width: 150.0,
+                          height: 130.0,
+                          child: LoadingIndicator(
+                            indicatorType: Indicator.orbit,
+                            color: Colors.pinkAccent,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                          vertical: 30.0,
+                          horizontal: 30.0,
+                        ),
+                        child: Text(
+                          'Make sure you are connected to the internet',
+                          style: kTrendingText,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  )
+                : Expanded(
+                    child: PostList(),
+                  ),
             // Container(
             //   height: 15.0,
             //   color: Colors.amber,

@@ -196,3 +196,9 @@ const kOkayDismissTextStyle = TextStyle(
   fontSize: 17.0,
   letterSpacing: 1.6,
 );
+
+const kErrorOccurredContentTextStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w600,
+  fontSize: 15,
+);
