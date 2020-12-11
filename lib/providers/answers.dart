@@ -29,6 +29,11 @@ class Answers with ChangeNotifier {
     try {
       final response = await http.get(url);
       final answersData = json.decode(response.body) as Map<String, dynamic>;
+
+      if (answersData == null) {
+        return;
+      }
+
       final List<Answer> loadedAnswers = [];
       answersData.forEach((answerId, singleAnswerData) {
         loadedAnswers.add(

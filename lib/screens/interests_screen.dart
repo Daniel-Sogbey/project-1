@@ -17,47 +17,64 @@ class InterestsScreen extends StatefulWidget {
 class _InterestsScreenState extends State<InterestsScreen> {
   var _science = false;
   var _life = false;
+  var _movies = false;
+  var _engineering = false;
+  var _education = false;
   var _technology = false;
   var _music = false;
   var _politics = false;
   var _religion = false;
   var _society = false;
   var _art = false;
-  var _sport = false;
+  var _sports = false;
   var _entertainment = false;
 
   var _isInit = true;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(InterestsScreen oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   void didChangeDependencies() {
     if (_isInit) {
-      final currentState = Provider.of<Posts>(context).filters;
+      final currentState = Provider.of<Posts>(context, listen: false).filters;
+      print('$currentState current State');
       _science = currentState['science'];
       _life = currentState['life'];
       _technology = currentState['technology'];
       _music = currentState['music'];
+      _education = currentState['education'];
+      _engineering = currentState['engineering'];
+      _movies = currentState['movies'];
       _politics = currentState['politics'];
       _religion = currentState['religion'];
       _society = currentState['society'];
       _art = currentState['art'];
-      _sport = currentState['sport'];
+      _sports = currentState['sports'];
       _entertainment = currentState['entertainment'];
     }
     _isInit = false;
 
     super.didChangeDependencies();
   }
+
+  // @override
+  // void initState() {
+  //   Provider.of<Posts>(context, listen: false).fetchFilters();
+  //   final currentState = Provider.of<Posts>(context).filters;
+  //   _science = currentState['science'];
+  //   _life = currentState['life'];
+  //   _technology = currentState['technology'];
+  //   _music = currentState['music'];
+  //   _education = currentState['education'];
+  //   _engineering = currentState['engineering'];
+  //   _movies = currentState['movies'];
+  //   _politics = currentState['politics'];
+  //   _religion = currentState['religion'];
+  //   _society = currentState['society'];
+  //   _art = currentState['art'];
+  //   _sports = currentState['sports'];
+  //   _entertainment = currentState['entertainment'];
+  //
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +87,10 @@ class _InterestsScreenState extends State<InterestsScreen> {
       'religion': _religion,
       'society': _society,
       'art': _art,
-      'sport': _sport,
+      'sports': _sports,
+      'movies': _movies,
+      'engineering': _engineering,
+      'education': _education,
       'entertainment': _entertainment,
     };
     final posts = Provider.of<Posts>(context);
@@ -214,14 +234,14 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     _entertainment,
                   ),
                   _buildSwitchListTile(
-                    'Sport',
-                    'Only topics related to Sport',
+                    'Sports',
+                    'Only topics related to Sports',
                     (newValue) {
                       setState(() {
-                        _sport = newValue;
+                        _sports = newValue;
                       });
                     },
-                    _sport,
+                    _sports,
                   ),
                   _buildSwitchListTile(
                     'Politics',
@@ -232,6 +252,36 @@ class _InterestsScreenState extends State<InterestsScreen> {
                       });
                     },
                     _politics,
+                  ),
+                  _buildSwitchListTile(
+                    'Education',
+                    'Only topics related to Education',
+                    (newValue) {
+                      setState(() {
+                        _education = newValue;
+                      });
+                    },
+                    _education,
+                  ),
+                  _buildSwitchListTile(
+                    'Engineering',
+                    'Only topics related to Engineering',
+                    (newValue) {
+                      setState(() {
+                        _engineering = newValue;
+                      });
+                    },
+                    _engineering,
+                  ),
+                  _buildSwitchListTile(
+                    'Movies',
+                    'Only topics related to Movies',
+                    (newValue) {
+                      setState(() {
+                        _movies = newValue;
+                      });
+                    },
+                    _movies,
                   ),
                 ],
               ),

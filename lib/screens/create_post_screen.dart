@@ -26,8 +26,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
   var _categories = <String>[
     'science',
-    'education'
-        'technology',
+    'education',
+    'technology',
     'life',
     'religion',
     'engineering',

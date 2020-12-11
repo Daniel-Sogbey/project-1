@@ -9,31 +9,32 @@ class Posts with ChangeNotifier {
   List<Post> _posts = [
     // Post(
     //   postId: 'q1',
-    //   postText: 'A particle has mass 10kg. Calculate the force on the '
-    //       'particle assuming it is at rest? Take g= 10m/s/s.',
+    //   postText:
+    //       'A particle has mass 10kg. Calculate the force'
+    //           ' on the particle assuming it is at rest? '
+    //           'Take g= 10m/s/s.',
     //   category: 'science',
     // ),
     // Post(
     //   postId: 'q2',
     //   postText:
-    //       'If there is an increase in the open sourcing of AI and Machine Learning tools by '
-    //       'giant companies like Google, do you think this fields of '
-    //       'technology will be taken for granted by the future generation?',
+    //       'If there is an increase in the open sourcing of AI and Machine Learning tools by giant companies like Google, do you think this fields of technology will be taken for granted by the future generation?',
     //   category: 'technology',
     // ),
     // Post(
     //   postId: 'q3',
-    //   postText: 'What will happen if the two major parties in Ghana get the'
-    //       ' same number of votes in the general elections on the 7th'
-    //       ' of December this year?',
+    //   postText:
+    //       'What will happen if the two major parties in Ghana get the same '
+    //       'number of votes in the general elections'
+    //       ' on the 7th of December this year?',
     //   category: 'politics',
     // ),
     // Post(
     //   postId: 'q3',
-    //   postText:
-    //       'With the rise in hip hop and dance hall music do you think this generation is'
-    //       ' forgetting about our local music and how to effectively '
-    //       'practise our cultural songs and dances?',
+    //   postText: 'With the rise in hip hop and dance hall music '
+    //       'do you think this generation is forgetting about'
+    //       ' our local music and how to effectively practise '
+    //       'our cultural songs and dances?',
     //   category: 'society',
     // ),
   ];
@@ -48,29 +49,333 @@ class Posts with ChangeNotifier {
     return _posts.firstWhere((post) => post.postId == postId);
   }
 
+  Map<String, dynamic> filters = {
+    'science': false,
+    'life': false,
+    'technology': false,
+    'music': false,
+    'politics': false,
+    'religion': false,
+    'society': false,
+    'art': false,
+    'sports': false,
+    'entertainment': false,
+    'movies': false,
+    'engineering': false,
+    'education': false,
+  };
+
   Future<void> fetchPosts() async {
+    const urlI =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters.json';
+
+    final response = await http.get(urlI);
+    // List<Post> availablePosts = [];
+
+    filters = json.decode(response.body) as Map<String, dynamic>;
     const url =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json';
 
     try {
       final response = await http.get(url);
       final postsData = json.decode(response.body) as Map<String, dynamic>;
+      if (postsData == null) {
+        return;
+      }
       final List<Post> loadedPosts = [];
       postsData.forEach(
         (postId, singlePostData) {
-          loadedPosts.insert(
-            0,
-            Post(
-              postId: postId,
-              postText: singlePostData['postText'],
-              category: singlePostData['category'],
-            ),
-          );
+          if (singlePostData['category'] == 'science' && filters['science']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'technology' &&
+              filters['technology']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'politics' && filters['politics']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'life' && filters['life']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'religion' && filters['religion']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'music' && filters['music']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'art' && filters['art']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'entertainment' &&
+              filters['entertainment']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'sports' && filters['sports']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'society' && filters['society']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'movies' && filters['movies']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'education' &&
+              filters['education']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+          if (singlePostData['category'] == 'engineering' &&
+              filters['engineering']) {
+            loadedPosts.insert(
+              0,
+              Post(
+                postId: postId,
+                postText: singlePostData['postText'],
+                category: singlePostData['category'],
+              ),
+            );
+            // http.post(
+            //   urlForInterests,
+            //   body: json.encode(
+            //     {
+            //       'postId': post.postId,
+            //       'category': post.category,
+            //       'postText': post.postText,
+            //     },
+            //   ),
+            // );
+            return true;
+          }
+
+          // print(post);
+          // http.post(
+          //   urlForInterests,
+          //   body:json.encode()
+          // );
+
+          return false;
         },
       );
       _posts = loadedPosts;
       notifyListeners();
       // print(json.decode(response.body));
+      print(loadedPosts);
     } catch (error) {
       throw error;
     }
@@ -106,70 +411,309 @@ class Posts with ChangeNotifier {
     }
   }
 
-  void updatePost(String postId, Post newPost) {
+  Future<void> updatePost(String postId, Post newPost) async {
     final postIndex = _posts.indexWhere((post) => post.postId == postId);
+    final url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts/$postId.json';
     if (postIndex >= 0) {
-      _posts[postIndex] = newPost;
-      notifyListeners();
-      print(postIndex);
+      try {
+        await http.patch(
+          url,
+          body: json.encode(
+            {
+              'postId': newPost.postId,
+              'category': newPost.category,
+              'postText': newPost.postText,
+            },
+          ),
+        );
+        _posts[postIndex] = newPost;
+        notifyListeners();
+        print(postIndex);
+      } catch (error) {
+        throw error;
+      }
     }
   }
 
-  void deletePost(String postId) {
-    _posts.removeWhere((post) => post.postId == postId);
-    notifyListeners();
+  Future<void> deletePost(String postId) async {
+    final url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts/$postId.json';
+
+    try {
+      final response = await http.delete(url);
+
+      if (response.statusCode == 200) {
+        _posts.removeWhere((post) => post.postId == postId);
+      }
+
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
   }
 
   List<Post> availablePosts = [];
-  Map<String, bool> filters = {
-    'science': false,
-    'life': false,
-    'technology': false,
-    'music': false,
-    'politics': false,
-    'religion': false,
-    'society': false,
-    'art': false,
-    'sport': false,
-    'entertainment': false,
-  };
+
+  // Map<String, dynamic> filters = {
+  //   'science': false,
+  //   'life': false,
+  //   'technology': false,
+  //   'music': false,
+  //   'politics': false,
+  //   'religion': false,
+  //   'society': false,
+  //   'art': false,
+  //   'sports': false,
+  //   'entertainment': false,
+  //   'movies': false,
+  //   'engineering': false,
+  //   'education': false,
+  // };
+
+  // Future<void> fetchInterests() async {
+  //   // Map<String, dynamic> filters = {
+  //   //   'science': false,
+  //   //   'life': false,
+  //   //   'technology': false,
+  //   //   'music': false,
+  //   //   'politics': false,
+  //   //   'religion': false,
+  //   //   'society': false,
+  //   //   'art': false,
+  //   //   'sports': false,
+  //   //   'entertainment': false,
+  //   //   'movies': false,
+  //   //   'engineering': false,
+  //   //   'education': false,
+  //   // };
+  //   const url =
+  //       'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters.json';
+  //
+  //   final response = await http.get(url);
+  //   // List<Post> availablePosts = [];
+  //
+  //   filters = json.decode(response.body) as Map<String, dynamic>;
+  //
+  //   // _posts.forEach((post) { });
+  //
+  //   availablePosts = _posts.where((post) {
+  //     if (post.category == 'science' && filters['science']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'technology' && filters['technology']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'politics' && filters['politics']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'life' && filters['life']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'religion' && filters['religion']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'music' && filters['music']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'art' && filters['art']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'entertainment' && filters['entertainment']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'sports' && filters['sports']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'society' && filters['society']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'movies' && filters['movies']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'education' && filters['education']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //     if (post.category == 'engineering' && filters['engineering']) {
+  //       // http.post(
+  //       //   urlForInterests,
+  //       //   body: json.encode(
+  //       //     {
+  //       //       'postId': post.postId,
+  //       //       'category': post.category,
+  //       //       'postText': post.postText,
+  //       //     },
+  //       //   ),
+  //       // );
+  //       return true;
+  //     }
+  //
+  //     // print(post);
+  //     // http.post(
+  //     //   urlForInterests,
+  //     //   body:json.encode()
+  //     // );
+  //
+  //     return false;
+  //   }).toList();
+  //
+  //   // availablePosts = _posts;
+  //   // _posts = availablePosts;
+  //   notifyListeners();
+  //   // print(availablePosts);
+  // }
 
   Future<void> saveFilters(Map<String, bool> filterData) async {
-    filters = filterData;
-    availablePosts = _posts.where((post) {
-      if (post.category == 'science' && filterData['science']) {
-        return true;
-      }
-      if (post.category == 'technology' && filterData['technology']) {
-        return true;
-      }
-      if (post.category == 'politics' && filterData['politics']) {
-        return true;
-      }
-      if (post.category == 'life' && filterData['life']) {
-        return true;
-      }
-      if (post.category == 'religion' && filterData['religion']) {
-        return true;
-      }
-      if (post.category == 'music' && filterData['music']) {
-        return true;
-      }
-      if (post.category == 'art' && filterData['art']) {
-        return true;
-      }
-      if (post.category == 'entertainment' && filterData['entertainment']) {
-        return true;
-      }
-      if (post.category == 'sports' && filterData['sports']) {
-        return true;
-      }
-      if (post.category == 'society' && filterData['society']) {
-        return true;
-      }
-      return false;
-    }).toList();
-    print(filterData);
+    const url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters.json';
+
+    const urlForInterests =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/interests.json';
+
+    // filters = filterData;
+    // filterData = filters;
+    http.patch(
+      url,
+      body: json.encode(
+        {
+          'science': filterData['science'],
+          'life': filterData['life'],
+          'technology': filterData['technology'],
+          'music': filterData['music'],
+          'politics': filterData['politics'],
+          'religion': filterData['religion'],
+          'society': filterData['society'],
+          'art': filterData['art'],
+          'sports': filterData['sports'],
+          'entertainment': filterData['entertainment'],
+          'movies': filterData['movies'],
+          'engineering': filterData['engineering'],
+          'education': filterData['education'],
+        },
+      ),
+    );
+
+    // print(filters);
     notifyListeners();
   }
 }

@@ -10,7 +10,7 @@ import '../widgets/post_item.dart';
 class PostList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final posts = Provider.of<Posts>(context).availablePosts;
+    final posts = Provider.of<Posts>(context).posts;
     final answers = Provider.of<Answers>(context).answersCount;
     return posts.length == 0
         ? Container(

@@ -28,16 +28,20 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Posts>(context).fetchPosts().then((_) {
+      Provider.of<Posts>(context, listen: false).fetchPosts().then((_) {
         setState(() {
           _isLoading = false;
         });
       });
-      Provider.of<Answers>(context).fetchAnswers();
+      Provider.of<Answers>(context, listen: false).fetchAnswers();
     }
     _isInit = false;
     super.didChangeDependencies();
   }
+  //
+  // Future<void> _refresh() async {
+  //   await Provider.of<Posts>(context, listen: false).fetchPosts();
+  // }
 
   @override
   Widget build(BuildContext context) {
