@@ -37,15 +37,15 @@ class _TabsScreenState extends State<TabsScreen> {
           Icon(
             Icons.home,
             // FontAwesomeIcons.home,
-            color: Colors.pinkAccent,
+            color: Colors.pink,
           ),
           Icon(
             FontAwesomeIcons.chartBar,
-            color: Colors.pinkAccent,
+            color: Colors.pink,
           ),
           Icon(
             Icons.trending_up,
-            color: Colors.pinkAccent,
+            color: Colors.pink,
           ),
         ],
       ),
