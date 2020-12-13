@@ -39,6 +39,11 @@ class Posts with ChangeNotifier {
     // ),
   ];
 
+  String authToken;
+  String userId;
+
+  Posts(this.authToken, this.userId, this._posts);
+
   //
 
   List<Post> get posts {
@@ -66,15 +71,44 @@ class Posts with ChangeNotifier {
   };
 
   Future<void> fetchPosts() async {
-    const urlI =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters.json';
+    final url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json?auth=$authToken&orderBy="creatorId"&equalTo="$userId"';
+
+    try {
+      final response = await http.get(url);
+      final postsData = json.decode(response.body) as Map<String, dynamic>;
+      if (postsData == null) {
+        return;
+      }
+      final List<Post> loadedPosts = [];
+      postsData.forEach((postId, singlePostData) {
+        loadedPosts.insert(
+          0,
+          Post(
+            postId: postId,
+            postText: singlePostData['postText'],
+            category: singlePostData['category'],
+          ),
+        );
+      });
+
+      _posts = loadedPosts;
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  Future<void> fetchPostsBasedOnFilters() async {
+    final urlI =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters/filterId/filters.json?auth=$authToken';
 
     final response = await http.get(urlI);
     // List<Post> availablePosts = [];
 
     filters = json.decode(response.body) as Map<String, dynamic>;
-    const url =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json';
+    final url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json?auth=$authToken';
 
     try {
       final response = await http.get(url);
@@ -374,7 +408,7 @@ class Posts with ChangeNotifier {
       );
       _posts = loadedPosts;
       notifyListeners();
-      // print(json.decode(response.body));
+      print(json.decode(response.body));
       print(loadedPosts);
     } catch (error) {
       throw error;
@@ -382,8 +416,8 @@ class Posts with ChangeNotifier {
   }
 
   Future<void> addPost(Post post) async {
-    const url =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json';
+    final url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json?auth=$authToken';
 
     try {
       final response = await http.post(
@@ -393,6 +427,7 @@ class Posts with ChangeNotifier {
             'postId': post.postId,
             'category': post.category,
             'postText': post.postText,
+            'creatorId': userId,
           },
         ),
       );
@@ -414,7 +449,7 @@ class Posts with ChangeNotifier {
   Future<void> updatePost(String postId, Post newPost) async {
     final postIndex = _posts.indexWhere((post) => post.postId == postId);
     final url =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts/$postId.json';
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts/$postId.json?auth=$authToken';
     if (postIndex >= 0) {
       try {
         await http.patch(
@@ -438,7 +473,7 @@ class Posts with ChangeNotifier {
 
   Future<void> deletePost(String postId) async {
     final url =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts/$postId.json';
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts/$postId.json?auth=$authToken';
 
     try {
       final response = await http.delete(url);
@@ -684,8 +719,8 @@ class Posts with ChangeNotifier {
   // }
 
   Future<void> saveFilters(Map<String, bool> filterData) async {
-    const url =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters.json';
+    final url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters/filterId/filters.json?auth=$authToken';
 
     const urlForInterests =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/interests.json';

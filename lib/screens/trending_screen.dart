@@ -28,7 +28,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Posts>(context).fetchPosts().then((_) {
+      Provider.of<Posts>(context).fetchPostsBasedOnFilters().then((_) {
         setState(() {
           _isLoading = false;
         });

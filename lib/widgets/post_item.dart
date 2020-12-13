@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 import '../models/post.dart';
 import '../providers/answers.dart';
+import '../providers/auth.dart';
 import '../screens/answers_screen.dart';
+import '../screens/auth_screen.dart';
 import '../screens/create_answer_screen.dart';
 import '../widgets/countBadge.dart';
 
@@ -128,20 +130,25 @@ class PostItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                InkWell(
-                  borderRadius: BorderRadius.circular(15.0),
-                  splashColor: Colors.lightBlue,
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      CreateAnswerScreen.routeName,
-                      arguments: posts.postId,
-                    );
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Answer',
-                      style: kAnswerTextStyle,
+                Consumer<Auth>(
+                  builder: (ctx, auth, _) => InkWell(
+                    borderRadius: BorderRadius.circular(15.0),
+                    splashColor: Colors.lightBlue,
+                    onTap: () {
+                      auth.isAuth
+                          ? Navigator.of(context).pushNamed(
+                              CreateAnswerScreen.routeName,
+                              arguments: posts.postId,
+                            )
+                          : Navigator.of(context)
+                              .pushNamed(AuthScreen.routeName);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Answer',
+                        style: kAnswerTextStyle,
+                      ),
                     ),
                   ),
                 ),

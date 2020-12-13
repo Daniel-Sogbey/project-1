@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
+import '../providers/auth.dart';
 import '../providers/posts.dart';
+import '../screens/tabs_screen.dart';
 import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
 
@@ -134,16 +136,18 @@ class _InterestsScreenState extends State<InterestsScreen> {
                   size: 30.0,
                   color: Colors.black45,
                 ),
-                InkWell(
-                  child: IconButton(
-                    onPressed: () {
-                      posts.saveFilters(_filters);
-                      Navigator.of(context).pushNamed('/');
-                    },
-                    icon: Icon(
-                      Icons.cloud_done,
-                      color: Colors.pinkAccent,
-                      size: 35.0,
+                Consumer<Auth>(
+                  builder: (ctx, auth, _) => InkWell(
+                    child: IconButton(
+                      onPressed: () {
+                        posts.saveFilters(_filters);
+                        Navigator.of(context).pushNamed(TabsScreen.routeName);
+                      },
+                      icon: Icon(
+                        Icons.cloud_done,
+                        color: Colors.pinkAccent,
+                        size: 35.0,
+                      ),
                     ),
                   ),
                 ),

@@ -8,6 +8,11 @@ import '../models/answer.dart';
 class Answers with ChangeNotifier {
   List<Answer> _answers = [];
 
+  String authToken;
+  String userId;
+
+  Answers(this.authToken, this.userId, this._answers);
+
   List<Answer> get answers {
     return [..._answers];
   }
@@ -23,12 +28,14 @@ class Answers with ChangeNotifier {
   }
 
   Future<void> fetchAnswers() async {
-    const url =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/answers.json';
+    final url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/answers.json?auth=$authToken';
 
     try {
       final response = await http.get(url);
       final answersData = json.decode(response.body) as Map<String, dynamic>;
+
+      print('${json.decode(response.body)['creatorId']} from answers.dart');
 
       if (answersData == null) {
         return;
@@ -54,8 +61,8 @@ class Answers with ChangeNotifier {
   }
 
   Future<void> addAnswer(Answer answer) async {
-    const url =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/answers.json';
+    final url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/answers.json?auth=$authToken';
 
     try {
       final response = await http.post(
@@ -64,6 +71,7 @@ class Answers with ChangeNotifier {
           {
             'questionAnswerId': answer.questionAnswerId,
             'answerText': answer.answerText,
+            "creatorId": userId,
           },
         ),
       );

@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
 import '../providers/answers.dart';
+import '../providers/auth.dart';
 import '../providers/posts.dart';
+import '../screens/auth_screen.dart';
 import '../screens/create_post_screen.dart';
 import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
@@ -19,8 +21,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _isInit = true;
   var _isLoading = false;
+  var _isInit = true;
 
   @override
   void didChangeDependencies() {
@@ -28,12 +30,16 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Posts>(context, listen: false).fetchPosts().then((_) {
-        setState(() {
-          _isLoading = false;
+
+      Provider.of<Posts>(context, listen: false)
+          .fetchPostsBasedOnFilters()
+          .then((_) {
+        Provider.of<Answers>(context, listen: false).fetchAnswers().then((_) {
+          setState(() {
+            _isLoading = false;
+          });
         });
       });
-      Provider.of<Answers>(context, listen: false).fetchAnswers();
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -65,11 +71,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? Column(
                     children: [
                       Center(
-                        heightFactor: 2.0,
-                        widthFactor: 4,
+                        heightFactor: 1.0,
+                        widthFactor: 2,
                         child: Container(
-                          width: 150.0,
-                          height: 130.0,
+                          width: 70.0,
+                          height: 70.0,
                           child: LoadingIndicator(
                             indicatorType: Indicator.orbit,
                             color: Colors.pinkAccent,
@@ -100,16 +106,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 30.0,
-        splashColor: Colors.pinkAccent,
-        backgroundColor: Colors.amber,
-        onPressed: () {
-          Navigator.of(context).pushNamed(CreatePostScreen.routeName);
-        },
-        child: Icon(
-          Icons.add,
-          size: 35.0,
+      floatingActionButton: Consumer<Auth>(
+        builder: (ctx, auth, _) => FloatingActionButton(
+          elevation: 30.0,
+          splashColor: Colors.pinkAccent,
+          backgroundColor: Colors.amber,
+          onPressed: () {
+            print(auth.isAuth);
+            auth.isAuth
+                ? Navigator.of(context).pushNamed(CreatePostScreen.routeName)
+                : Navigator.of(context).pushNamed(AuthScreen.routeName);
+          },
+          child: Icon(
+            Icons.add,
+            size: 35.0,
+          ),
         ),
       ),
     );

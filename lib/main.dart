@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import './providers/answers.dart';
+import './providers/auth.dart';
 import './providers/posts.dart';
 import './screens/answers_screen.dart';
+import './screens/auth_screen.dart';
 import './screens/create_answer_screen.dart';
 import './screens/create_post_screen.dart';
 import './screens/interests_screen.dart';
@@ -22,27 +24,41 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: <SingleChildWidget>[
         ChangeNotifierProvider(
-          create: (context) => Posts(),
+          create: (context) => Auth(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => Answers(),
+        ChangeNotifierProxyProvider<Auth, Posts>(
+          update: (ctx, auth, previousPosts) => Posts(
+            auth.token,
+            auth.userId,
+            previousPosts == null ? [] : previousPosts.posts,
+          ),
+        ),
+        ChangeNotifierProxyProvider<Auth, Answers>(
+          update: (ctx, auth, previousAnswers) => Answers(
+            auth.token,
+            auth.userId,
+            previousAnswers == null ? [] : previousAnswers.answers,
+          ),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'SolveShare',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      child: Consumer<Auth>(
+        builder: (ctx, auth, _) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'SolveShare',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: auth.isAuth ? TabsScreen() : AuthScreen(),
+          routes: {
+            CreatePostScreen.routeName: (context) => CreatePostScreen(),
+            CreateAnswerScreen.routeName: (context) => CreateAnswerScreen(),
+            UserActivityScreen.routeName: (context) => UserActivityScreen(),
+            AnswersScreen.routeName: (context) => AnswersScreen(),
+            InterestsScreen.routeName: (context) => InterestsScreen(),
+            TrendingScreen.routeName: (context) => TrendingScreen(),
+            TabsScreen.routeName: (context) => TabsScreen(),
+          },
         ),
-        home: TabsScreen(),
-        routes: {
-          CreatePostScreen.routeName: (context) => CreatePostScreen(),
-          CreateAnswerScreen.routeName: (context) => CreateAnswerScreen(),
-          UserActivityScreen.routeName: (context) => UserActivityScreen(),
-          AnswersScreen.routeName: (context) => AnswersScreen(),
-          InterestsScreen.routeName: (context) => InterestsScreen(),
-          TrendingScreen.routeName: (context) => TrendingScreen(),
-        },
       ),
     );
   }
