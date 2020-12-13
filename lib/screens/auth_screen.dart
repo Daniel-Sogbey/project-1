@@ -36,11 +36,32 @@ class _AuthScreenState extends State<AuthScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('An error Occurred'),
-        content: Text(message),
+        title: Text(
+          'An Error Occurred',
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w900,
+            fontSize: 25.0,
+          ),
+        ),
+        content: Text(
+          message,
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+            fontSize: 18.0,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         actions: <Widget>[
           FlatButton(
-            child: Text('Okay'),
+            child: Text(
+              'Okay',
+              style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             onPressed: () {
               Navigator.of(context).pop();
             },
