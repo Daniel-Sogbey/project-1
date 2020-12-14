@@ -10,6 +10,7 @@ import './screens/auth_screen.dart';
 import './screens/create_answer_screen.dart';
 import './screens/create_post_screen.dart';
 import './screens/interests_screen.dart';
+import './screens/loading_screen.dart';
 import './screens/tabs_screen.dart';
 import './screens/trending_screen.dart';
 import './screens/user_activity_screen.dart';
@@ -42,13 +43,21 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: Consumer<Auth>(
-        builder: (ctx, auth, _) => MaterialApp(
+        builder: (context, auth, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'SolveShare',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: auth.isAuth ? TabsScreen() : AuthScreen(),
+          home: auth.isAuth
+              ? TabsScreen()
+              : FutureBuilder(
+                  future: auth.tryAutoLogin(),
+                  builder: (context, snapshot) =>
+                      snapshot.connectionState == ConnectionState.waiting
+                          ? LoadingScreen()
+                          : AuthScreen(),
+                ),
           routes: {
             CreatePostScreen.routeName: (context) => CreatePostScreen(),
             CreateAnswerScreen.routeName: (context) => CreateAnswerScreen(),

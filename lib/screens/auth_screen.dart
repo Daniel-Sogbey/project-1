@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -202,6 +203,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       )
                     : Container(
+                        width: double.infinity,
                         margin: EdgeInsets.only(top: 20.0),
                         child: Text(
                           'Create An Account Now',
@@ -211,6 +213,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             fontFamily: 'Montserrat',
                             color: Colors.white,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                 Container(
@@ -253,6 +256,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 ),
                               ),
                               style: kPostTextFieldStyle,
+                              keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'Please enter an email';
@@ -386,38 +390,49 @@ class _AuthScreenState extends State<AuthScreen> {
                 SizedBox(
                   height: 15.0,
                 ),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(left: 15.0),
-                      color: Colors.black26,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: 1.0,
+                Container(
+                  child: Text(
+                    'OR',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w900,
                     ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Container(
-                      child: Text(
-                        'OR',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(right: 10.0),
-                      color: Colors.black26,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: 1.0,
-                    ),
-                  ],
+                  ),
                 ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: <Widget>[
+                //     Container(
+                //       margin: EdgeInsets.only(left: 10.0),
+                //       color: Colors.black26,
+                //       width: MediaQuery.of(context).size.width * 0.2,
+                //       height: 1.0,
+                //     ),
+                //     SizedBox(
+                //       width: 10.0,
+                //     ),
+                //     Container(
+                //       child: Text(
+                //         'OR',
+                //         style: TextStyle(
+                //           fontFamily: 'Montserrat',
+                //           fontSize: 18.0,
+                //           fontWeight: FontWeight.w900,
+                //         ),
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       width: 10.0,
+                //     ),
+                //     Container(
+                //       margin: EdgeInsets.only(right: 10.0),
+                //       color: Colors.black26,
+                //       width: MediaQuery.of(context).size.width * 0.2,
+                //       height: 1.0,
+                //     ),
+                //   ],
+                // ),
                 SizedBox(
                   height: 8.0,
                 ),

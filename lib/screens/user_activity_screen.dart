@@ -28,13 +28,17 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
         _isLoading = true;
       });
       Provider.of<Posts>(context).fetchPosts().then((_) {
-        setState(() {
-          _isLoading = false;
+        Future.delayed(Duration(seconds: 2), () {
+          setState(() {
+            _isLoading = false;
+          });
         });
       });
       Provider.of<Answers>(context).fetchAnswers().then((_) {
-        setState(() {
-          _isLoading = false;
+        Future.delayed(Duration(seconds: 2), () {
+          setState(() {
+            _isLoading = false;
+          });
         });
       });
     }

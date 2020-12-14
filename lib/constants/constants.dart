@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kTitleStyle = TextStyle(
-  fontSize: 40.0,
+  fontSize: 35.0,
   letterSpacing: 4.0,
   fontWeight: FontWeight.w400,
   fontFamily: 'Sacramento',
@@ -109,7 +109,7 @@ const kTopAppBarTextStyle = TextStyle(
 );
 
 final kAnswerLabelTextStyle = TextStyle(
-  fontSize: 20.0,
+  fontSize: 16.0,
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w900,
   color: FocusNode().hasFocus ? Colors.black26 : Colors.black26,
@@ -130,7 +130,7 @@ const kWaitingForAnswerTextStyle = TextStyle(
 );
 
 const kSendAnswerTextStyle = TextStyle(
-  fontSize: 22.0,
+  fontSize: 20.0,
   color: Colors.pinkAccent,
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w900,
@@ -160,31 +160,31 @@ const kOnStartTextStyle = TextStyle(
 
 const kPickInterestTextStyle = TextStyle(
   fontFamily: 'Montserrat',
-  fontSize: 23.0,
+  fontSize: 16.0,
   fontWeight: FontWeight.w900,
 );
 
 const kPickInterestSubTextStyle = TextStyle(
   fontFamily: 'Montserrat',
-  fontSize: 16.0,
+  fontSize: 14.0,
   fontWeight: FontWeight.w900,
   color: Colors.black45,
 );
 
 const kSwitchSubtitleTextStyle = TextStyle(
-  fontSize: 15.0,
+  fontSize: 13.0,
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w900,
   color: Colors.black45,
 );
 const kSwitchTitleTextStyle = TextStyle(
-  fontSize: 18.0,
+  fontSize: 16.0,
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w900,
 );
 
 const kErrorOccurredTextStyle = TextStyle(
-  fontSize: 18.0,
+  fontSize: 17.0,
   fontWeight: FontWeight.w900,
   fontFamily: 'Montserrat',
 );

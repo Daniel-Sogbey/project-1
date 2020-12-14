@@ -114,7 +114,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                 Column(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.only(left: 10.0),
+                      margin: EdgeInsets.only(left: 5.0),
                       child: Text(
                         'Pick your Interests',
                         style: kPickInterestTextStyle,
@@ -122,18 +122,21 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                        left: 10.0,
+                        left: 5.0,
                         bottom: 15.0,
                         top: 2.0,
                       ),
-                      child: Text('Don\'t forget to save your interests',
-                          style: kPickInterestSubTextStyle),
+                      child: Text(
+                        'Don\'t forget to save your interests',
+                        style: kPickInterestSubTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ],
                 ),
                 Icon(
                   Icons.arrow_forward,
-                  size: 30.0,
+                  size: 20.0,
                   color: Colors.black45,
                 ),
                 Consumer<Auth>(
@@ -146,7 +149,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                       icon: Icon(
                         Icons.cloud_done,
                         color: Colors.pinkAccent,
-                        size: 35.0,
+                        size: 25.0,
                       ),
                     ),
                   ),
@@ -167,6 +170,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _science,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Life',
                     'Only topics related to daily life experiences',
@@ -177,6 +181,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _life,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Technology',
                     'Only topics related to Technology',
@@ -187,6 +192,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _technology,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Religion',
                     'Only topics related to Religion',
@@ -197,6 +203,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _religion,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Music',
                     'Only topics related to Music',
@@ -207,6 +214,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _music,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Society',
                     'Only topics related to Society',
@@ -217,6 +225,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _society,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Art',
                     'Only topics related to Art',
@@ -227,6 +236,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _art,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Entertainment',
                     'Only topics related to Entertainment',
@@ -237,6 +247,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _entertainment,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Sports',
                     'Only topics related to Sports',
@@ -247,6 +258,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _sports,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Politics',
                     'Only topics related to Politics',
@@ -257,6 +269,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _politics,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Education',
                     'Only topics related to Education',
@@ -267,6 +280,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _education,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Engineering',
                     'Only topics related to Engineering',
@@ -277,6 +291,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _engineering,
                   ),
+                  Divider(),
                   _buildSwitchListTile(
                     'Movies',
                     'Only topics related to Movies',
@@ -287,6 +302,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     },
                     _movies,
                   ),
+                  Divider(),
                 ],
               ),
             )

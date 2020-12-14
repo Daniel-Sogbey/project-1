@@ -8,7 +8,7 @@ class AppHeader extends StatelessWidget {
     return Row(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 3.0, left: 20.0),
+          margin: EdgeInsets.only(top: 3.0, left: 5.0),
           child: Text(
             'SolveShare',
             style: kTitleStyle,

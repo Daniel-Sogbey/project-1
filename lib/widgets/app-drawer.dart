@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
+import '../providers/auth.dart';
 import '../screens/interests_screen.dart';
 import '../screens/trending_screen.dart';
 import '../widgets/countBadge.dart';
@@ -233,7 +235,9 @@ class AppDrawer extends StatelessWidget {
             ),
             InkWell(
               splashColor: Colors.black12,
-              onTap: () {},
+              onTap: () {
+                Provider.of<Auth>(context, listen: false).logout();
+              },
               child: Container(
                 padding: EdgeInsets.all(10.0),
                 margin: EdgeInsets.only(left: 10.0),
@@ -249,7 +253,7 @@ class AppDrawer extends StatelessWidget {
                         ),
                       ),
                       child: Icon(
-                        Icons.settings,
+                        Icons.exit_to_app,
                         size: 25.0,
                         color: Colors.pink,
                       ),
@@ -258,7 +262,7 @@ class AppDrawer extends StatelessWidget {
                       width: 5.0,
                     ),
                     Text(
-                      'Settings',
+                      'Logout',
                       style: kAppBarTextStyle,
                     )
                   ],
