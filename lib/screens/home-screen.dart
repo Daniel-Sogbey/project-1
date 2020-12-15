@@ -62,34 +62,53 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // @override
+  // void didChangeDependencies() async {
+  //   if (_isInit) {
+  //     setState(() {
+  //       _isLoading = true;
+  //     });
+  //
+  //     try {
+  //       await Provider.of<Posts>(context, listen: false)
+  //           .fetchPosts()
+  //           .then((_) async {
+  //         await Provider.of<Answers>(context).fetchAnswers();
+  //       });
+  //
+  //       // print('$auth   auth');
+  //     } catch (error) {
+  //       // _showErrorDialog('Connection to server failed');
+  //
+  //       // print('$error autttthh 3');
+  //     }
+  //   }
+  //
+  //   setState(() {
+  //     _isLoading = false;
+  //   });
+  //   _isInit = false;
+  //   super.didChangeDependencies();
+  // }
+
   @override
-  void didChangeDependencies() async {
-    if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-
-      try {
-        final auth = await Provider.of<Posts>(context, listen: false)
-            .fetchPosts()
-            .then((_) async {
-          await Provider.of<Answers>(context, listen: false).fetchAnswers();
-        });
-
-        print('$auth   auth');
-      } catch (error) {
-        // _showErrorDialog('Connection to server failed');
-
-        print('$error autttthh 3');
-      }
-    }
-
+  void initState() {
     setState(() {
-      _isLoading = false;
+      _isLoading = true;
     });
-    _isInit = false;
-    super.didChangeDependencies();
+    Future.delayed(Duration(seconds: 5)).then((_) async {
+      await Provider.of<Posts>(context, listen: false)
+          .fetchPosts()
+          .then((_) async {
+        await Provider.of<Answers>(context, listen: false).fetchAnswers();
+      });
+      setState(() {
+        _isLoading = false;
+      });
+    });
+    super.initState();
   }
+
   //
   // Future<void> _refresh() async {
   //   await Provider.of<Posts>(context, listen: false).fetchPosts();

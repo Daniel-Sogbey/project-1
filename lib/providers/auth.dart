@@ -60,7 +60,6 @@ class Auth with ChangeNotifier {
 
       _token = responseData['idToken'];
       _userId = responseData['localId'];
-      _email = responseData['email'];
       _expiryDate = DateTime.now().add(
         Duration(
           seconds: int.parse(
@@ -86,6 +85,7 @@ class Auth with ChangeNotifier {
 
       // print(json.decode(response.body));
     } catch (error) {
+      print(error);
       throw error;
     }
   }
@@ -134,6 +134,8 @@ class Auth with ChangeNotifier {
     _userId = extractedUserData['userId'];
     _expiryDate = expiryDate;
 
+    print(expiryDate);
+
     notifyListeners();
     _autoLogout();
 
@@ -155,7 +157,10 @@ class Auth with ChangeNotifier {
     if (_authTimer != null) {
       _authTimer.cancel();
     }
+
     final _timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
-    _authTimer = Timer(Duration(seconds: 10), logout);
+    _authTimer = Timer(Duration(seconds: _timeToExpiry), logout);
+    print('$_timeToExpiry tttt');
+    notifyListeners();
   }
 }

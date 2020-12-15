@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: Consumer<Auth>(
-        builder: (context, auth, _) => MaterialApp(
+        builder: (ctx, auth, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'SolveShare',
           theme: ThemeData(
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
               : FutureBuilder(
                   future:
                       Future.delayed(Duration(seconds: 10), auth.tryAutoLogin),
-                  builder: (context, snapshot) =>
+                  builder: (ctx, snapshot) =>
                       snapshot.connectionState == ConnectionState.waiting
                           ? LoadingScreen()
                           : AuthScreen(),
@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
             InterestsScreen.routeName: (context) => InterestsScreen(),
             TrendingScreen.routeName: (context) => TrendingScreen(),
             TabsScreen.routeName: (context) => TabsScreen(),
+            AuthScreen.routeName: (context) => AuthScreen(),
           },
         ),
       ),

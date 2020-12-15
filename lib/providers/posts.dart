@@ -77,9 +77,9 @@ class Posts with ChangeNotifier {
 
     try {
       final response = await http.get(url);
-      print('${json.decode(response.body)} auuutththt  1');
+      // print('${json.decode(response.body)} auuutththt  1');
       final postsData = json.decode(response.body) as Map<String, dynamic>;
-      print('$postsData auutttttttttttthhhhhhhhh 2');
+      // print('$postsData auutttttttttttthhhhhhhhh 2');
       if (postsData == null) {
         return;
       }
