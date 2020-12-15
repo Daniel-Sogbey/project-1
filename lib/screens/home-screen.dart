@@ -6,7 +6,6 @@ import '../constants/constants.dart';
 import '../providers/answers.dart';
 import '../providers/auth.dart';
 import '../providers/posts.dart';
-import '../screens/auth_screen.dart';
 import '../screens/create_post_screen.dart';
 import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
@@ -24,23 +23,70 @@ class _HomeScreenState extends State<HomeScreen> {
   var _isLoading = false;
   var _isInit = true;
 
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(
+          'An Error Occurred',
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w900,
+            fontSize: 25.0,
+          ),
+        ),
+        content: Text(
+          message,
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+            fontSize: 18.0,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text(
+              'Okay',
+              style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     if (_isInit) {
       setState(() {
         _isLoading = true;
       });
 
-      Provider.of<Posts>(context, listen: false)
-          .fetchPostsBasedOnFilters()
-          .then((_) {
-        Provider.of<Answers>(context, listen: false).fetchAnswers().then((_) {
-          setState(() {
-            _isLoading = false;
-          });
+      try {
+        final auth = await Provider.of<Posts>(context, listen: false)
+            .fetchPosts()
+            .then((_) async {
+          await Provider.of<Answers>(context, listen: false).fetchAnswers();
         });
-      });
+
+        print('$auth   auth');
+      } catch (error) {
+        // _showErrorDialog('Connection to server failed');
+
+        print('$error autttthh 3');
+      }
     }
+
+    setState(() {
+      _isLoading = false;
+    });
     _isInit = false;
     super.didChangeDependencies();
   }
@@ -112,10 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
           splashColor: Colors.pinkAccent,
           backgroundColor: Colors.amber,
           onPressed: () {
-            print(auth.isAuth);
-            auth.isAuth
-                ? Navigator.of(context).pushNamed(CreatePostScreen.routeName)
-                : Navigator.of(context).pushNamed(AuthScreen.routeName);
+            Navigator.of(context).pushNamed(CreatePostScreen.routeName);
           },
           child: Icon(
             Icons.add,

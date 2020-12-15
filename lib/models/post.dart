@@ -7,6 +7,7 @@ class Post {
   String category;
   @required
   final String postText;
+  final String creator;
 
-  Post({this.postId, this.postText, this.category});
+  Post({this.postId, this.postText, this.category, this.creator});
 }

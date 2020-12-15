@@ -4,11 +4,11 @@ import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
 import '../providers/answers.dart';
+import '../providers/newsTrends.dart';
 import '../providers/posts.dart';
 import '../screens/create_post_screen.dart';
 import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
-import '../widgets/search-bar.dart';
 import '../widgets/trending_list.dart';
 
 class TrendingScreen extends StatefulWidget {
@@ -28,13 +28,15 @@ class _TrendingScreenState extends State<TrendingScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Posts>(context).fetchPostsBasedOnFilters().then((_) {
+      Provider.of<Posts>(context).fetchPosts().then((_) {
         setState(() {
           _isLoading = false;
         });
       });
 
       Provider.of<Answers>(context).fetchAnswers();
+
+      Provider.of<NewsTrends>(context).fetchTopHeadlines();
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -46,6 +48,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
       drawer: AppDrawer(),
       body: SafeArea(
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: [
             Row(
               children: <Widget>[
@@ -57,14 +60,19 @@ class _TrendingScreenState extends State<TrendingScreen> {
               ],
             ),
             Divider(),
-            SearchBar(),
             Container(
               padding: EdgeInsets.all(5.0),
               child: Text(
-                'Catch up with trending questions!',
+                'Catch up with top headlines',
                 style: kTrendingText,
               ),
             ),
+            Divider(),
+            // Expanded(
+            //   flex: 1,
+            //   child: NewsTrendsList(),
+            // ),
+            Divider(),
             _isLoading
                 ? Column(
                     children: [
@@ -95,6 +103,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
                     ],
                   )
                 : Expanded(
+                    flex: 2,
                     child: TrendingList(),
                   ),
             // Container(

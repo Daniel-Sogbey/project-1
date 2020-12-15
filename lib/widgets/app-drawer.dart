@@ -33,8 +33,45 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
             ),
+
             SizedBox(
               height: 20.0,
+            ),
+            InkWell(
+              splashColor: Colors.black12,
+              onTap: () {
+                // Navigator.of(context).pushNamed(ProfileScreen.routeName);
+              },
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                margin: EdgeInsets.only(left: 10.0),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          width: 2.5,
+                          color: Colors.purpleAccent,
+                        ),
+                      ),
+                      child: Icon(
+                        FontAwesomeIcons.user,
+                        size: 25.0,
+                        color: Colors.pink,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Text(
+                      'Profile',
+                      style: kAppBarTextStyle,
+                    )
+                  ],
+                ),
+              ),
             ),
             SizedBox(
               height: 5.0,
@@ -196,40 +233,7 @@ class AppDrawer extends StatelessWidget {
             // SizedBox(
             //   height: 5.0,
             // ),
-            InkWell(
-              splashColor: Colors.black12,
-              onTap: () {},
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                margin: EdgeInsets.only(left: 10.0),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          width: 2.5,
-                          color: Colors.purpleAccent,
-                        ),
-                      ),
-                      child: Icon(
-                        FontAwesomeIcons.chartBar,
-                        size: 25.0,
-                        color: Colors.pink,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 5.0,
-                    ),
-                    Text(
-                      'Activity',
-                      style: kAppBarTextStyle,
-                    )
-                  ],
-                ),
-              ),
-            ),
+
             SizedBox(
               height: 5.0,
             ),

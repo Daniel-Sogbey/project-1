@@ -161,7 +161,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 // Colors.pinkAccent,
                 // Colors.amber,
                 // Colors.blue,
-                Color.fromRGBO(215, 17, 225, 1).withOpacity(0.6),
+                Color.fromRGBO(215, 17, 225, 1).withOpacity(0.8),
                 Color.fromRGBO(255, 188, 17, 1).withOpacity(1.0),
               ],
               begin: Alignment.topLeft,

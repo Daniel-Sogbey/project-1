@@ -4,6 +4,7 @@ import 'package:provider/single_child_widget.dart';
 
 import './providers/answers.dart';
 import './providers/auth.dart';
+import './providers/newsTrends.dart';
 import './providers/posts.dart';
 import './screens/answers_screen.dart';
 import './screens/auth_screen.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
             auth.token,
             auth.userId,
             previousPosts == null ? [] : previousPosts.posts,
+            auth.email,
           ),
         ),
         ChangeNotifierProxyProvider<Auth, Answers>(
@@ -41,6 +43,9 @@ class MyApp extends StatelessWidget {
             previousAnswers == null ? [] : previousAnswers.answers,
           ),
         ),
+        ChangeNotifierProvider(
+          create: (context) => NewsTrends(),
+        )
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
@@ -52,7 +57,8 @@ class MyApp extends StatelessWidget {
           home: auth.isAuth
               ? TabsScreen()
               : FutureBuilder(
-                  future: auth.tryAutoLogin(),
+                  future:
+                      Future.delayed(Duration(seconds: 10), auth.tryAutoLogin),
                   builder: (context, snapshot) =>
                       snapshot.connectionState == ConnectionState.waiting
                           ? LoadingScreen()

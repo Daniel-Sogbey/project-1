@@ -33,9 +33,12 @@ class Answers with ChangeNotifier {
 
     try {
       final response = await http.get(url);
+
+      print('${json.decode(response.body)} aauuhththt');
+
       final answersData = json.decode(response.body) as Map<String, dynamic>;
 
-      print('${json.decode(response.body)['creatorId']} from answers.dart');
+      print('$answersData auuuuutt');
 
       if (answersData == null) {
         return;
@@ -43,11 +46,13 @@ class Answers with ChangeNotifier {
 
       final List<Answer> loadedAnswers = [];
       answersData.forEach((answerId, singleAnswerData) {
-        loadedAnswers.add(
+        loadedAnswers.insert(
+          0,
           Answer(
             answerId: answerId,
             answerText: singleAnswerData['answerText'],
             questionAnswerId: singleAnswerData['questionAnswerId'],
+
             // isAccepted: singleAnswerData['isAccepted'],
           ),
         );
@@ -72,14 +77,15 @@ class Answers with ChangeNotifier {
             'questionAnswerId': answer.questionAnswerId,
             'answerText': answer.answerText,
             "creatorId": userId,
+            'votes': answer.votes,
           },
         ),
       );
-      print(json.decode(response.body)['name']);
       final newAnswer = Answer(
         answerId: json.decode(response.body)['name'],
         questionAnswerId: answer.questionAnswerId,
         answerText: answer.answerText,
+        votes: answer.votes,
         // isAccepted: answer.isAccepted,
       );
 

@@ -100,15 +100,23 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                       ),
                     ],
                   )
-                : Expanded(
-                    child: ListView.builder(
-                      itemCount: postsData.posts.length,
-                      itemBuilder: (ctx, i) => UserActivityItem(
-                        post: postsData.posts[i],
-                        postId: postsData.posts[i].postId,
+                : postsData.posts.length == 0
+                    ? Center(
+                        child: Text(
+                          'Lets Get Started by asking your first question.',
+                          style: kOnStartTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                          itemCount: postsData.posts.length,
+                          itemBuilder: (ctx, i) => UserActivityItem(
+                            post: postsData.posts[i],
+                            postId: postsData.posts[i].postId,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
           ],
         ),
       ),

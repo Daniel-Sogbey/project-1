@@ -121,7 +121,7 @@ class TrendingItem extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          'Answers',
+                          'Comments',
                           style: kAnswerTextStyle,
                         ),
                       ),
@@ -139,10 +139,15 @@ class TrendingItem extends StatelessWidget {
                   },
                   child: Container(
                     padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Answer',
-                      style: kAnswerTextStyle,
+                    child: Icon(
+                      Icons.add_circle_outline,
+                      color: Colors.black26,
+                      size: 28.0,
                     ),
+                    // Text(
+                    //   'Answer',
+                    //   style: kAnswerTextStyle,
+                    // ),
                   ),
                 ),
               ],

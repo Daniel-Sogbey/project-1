@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
 import '../models/answer.dart';
+import '../providers/auth.dart';
 
 class AnswerItem extends StatefulWidget {
   @override
@@ -12,10 +13,32 @@ class AnswerItem extends StatefulWidget {
 
 class _AnswerItemState extends State<AnswerItem> {
   var _isChecked = false;
+  var _isInit = true;
+
+  @override
+  void didChangeDependencies() async {
+    if (_isInit) {
+      final authToken = Provider.of<Auth>(context).token;
+
+      await Provider.of<Answer>(context).getVotes(authToken);
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((_) async {
+      final authToken = Provider.of<Auth>(context).token;
+      await Provider.of<Answer>(context, listen: false).getVotes(authToken);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final answer = Provider.of<Answer>(context);
+    final answer = Provider.of<Answer>(context, listen: false);
+    final authData = Provider.of<Auth>(context, listen: false);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -59,26 +82,45 @@ class _AnswerItemState extends State<AnswerItem> {
                 children: <Widget>[
                   Container(
                     child: IconButton(
-                      onPressed: () {
-                        answer.acceptAnswer();
+                      onPressed: () async {
+                        await Provider.of<Answer>(context, listen: false)
+                            .upVote(authData.token);
+                        // answer.acceptAnswer();
+                        // answer.upVote();
                       },
                       icon: Icon(
-                        answer.isAccepted
-                            ? Icons.check_circle
-                            : Icons.check_circle_outline,
+                        Icons.keyboard_arrow_up,
                         size: 30.0,
                         color: Colors.green,
                       ),
                     ),
                   ),
-                  // Consumer<Answer>(
-                  //   builder: (ctx, answer, child) => Container(
-                  //     child: Text(
-                  //       answer.count.toString(),
-                  //       style: kCheckCountTextStyle,
-                  //     ),
-                  //   ),
-                  // ),
+                  Container(
+                    child: Text(
+                      answer.votes.toString(),
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: IconButton(
+                      onPressed: () async {
+                        await Provider.of<Answer>(context, listen: false)
+                            .downVote(authData.token);
+                        // answer.acceptAnswer();
+                        // answer.upVote();
+                      },
+                      icon: Icon(
+                        Icons.keyboard_arrow_down,
+                        size: 30.0,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],

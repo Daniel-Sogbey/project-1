@@ -41,8 +41,9 @@ class Posts with ChangeNotifier {
 
   String authToken;
   String userId;
+  String email;
 
-  Posts(this.authToken, this.userId, this._posts);
+  Posts(this.authToken, this.userId, this._posts, this.email);
 
   //
 
@@ -76,7 +77,9 @@ class Posts with ChangeNotifier {
 
     try {
       final response = await http.get(url);
+      print('${json.decode(response.body)} auuutththt  1');
       final postsData = json.decode(response.body) as Map<String, dynamic>;
+      print('$postsData auutttttttttttthhhhhhhhh 2');
       if (postsData == null) {
         return;
       }
@@ -113,6 +116,7 @@ class Posts with ChangeNotifier {
     try {
       final response = await http.get(url);
       final postsData = json.decode(response.body) as Map<String, dynamic>;
+
       if (postsData == null) {
         return;
       }
@@ -435,11 +439,15 @@ class Posts with ChangeNotifier {
         postId: json.decode(response.body)['name'],
         category: post.category,
         postText: post.postText,
+        creator: email,
       );
       _posts.insert(0, newPost);
-      print(post.postId);
+      print(newPost.postId);
       print(post.category);
       print(post.postText);
+      print(newPost.creator);
+
+      print('$email email');
       notifyListeners();
     } catch (error) {
       throw error;

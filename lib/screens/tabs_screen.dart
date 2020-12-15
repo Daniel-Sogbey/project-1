@@ -1,10 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
-import '../providers/answers.dart';
-import '../providers/posts.dart';
 import '../screens/home-screen.dart';
 import '../screens/trending_screen.dart';
 import '../screens/user_activity_screen.dart';
@@ -31,26 +28,26 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
-  var _isInit = true;
-  var _isLoading = false;
-
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-      Provider.of<Posts>(context, listen: false).fetchPostsBasedOnFilters().then((_) {
-        Provider.of<Answers>(context, listen: false).fetchAnswers().then((_) {
-          setState(() {
-            _isLoading = false;
-          });
-        });
-      });
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
+  // var _isInit = true;
+  // var _isLoading = false;
+  //
+  // @override
+  // void didChangeDependencies() {
+  //   if (_isInit) {
+  //     setState(() {
+  //       _isLoading = true;
+  //     });
+  //     Provider.of<Posts>(context, listen: false).fetchPostsBasedOnFilters().then((_) {
+  //       Provider.of<Answers>(context, listen: false).fetchAnswers().then((_) {
+  //         setState(() {
+  //           _isLoading = false;
+  //         });
+  //       });
+  //     });
+  //   }
+  //   _isInit = false;
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -10,6 +10,7 @@ import '../http_exception/http_exception.dart';
 class Auth with ChangeNotifier {
   String _token;
   String _userId;
+  String _email;
   Timer _authTimer;
   DateTime _expiryDate;
 
@@ -28,6 +29,10 @@ class Auth with ChangeNotifier {
 
   String get userId {
     return _userId;
+  }
+
+  String get email {
+    return _email;
   }
 
   Future<void> _authenticate(
@@ -55,6 +60,7 @@ class Auth with ChangeNotifier {
 
       _token = responseData['idToken'];
       _userId = responseData['localId'];
+      _email = responseData['email'];
       _expiryDate = DateTime.now().add(
         Duration(
           seconds: int.parse(
@@ -62,6 +68,8 @@ class Auth with ChangeNotifier {
           ),
         ),
       );
+
+      print('${responseData['expiresIn']} expiresIn time');
       _autoLogout();
       notifyListeners();
       print(isAuth);
@@ -80,6 +88,23 @@ class Auth with ChangeNotifier {
     } catch (error) {
       throw error;
     }
+  }
+
+  Future<void> fetchUserData() async {
+    const url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAnds_2pZvb6cdqfitU4BB2z3GhaLBsy78';
+
+    final response = await http.post(
+      url,
+      body: json.encode(
+        {
+          'idToken': _token,
+        },
+      ),
+    );
+
+    notifyListeners();
+    print('${json.decode(response.body)} userData');
   }
 
   Future<void> signup(String email, String password) async {
@@ -131,6 +156,6 @@ class Auth with ChangeNotifier {
       _authTimer.cancel();
     }
     final _timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
-    _authTimer = Timer(Duration(seconds: _timeToExpiry), logout);
+    _authTimer = Timer(Duration(seconds: 10), logout);
   }
 }

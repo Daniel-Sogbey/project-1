@@ -22,6 +22,7 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
     answerId: null,
     answerText: '',
     questionAnswerId: '',
+    votes: 0,
   );
   final _form = GlobalKey<FormState>();
   var _isLoading = false;
@@ -124,62 +125,66 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
                         ),
                       ),
                     )
-                  : Form(
-                      key: _form,
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(top: 10.0),
-                            padding: EdgeInsets.all(30.0),
-                            child: TextFormField(
-                              style: kAnswerTextInputStyle,
-                              maxLines: null,
-                              decoration: InputDecoration(
-                                labelText: 'Provide an answer',
-                                labelStyle: kAnswerLabelTextStyle,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.black26,
-                                    width: 1.5,
+                  : Column(
+                      children: <Widget>[
+                        Form(
+                          key: _form,
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.only(top: 10.0),
+                                padding: EdgeInsets.all(30.0),
+                                child: TextFormField(
+                                  style: kAnswerTextInputStyle,
+                                  maxLines: null,
+                                  decoration: InputDecoration(
+                                    labelText: 'Provide an answer',
+                                    labelStyle: kAnswerLabelTextStyle,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      borderSide: BorderSide(
+                                        color: Colors.black26,
+                                        width: 1.5,
+                                      ),
+                                    ),
                                   ),
+                                  keyboardType: TextInputType.multiline,
+                                  onSaved: (value) {
+                                    _editedAnswer = Answer(
+                                      answerId: _editedAnswer.answerId,
+                                      questionAnswerId: postId,
+                                      answerText: value,
+                                      votes: _editedAnswer.votes,
+                                    );
+                                  },
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please enter an answer before sending.';
+                                    }
+
+                                    if (value.length <= 0) {
+                                      return 'Answer too short';
+                                    }
+
+                                    return null;
+                                  },
                                 ),
                               ),
-                              keyboardType: TextInputType.multiline,
-                              onSaved: (value) {
-                                _editedAnswer = Answer(
-                                  answerId: _editedAnswer.answerId,
-                                  questionAnswerId: postId,
-                                  answerText: value,
-                                  isAccepted: _editedAnswer.isAccepted,
-                                );
-                              },
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Please enter an answer before sending.';
-                                }
-
-                                if (value.length <= 0) {
-                                  return 'Answer too short';
-                                }
-
-                                return null;
-                              },
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 30.0),
+                          child: InkWell(
+                            onTap: _saveForm,
+                            child: Text(
+                              'Send',
+                              style: kSendAnswerTextStyle,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-              Container(
-                padding: EdgeInsets.only(left: 30.0),
-                child: InkWell(
-                  onTap: _saveForm,
-                  child: Text(
-                    'Send',
-                    style: kSendAnswerTextStyle,
-                  ),
-                ),
-              ),
             ],
           ),
         ),

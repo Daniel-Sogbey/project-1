@@ -6,7 +6,6 @@ import '../models/post.dart';
 import '../providers/answers.dart';
 import '../providers/auth.dart';
 import '../screens/answers_screen.dart';
-import '../screens/auth_screen.dart';
 import '../screens/create_answer_screen.dart';
 import '../widgets/countBadge.dart';
 
@@ -123,7 +122,7 @@ class PostItem extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          'Answers',
+                          'Comments',
                           style: kAnswerTextStyle,
                         ),
                       ),
@@ -135,20 +134,22 @@ class PostItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15.0),
                     splashColor: Colors.lightBlue,
                     onTap: () {
-                      auth.isAuth
-                          ? Navigator.of(context).pushNamed(
-                              CreateAnswerScreen.routeName,
-                              arguments: posts.postId,
-                            )
-                          : Navigator.of(context)
-                              .pushNamed(AuthScreen.routeName);
+                      Navigator.of(context).pushNamed(
+                        CreateAnswerScreen.routeName,
+                        arguments: posts.postId,
+                      );
                     },
                     child: Container(
                       padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Answer',
-                        style: kAnswerTextStyle,
+                      child: Icon(
+                        Icons.add_circle_outline,
+                        color: Colors.black26,
+                        size: 28.0,
                       ),
+                      // Text(
+                      //   'Answer',
+                      //   style: kAnswerTextStyle,
+                      // ),
                     ),
                   ),
                 ),
