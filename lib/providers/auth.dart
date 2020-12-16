@@ -134,7 +134,7 @@ class Auth with ChangeNotifier {
     _userId = extractedUserData['userId'];
     _expiryDate = expiryDate;
 
-    print(expiryDate);
+    print('$expiryDate null auth');
 
     notifyListeners();
     _autoLogout();
@@ -150,6 +150,9 @@ class Auth with ChangeNotifier {
       _authTimer.cancel();
       _authTimer = null;
     }
+
+    print('$_token null auth from logout');
+    print('$_expiryDate null auth from logout');
     notifyListeners();
   }
 

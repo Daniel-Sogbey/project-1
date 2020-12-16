@@ -93,10 +93,9 @@ class _AnswerItemState extends State<AnswerItem> {
             heightFactor: 1.0,
             widthFactor: 2,
             child: Container(
-              width: 70.0,
-              height: 70.0,
+              width: 10.0,
               child: LoadingIndicator(
-                indicatorType: Indicator.orbit,
+                indicatorType: Indicator.lineSpinFadeLoader,
                 color: Colors.pinkAccent,
               ),
             ),
@@ -191,7 +190,7 @@ class _AnswerItemState extends State<AnswerItem> {
                 ),
                 Container(
                   margin:
-                      EdgeInsets.only(left: 60.0, right: 60.0, bottom: 10.0),
+                      EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
                   child: Container(
                     padding: EdgeInsets.all(8.0),
                     margin: EdgeInsets.all(3.0),

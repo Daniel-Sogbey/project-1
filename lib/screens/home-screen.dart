@@ -96,16 +96,21 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _isLoading = true;
     });
-    Future.delayed(Duration(seconds: 5)).then((_) async {
-      await Provider.of<Posts>(context, listen: false)
-          .fetchPosts()
-          .then((_) async {
-        await Provider.of<Answers>(context, listen: false).fetchAnswers();
+    try {
+      Future.delayed(Duration(seconds: 5)).then((_) async {
+        await Provider.of<Posts>(context, listen: false)
+            .fetchPosts()
+            .then((_) async {
+          await Provider.of<Answers>(context, listen: false).fetchAnswers();
+        });
+        setState(() {
+          _isLoading = false;
+        });
       });
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    } catch (error) {
+      _showErrorDialog('No Internet Connection');
+    }
+
     super.initState();
   }
 

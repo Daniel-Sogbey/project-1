@@ -89,7 +89,7 @@ class Answers with ChangeNotifier {
         // isAccepted: answer.isAccepted,
       );
 
-      _answers.add(newAnswer);
+      _answers.insert(0, newAnswer);
       notifyListeners();
     } catch (error) {
       throw error;

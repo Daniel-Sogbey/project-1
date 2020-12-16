@@ -56,7 +56,9 @@ class MyApp extends StatelessWidget {
           ),
           home: auth.isAuth
               ? TabsScreen()
-              : FutureBuilder(
+              :
+              // auth.tryAutoLogin() != null ? LoadingScreen() : AuthScreen(),
+              FutureBuilder(
                   future:
                       Future.delayed(Duration(seconds: 10), auth.tryAutoLogin),
                   builder: (ctx, snapshot) =>

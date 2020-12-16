@@ -144,7 +144,7 @@ class PostItem extends StatelessWidget {
                       child: Icon(
                         Icons.add_circle_outline,
                         color: Colors.black26,
-                        size: 28.0,
+                        size: 22.0,
                       ),
                       // Text(
                       //   'Answer',
