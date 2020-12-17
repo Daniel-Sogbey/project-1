@@ -15,9 +15,10 @@ class CountBadge extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(6.0),
         decoration: BoxDecoration(
+          color: Colors.greenAccent,
           shape: BoxShape.circle,
           border: Border.all(
-            color: Colors.purpleAccent,
+            color: Colors.greenAccent,
             width: 1.0,
             style: BorderStyle.solid,
           ),

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
 import '../providers/answers.dart';
-import '../providers/newsTrends.dart';
 import '../providers/posts.dart';
 import '../screens/create_post_screen.dart';
 import '../widgets/app-drawer.dart';
@@ -36,7 +35,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
 
       Provider.of<Answers>(context).fetchAnswers();
 
-      Provider.of<NewsTrends>(context).fetchTopHeadlines();
+      // Provider.of<NewsTrends>(context).fetchTopHeadlines();
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -60,11 +59,36 @@ class _TrendingScreenState extends State<TrendingScreen> {
               ],
             ),
             Divider(),
-            Container(
-              padding: EdgeInsets.all(5.0),
-              child: Text(
-                'Catch up with top headlines',
-                style: kTrendingText,
+            Card(
+              elevation: 7.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6.0),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      // Colors.pinkAccent,
+                      // Colors.amber,
+                      // Colors.blue,
+                      Color.fromRGBO(215, 17, 225, 1).withOpacity(0.8),
+                      Color.fromRGBO(255, 188, 17, 1).withOpacity(1.0),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: [0, 1],
+                  ),
+                ),
+                alignment: Alignment.centerLeft,
+                // margin: EdgeInsets.only(
+                //   left: 5.0,
+                //   right: 5.0,
+                // ),
+                padding: EdgeInsets.all(5.0),
+                child: Text(
+                  'Discover',
+                  style: kTrendingText,
+                ),
               ),
             ),
             Divider(),
@@ -96,7 +120,12 @@ class _TrendingScreenState extends State<TrendingScreen> {
                         ),
                         child: Text(
                           'Make sure you are connected to the internet',
-                          style: kTrendingText,
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 15.0,
+                            letterSpacing: 1.2,
+                            fontWeight: FontWeight.w900,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ),

@@ -4,32 +4,27 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
-import '../models/answer.dart';
-import '../providers/answers.dart';
+import '../models/reply.dart';
+import '../providers/replies.dart';
 
-class CreateAnswerScreen extends StatefulWidget {
-  static const routeName = '/create-answers';
+class CreateReplyScreen extends StatefulWidget {
+  static const routeName = '/create-reply';
 
   @override
-  _CreateAnswerScreenState createState() => _CreateAnswerScreenState();
+  _CreateReplyScreenState createState() => _CreateReplyScreenState();
 }
 
-class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
+class _CreateReplyScreenState extends State<CreateReplyScreen> {
   var _isInit = true;
-  String postId;
-  Answer _editedAnswer = Answer(
-    answerId: null,
-    answerText: '',
-    questionAnswerId: '',
-    votes: 0,
-  );
+  String answerId;
+  Reply _editedReply = Reply(replyId: null, answerReplyId: '', replyText: '');
   final _form = GlobalKey<FormState>();
   var _isLoading = false;
 
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      postId = ModalRoute.of(context).settings.arguments as String;
+      answerId = ModalRoute.of(context).settings.arguments as String;
     }
 
     _isInit = false;
@@ -37,53 +32,15 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
   }
 
   Future<void> _saveForm() async {
+    FocusScope.of(context).requestFocus(FocusNode());
     final _isValid = _form.currentState.validate();
     if (_isValid) {
       _form.currentState.save();
-      // print('${_editedAnswer.answerId} from answer');
-      // print(_editedAnswer.questionAnswerId);
-      // print(_editedAnswer.answerText);
-      setState(() {
-        _isLoading = true;
-      });
-      try {
-        await Provider.of<Answers>(context, listen: false)
-            .addAnswer(_editedAnswer);
-      } catch (error) {
-        await showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text(
-              'Ooooopps error occurred',
-              style: kErrorOccurredTextStyle,
-            ),
-            content: Text(
-              'Make your you are connected to the internet',
-              style: kErrorOccurredContentTextStyle,
-            ),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-                child: Text(
-                  'Okay',
-                  style: kOkayDismissTextStyle,
-                ),
-                splashColor: Colors.amber,
-                padding: EdgeInsets.all(10.0),
-              ),
-            ],
-          ),
-        );
-      } finally {
-        Future.delayed(Duration(seconds: 2), () {
-          setState(() {
-            _isLoading = false;
-          });
-          Navigator.of(context).pop();
-        });
-      }
+      Provider.of<Replies>(context, listen: false).addReply(_editedReply);
+      Navigator.of(context).pop();
+      print(_editedReply.replyId);
+      print(_editedReply.answerReplyId);
+      print(_editedReply.replyText);
     }
   }
 
@@ -95,9 +52,6 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              // Colors.pinkAccent,
-              // Colors.amber,
-              // Colors.blue,
               Color.fromRGBO(215, 17, 225, 1).withOpacity(0.6),
               Color.fromRGBO(255, 188, 17, 1).withOpacity(0.9),
             ],
@@ -118,7 +72,7 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
                   margin: EdgeInsets.only(top: 30.0),
                   padding: EdgeInsets.only(left: 30.0),
                   child: Text(
-                    'Waiting for your incredible comment',
+                    'Waiting for your incredible reply',
                     style: kWaitingForAnswerTextStyle,
                   ),
                 ),
@@ -157,7 +111,7 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
                                         style: kAnswerTextInputStyle,
                                         maxLines: null,
                                         decoration: InputDecoration(
-                                          labelText: 'comment',
+                                          labelText: 'reply',
                                           labelStyle: kAnswerLabelTextStyle,
                                           border: OutlineInputBorder(
                                             borderRadius:
@@ -168,13 +122,15 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
                                             ),
                                           ),
                                         ),
+                                        onEditingComplete: () {
+                                          _saveForm();
+                                        },
                                         keyboardType: TextInputType.multiline,
                                         onSaved: (value) {
-                                          _editedAnswer = Answer(
-                                            answerId: _editedAnswer.answerId,
-                                            questionAnswerId: postId,
-                                            answerText: value,
-                                            votes: _editedAnswer.votes,
+                                          _editedReply = Reply(
+                                            replyId: _editedReply.replyId,
+                                            replyText: value,
+                                            answerReplyId: answerId,
                                           );
                                         },
                                         validator: (value) {
@@ -230,7 +186,7 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
                                           SizedBox(
                                             width: 10.0,
                                           ),
-                                          Text('Send',
+                                          Text('Reply',
                                               style: kSubmitQuestionTextStyle),
                                         ],
                                       ),

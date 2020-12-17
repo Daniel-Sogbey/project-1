@@ -6,12 +6,15 @@ import './providers/answers.dart';
 import './providers/auth.dart';
 import './providers/newsTrends.dart';
 import './providers/posts.dart';
+import './providers/replies.dart';
 import './screens/answers_screen.dart';
 import './screens/auth_screen.dart';
 import './screens/create_answer_screen.dart';
 import './screens/create_post_screen.dart';
+import './screens/create_reply_screen.dart';
 import './screens/interests_screen.dart';
 import './screens/loading_screen.dart';
+import './screens/replies_screen.dart';
 import './screens/tabs_screen.dart';
 import './screens/trending_screen.dart';
 import './screens/user_activity_screen.dart';
@@ -45,6 +48,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => NewsTrends(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Replies(),
         )
       ],
       child: Consumer<Auth>(
@@ -75,6 +81,8 @@ class MyApp extends StatelessWidget {
             TrendingScreen.routeName: (context) => TrendingScreen(),
             TabsScreen.routeName: (context) => TabsScreen(),
             AuthScreen.routeName: (context) => AuthScreen(),
+            CreateReplyScreen.routeName: (context) => CreateReplyScreen(),
+            RepliesScreen.routeName: (context) => RepliesScreen()
           },
         ),
       ),

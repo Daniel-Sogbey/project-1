@@ -67,7 +67,7 @@ class _TabsScreenState extends State<TabsScreen> {
             color: Colors.pink,
           ),
           Icon(
-            Icons.trending_up,
+            FontAwesomeIcons.globe,
             color: Colors.pink,
           ),
         ],

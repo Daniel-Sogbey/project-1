@@ -27,8 +27,14 @@ const kLabelStyle = TextStyle(
 
 const kInfoStyle = TextStyle(
   fontWeight: FontWeight.w500,
-  fontSize: 14.0,
-  color: Colors.pinkAccent,
+  fontSize: 10.0,
+  color: Colors.blue,
+);
+
+const kCategoryInfoStyle = TextStyle(
+  fontWeight: FontWeight.w600,
+  fontSize: 10.0,
+  color: Colors.white,
 );
 
 const kNameTextStyle = TextStyle(
@@ -39,10 +45,11 @@ const kNameTextStyle = TextStyle(
 
 const kPostTextStyle = TextStyle(
   fontSize: 14.0,
+  color: Colors.black87,
   fontWeight: FontWeight.w600,
   fontFamily: 'Montserrat',
   letterSpacing: 1.10,
-  height: 1.5,
+  height: 1.4,
 );
 
 const kAnswerTextStyle = TextStyle(
@@ -62,8 +69,8 @@ const kAppBarTextStyle = TextStyle(
 );
 
 const kCountBadgeStyle = TextStyle(
-  fontSize: 13.0,
-  color: Colors.pinkAccent,
+  fontSize: 15.0,
+  color: Colors.white,
 );
 
 const kPostTextFieldStyle = TextStyle(
@@ -74,8 +81,15 @@ const kPostTextFieldStyle = TextStyle(
   fontSize: 15.0,
 );
 
+const kDotsTextStyle = TextStyle(
+  letterSpacing: 50.0,
+  fontSize: 15.0,
+  fontWeight: FontWeight.w900,
+  color: Colors.black26,
+);
+
 const kSubmitQuestionTextStyle = TextStyle(
-  color: Colors.pinkAccent,
+  color: Colors.white,
   fontSize: 20.0,
   fontWeight: FontWeight.w900,
   fontFamily: 'Montserrat',
@@ -97,8 +111,8 @@ const kUpdatePostTextStyle = TextStyle(
 const kUpdatePostAnswerTextStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w900,
-  color: Colors.pinkAccent,
-  fontSize: 12.0,
+  color: Colors.white,
+  fontSize: 15.0,
 );
 
 const kTopAppBarTextStyle = TextStyle(
@@ -147,7 +161,8 @@ const kCheckCountTextStyle = TextStyle(
 const kTrendingText = TextStyle(
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w900,
-  fontSize: 18.0,
+  fontSize: 30.0,
+  letterSpacing: 3.0,
 );
 
 const kOnStartTextStyle = TextStyle(

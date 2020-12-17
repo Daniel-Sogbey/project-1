@@ -150,10 +150,10 @@ class Auth with ChangeNotifier {
       _authTimer.cancel();
       _authTimer = null;
     }
+    notifyListeners();
 
     print('$_token null auth from logout');
     print('$_expiryDate null auth from logout');
-    notifyListeners();
   }
 
   void _autoLogout() {

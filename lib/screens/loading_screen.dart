@@ -1,10 +1,32 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../constants/constants.dart';
 
-class LoadingScreen extends StatelessWidget {
+class LoadingScreen extends StatefulWidget {
+  @override
+  _LoadingScreenState createState() => _LoadingScreenState();
+}
+
+class _LoadingScreenState extends State<LoadingScreen> {
+  @override
+  void initState() {
+    try {
+      Future.delayed(Duration.zero).then((_) async {
+        final result = await InternetAddress.lookup('google.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          print('connected');
+        }
+      });
+    } on SocketException catch (error) {
+      print('not connected');
+    }
+    super.initState();
+  }
+
   final slider = SleekCircularSlider(
     appearance: CircularSliderAppearance(
       spinnerMode: true,

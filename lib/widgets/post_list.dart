@@ -14,12 +14,13 @@ class PostList extends StatelessWidget {
     final answers = Provider.of<Answers>(context).answersCount;
     return posts.length == 0
         ? Container(
+            alignment: Alignment.center,
             width: double.infinity,
             padding: EdgeInsets.all(7.0),
             child: Center(
               child: Text(
-                'Lets Get Started by selecting your interests. '
-                'Get your home feed customized by selecting your interests.',
+                'No Content Found,'
+                'For Your Search.',
                 style: kOnStartTextStyle,
                 textAlign: TextAlign.center,
               ),
@@ -32,6 +33,13 @@ class PostList extends StatelessWidget {
                 PostItem(
                   posts: posts[i],
                   answersCount: answers,
+                ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 2.0),
+                  child: Text(
+                    '...',
+                    style: kDotsTextStyle,
+                  ),
                 ),
               ],
             ),

@@ -71,9 +71,61 @@ class Posts with ChangeNotifier {
     'education': false,
   };
 
-  Future<void> fetchPosts() async {
+  Future<void> getSearchForPosts(String searchTerm) async {
     final url =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json?auth=$authToken&orderBy="creatorId"&equalTo="$userId"';
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json?auth=$authToken';
+
+    if (searchTerm == '' || searchTerm == null) {
+      fetchPosts();
+      print('$searchTerm   searchTerm empty');
+      print(_posts);
+      return _posts;
+    }
+
+    try {
+      final response = await http.get(url);
+
+      final data = json.decode(response.body) as Map<String, dynamic>;
+      List<Post> searchedPosts = [];
+
+      data.forEach((postId, searchedPost) {
+        if ((searchedPost['category'] as String)
+                .toLowerCase()
+                .contains(searchTerm.toLowerCase()) ||
+            (searchedPost['postText'] as String)
+                .toLowerCase()
+                .contains(searchTerm)) {
+          searchedPosts.insert(
+            0,
+            Post(
+              postId: postId,
+              category: searchedPost['category'],
+              postText: searchedPost['postText'],
+              creator: searchedPost['creator'],
+            ),
+          );
+        }
+      });
+
+      _posts = searchedPosts;
+      notifyListeners();
+      print('$_posts  from getSearchForPosts');
+    } catch (error) {
+      throw error;
+    }
+
+    // searchedPosts = _posts.where((post) {
+    //   return post.category.toLowerCase().contains(searchTerm.toLowerCase());
+    // }).toList();
+  }
+
+  Future<void> fetchPosts([bool userPosts = false]) async {
+    //&orderBy="creatorId"&equalTo="$userId"
+    final appendedString =
+        userPosts ? 'orderBy="creatorId"&equalTo="$userId"' : '';
+
+    final url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json?auth=$authToken&$appendedString';
 
     try {
       final response = await http.get(url);
@@ -91,6 +143,7 @@ class Posts with ChangeNotifier {
             postId: postId,
             postText: singlePostData['postText'],
             category: singlePostData['category'],
+            creator: singlePostData['creatorId'],
           ),
         );
       });

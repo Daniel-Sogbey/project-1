@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/constants.dart';
 import '../providers/answers.dart';
 import '../providers/auth.dart';
 import '../providers/posts.dart';
@@ -22,6 +21,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var _isLoading = false;
   var _isInit = true;
+
+  void _addNewPost(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => CreatePostScreen(),
+      isScrollControlled: true,
+      isDismissible: true,
+      enableDrag: true,
+      backgroundColor: Colors.white,
+      // shape: RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.circular(20.0),
+      // ),
+    );
+  }
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -97,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _isLoading = true;
     });
     try {
-      Future.delayed(Duration(seconds: 5)).then((_) async {
+      Future.delayed(Duration.zero).then((_) async {
         await Provider.of<Posts>(context, listen: false)
             .fetchPosts()
             .then((_) async {
@@ -107,6 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _isLoading = false;
         });
       });
+      Future.delayed(Duration(seconds: 10), () {});
     } catch (error) {
       _showErrorDialog('No Internet Connection');
     }
@@ -138,33 +152,18 @@ class _HomeScreenState extends State<HomeScreen> {
             Divider(),
             SearchBar(),
             _isLoading
-                ? Column(
-                    children: [
-                      Center(
-                        heightFactor: 1.0,
-                        widthFactor: 2,
-                        child: Container(
-                          width: 70.0,
-                          height: 70.0,
-                          child: LoadingIndicator(
-                            indicatorType: Indicator.orbit,
-                            color: Colors.pinkAccent,
-                          ),
+                ? Container(
+                    child: Center(
+                      heightFactor: 2.0,
+                      widthFactor: 2,
+                      child: Container(
+                        width: 50.0,
+                        child: LoadingIndicator(
+                          indicatorType: Indicator.ballPulse,
+                          color: Colors.amber,
                         ),
                       ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                          vertical: 30.0,
-                          horizontal: 30.0,
-                        ),
-                        child: Text(
-                          'Make sure you are connected to the internet',
-                          style: kTrendingText,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
+                    ),
                   )
                 : Expanded(
                     child: PostList(),
@@ -181,9 +180,8 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 30.0,
           splashColor: Colors.pinkAccent,
           backgroundColor: Colors.amber,
-          onPressed: () {
-            Navigator.of(context).pushNamed(CreatePostScreen.routeName);
-          },
+          onPressed: () => _addNewPost(context),
+          // Navigator.of(context).pushNamed(CreatePostScreen.routeName);
           child: Icon(
             Icons.add,
             size: 35.0,

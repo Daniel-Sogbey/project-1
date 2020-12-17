@@ -73,6 +73,7 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   Future<void> _submit() async {
+    FocusScope.of(context).requestFocus(FocusNode());
     if (!_form.currentState.validate()) {
       return;
     }

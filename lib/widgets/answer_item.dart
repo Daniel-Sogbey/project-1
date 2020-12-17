@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 import '../models/answer.dart';
 import '../providers/auth.dart';
+import '../screens/create_reply_screen.dart';
+import '../screens/replies_screen.dart';
 
 class AnswerItem extends StatefulWidget {
   @override
@@ -16,6 +18,9 @@ class _AnswerItemState extends State<AnswerItem> {
   var _isChecked = false;
   var _isInit = true;
   var _isLoading = false;
+  var _isLiking = false;
+  var _showReplies = false;
+  var _isLiked = false;
 
   // @override
   // void didChangeDependencies() async {
@@ -60,6 +65,7 @@ class _AnswerItemState extends State<AnswerItem> {
   // }
 
   var authToken;
+  // var answerId;
 
   @override
   void didChangeDependencies() {
@@ -70,7 +76,7 @@ class _AnswerItemState extends State<AnswerItem> {
       Future.delayed(Duration.zero).then((_) async {
         authToken = Provider.of<Auth>(context, listen: false).token;
         await Provider.of<Answer>(context, listen: false).getVotes(authToken);
-
+        // answerId = Provider.of<Answer>(context).answerId;
         setState(() {
           _isLoading = false;
         });
@@ -84,131 +90,289 @@ class _AnswerItemState extends State<AnswerItem> {
   //   await Provider.of<Answer>(context).getVotes(authToken);
   // }
 
+  // void _addNewReply(BuildContext context) {
+  //   showModalBottomSheet(
+  //     context: context,
+  //     builder: (_) => CreateReplyScreen(),
+  //     // isScrollControlled: true,
+  //     isDismissible: true,
+  //     enableDrag: true,
+  //     backgroundColor: Colors.white,
+  //     // shape: RoundedRectangleBorder(
+  //     //   borderRadius: BorderRadius.circular(20.0),
+  //     // ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     final answer = Provider.of<Answer>(context, listen: false);
     final authData = Provider.of<Auth>(context, listen: false);
     return _isLoading
-        ? Center(
-            heightFactor: 1.0,
-            widthFactor: 2,
-            child: Container(
-              width: 10.0,
-              child: LoadingIndicator(
-                indicatorType: Indicator.lineSpinFadeLoader,
-                color: Colors.pinkAccent,
+        ? Container(
+            height: MediaQuery.of(context).size.height,
+            child: Center(
+              heightFactor: 1.0,
+              widthFactor: 2,
+              child: Container(
+                width: 50.0,
+                child: LoadingIndicator(
+                  indicatorType: Indicator.ballPulse,
+                  color: Colors.amber,
+                ),
               ),
             ),
           )
-        : Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: Colors.black12,
-                  width: 1.0,
-                  style: BorderStyle.solid,
-                ),
-                bottom: BorderSide(
-                  color: Colors.black26,
-                  width: 1.0,
-                  style: BorderStyle.solid,
+        : Card(
+            elevation: 7.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    // Colors.pinkAccent,
+                    // Colors.amber,
+                    // Colors.blue,
+                    Color.fromRGBO(215, 17, 225, 1).withOpacity(0.6),
+                    Color.fromRGBO(255, 188, 17, 1).withOpacity(0.7),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0, 1],
                 ),
               ),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(left: 5.0, top: 5.0, right: 5.0),
-                      child: CircleAvatar(
-                        radius: 30.0,
+              width: double.infinity,
+              // decoration: BoxDecoration(
+              //   border: Border(
+              //     bottom: BorderSide(
+              //       color: Colors.black26,
+              //       width: 1.0,
+              //       style: BorderStyle.solid,
+              //     ),
+              //   ),
+              // ),
+              child: Column(
+                children: [
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: 5.0),
+                        width: 60.0,
+                        height: 60.0,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              // Colors.pinkAccent,
+                              // Colors.amber,
+                              // Colors.blue,
+                              Color.fromRGBO(215, 17, 225, 1).withOpacity(0.8),
+                              Color.fromRGBO(255, 188, 17, 1).withOpacity(1.0),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            stops: [0, 1],
+                          ),
+                          shape: BoxShape.circle,
+                        ),
+                        padding:
+                            EdgeInsets.only(left: 5.0, top: 5.0, right: 5.0),
                         child: Text(
                           'DS',
                           style: kNameTextStyle,
                         ),
                       ),
-                    ),
-                    Container(
-                      child: Text(
-                        'Uni. of Cape Coast',
-                        style: kInfoStyle,
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Container(
-                          child: IconButton(
-                            onPressed: () async {
-                              await Provider.of<Answer>(context, listen: false)
-                                  .upVote(authData.token);
-                              // answer.acceptAnswer();
-                              // answer.upVote();
-                            },
-                            icon: Icon(
-                              Icons.keyboard_arrow_up,
-                              size: 30.0,
-                              color: Colors.green,
+                      Card(
+                        elevation: 6.0,
+                        color: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7.0),
+                        ),
+                        margin: EdgeInsets.only(left: 10.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            'Uni. of Cape Coast',
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              color: Colors.white,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 10.0,
                             ),
                           ),
                         ),
-                        Consumer<Answer>(
-                          builder: (ctx, answer, _) => Container(
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.15,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[],
+                      ),
+                    ],
+                  ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    // color: Colors.black12,
+                    elevation: 6.0,
+                    margin: EdgeInsets.only(
+                      bottom: 10.0,
+                      left: 10.0,
+                      right: 10.0,
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(
+                        answer.answerText,
+                        style: kPostTextStyle,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Card(
+                        elevation: 2.0,
+                        margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
+                        child: Container(
+                          child: IconButton(
+                            onPressed: () async {
+                              setState(() {
+                                _isLiking = true;
+                              });
+                              _isLiked == false
+                                  ? await Provider.of<Answer>(context,
+                                          listen: false)
+                                      .upVote(authData.token, authData.userId)
+                                      .then((_) {
+                                      setState(() {
+                                        _isLiked = true;
+                                        _isLiking = false;
+                                      });
+                                    })
+                                  : await Provider.of<Answer>(context,
+                                          listen: false)
+                                      .downVote(authData.token, authData.userId)
+                                      .then((_) {
+                                      setState(() {
+                                        _isLiked = false;
+                                        _isLiking = false;
+                                      });
+                                    });
+                              // answer.acceptAnswer();
+                              // answer.upVote();
+                            },
+                            icon: Consumer<Answer>(
+                              builder: (ctx, answer, _) => _isLiked
+                                  ? _isLiking
+                                      ? Container(
+                                          child: Center(
+                                            heightFactor: 2.0,
+                                            widthFactor: 2,
+                                            child: Container(
+                                              width: 30.0,
+                                              child: LoadingIndicator(
+                                                indicatorType:
+                                                    Indicator.ballPulse,
+                                                color: Colors.amber,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : Icon(
+                                          Icons.favorite,
+                                          size: 20.0,
+                                          color: Colors.greenAccent,
+                                        )
+                                  : _isLiking
+                                      ? Container(
+                                          child: Center(
+                                            heightFactor: 2.0,
+                                            widthFactor: 2,
+                                            child: Container(
+                                              width: 30.0,
+                                              child: LoadingIndicator(
+                                                indicatorType:
+                                                    Indicator.ballPulse,
+                                                color: Colors.amber,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : Icon(
+                                          Icons.favorite_border,
+                                          size: 20.0,
+                                          color: Colors.greenAccent,
+                                        ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Consumer<Answer>(
+                        builder: (ctx, answer, _) => Card(
+                          elevation: 10,
+                          color: Colors.purpleAccent,
+                          child: Container(
+                            padding: EdgeInsets.all(5.0),
                             child: Text(
                               answer.votes.toString(),
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
-                                fontSize: 12.0,
+                                fontSize: 10.0,
                                 fontWeight: FontWeight.w900,
                                 letterSpacing: 1.0,
+                                color: Colors.white,
                               ),
                             ),
                           ),
                         ),
-                        Container(
-                          child: IconButton(
-                            onPressed: () async {
-                              await Provider.of<Answer>(context, listen: false)
-                                  .downVote(authData.token);
-                              // answer.acceptAnswer();
-                              // answer.upVote();
-                            },
-                            icon: Icon(
-                              Icons.keyboard_arrow_down,
-                              size: 30.0,
-                              color: Colors.red,
-                            ),
+                      ),
+                      Container(
+                        child: IconButton(
+                          onPressed: () {
+                            // setState(() {
+                            //   _showReplies = !_showReplies;
+                            // });
+                            Navigator.of(context).pushNamed(
+                              RepliesScreen.routeName,
+                              arguments: answer.answerId,
+                            );
+                          },
+                          icon: Icon(
+                            Icons.remove_red_eye,
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  margin:
-                      EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
-                  child: Container(
-                    padding: EdgeInsets.all(8.0),
-                    margin: EdgeInsets.all(3.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      border: Border.all(
-                        width: 1.0,
-                        color: Colors.black12,
-                        style: BorderStyle.solid,
                       ),
-                    ),
-                    child: Text(
-                      answer.answerText,
-                      style: kPostTextStyle,
-                    ),
+                      Container(
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              CreateReplyScreen.routeName,
+                              arguments: answer.answerId,
+                            );
+                            // _addNewReply(context);
+                          },
+                          icon: Icon(
+                            Icons.reply,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                  // if (_showReplies)
+                  //   Container(
+                  //     child: Column(
+                  //       children: replies
+                  //           .map((reply) => Text(reply.replyText))
+                  //           .toList(),
+                  //     ),
+                  //   ),
+                ],
+              ),
             ),
           );
   }

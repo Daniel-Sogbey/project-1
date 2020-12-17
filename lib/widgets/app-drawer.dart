@@ -131,14 +131,14 @@ class AppDrawer extends StatelessWidget {
                         ),
                       ),
                       child: Icon(
-                        Icons.trending_up,
+                        FontAwesomeIcons.globe,
                         size: 25.0,
                         color: Colors.pink,
                       ),
                     ),
                     SizedBox(width: 5.0),
                     Text(
-                      'Trending',
+                      'Discover',
                       style: kAppBarTextStyle,
                     ),
                     SizedBox(width: 2.0),

@@ -43,6 +43,7 @@ class _AnswersScreenState extends State<AnswersScreen> {
                     ? Column(
                         children: [
                           Container(
+                            alignment: Alignment.center,
                             margin: EdgeInsets.only(top: 60.0),
                             child: Center(
                               child: Text(
@@ -52,6 +53,7 @@ class _AnswersScreenState extends State<AnswersScreen> {
                                   fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.w900,
                                 ),
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),
@@ -72,7 +74,9 @@ class _AnswersScreenState extends State<AnswersScreen> {
                               .map(
                                 (answer) => ChangeNotifierProvider.value(
                                   value: answer,
-                                  child: AnswerItem(),
+                                  child: Container(
+                                    child: AnswerItem(),
+                                  ),
                                 ),
                               )
                               .toList(),

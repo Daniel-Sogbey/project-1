@@ -27,7 +27,6 @@ class Answer with ChangeNotifier {
   // }
 
   Future<void> getVotes(String authToken) async {
-
     notifyListeners();
     final url =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/answers/$answerId.json?auth=$authToken';
@@ -36,41 +35,40 @@ class Answer with ChangeNotifier {
     votes = json.decode(response.body)['votes'];
   }
 
-  Future<void> upVote(String authToken) async {
-    var vote = ++votes;
+  int get numOfVotes {
+    return votes;
+  }
 
+  Future<void> upVote(String authToken, String userId) async {
+    var vote = ++votes;
+    // if (vote > 1) {
+    //   return;
+    // }
     print(vote);
 
     notifyListeners();
     final url =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/answers/$answerId.json?auth=$authToken';
-    final response = await http.patch(
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/userFavorites/$userId/$answerId.json?auth=$authToken';
+    final response = await http.put(
       url,
-      body: json.encode(
-        {
-          'votes': vote,
-        },
-      ),
+      body: json.encode(vote),
     );
 
-    vote = json.decode(response.body)['votes'];
+    print(json.decode(response.body));
+    // vote = json.decode(response.body);
   }
 
-  Future<void> downVote(String authToken) async {
+  Future<void> downVote(String authToken, String userId) async {
     final vote = --votes;
 
     print(vote);
 
     notifyListeners();
     final url =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/answers/$answerId.json?auth=$authToken';
-    await http.patch(
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/userFavorites/$userId/$answerId.json?auth=$authToken';
+    await http.put(
       url,
-      body: json.encode(
-        {
-          'votes': vote,
-        },
-      ),
+      body: json.encode(vote),
     );
   }
 }
