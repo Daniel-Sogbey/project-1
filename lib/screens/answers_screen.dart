@@ -38,14 +38,59 @@ class _AnswersScreenState extends State<AnswersScreen> {
                 //   itemCount: answers.length,
                 //   itemBuilder: (ctx, i) => Text(answers[i].answerText),
                 // ),
+                Card(
+                  margin: EdgeInsets.only(
+                    top: 5.0,
+                    left: 5.0,
+                    right: 5.0,
+                    bottom: 5.0,
+                  ),
+                  elevation: 10.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.all(20.0),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          // Colors.pinkAccent,
+                          // Colors.amber,
+                          // Colors.blue,
+                          Color.fromRGBO(215, 17, 225, 1).withOpacity(0.6),
+                          Color.fromRGBO(255, 188, 17, 1).withOpacity(0.7),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: [0, 1],
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Comments',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w900,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
                 Divider(),
                 answers.length == 0
                     ? Column(
                         children: [
-                          Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(top: 60.0),
-                            child: Center(
+                          Card(
+                            elevation: 6.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(30.0),
                               child: Text(
                                 'Wait a little , answers are on their way.',
                                 style: TextStyle(
@@ -75,6 +120,23 @@ class _AnswersScreenState extends State<AnswersScreen> {
                                 (answer) => ChangeNotifierProvider.value(
                                   value: answer,
                                   child: Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          // Colors.pinkAccent,
+                                          // Colors.amber,
+                                          // Colors.blue,
+                                          Color.fromRGBO(215, 17, 225, 1)
+                                              .withOpacity(0.6),
+                                          Color.fromRGBO(255, 188, 17, 1)
+                                              .withOpacity(0.7),
+                                        ],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        stops: [0, 1],
+                                      ),
+                                    ),
                                     child: AnswerItem(),
                                   ),
                                 ),

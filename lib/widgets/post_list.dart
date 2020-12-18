@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
-import '../providers/answers.dart';
 import '../providers/posts.dart';
 import '../widgets/post_item.dart';
 
@@ -11,7 +10,6 @@ class PostList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final posts = Provider.of<Posts>(context).posts;
-    final answers = Provider.of<Answers>(context).answersCount;
     return posts.length == 0
         ? Container(
             alignment: Alignment.center,
@@ -32,7 +30,6 @@ class PostList extends StatelessWidget {
               children: [
                 PostItem(
                   posts: posts[i],
-                  answersCount: answers,
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 2.0),

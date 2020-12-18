@@ -230,7 +230,7 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
                                           SizedBox(
                                             width: 10.0,
                                           ),
-                                          Text('Send',
+                                          Text('Comment',
                                               style: kSubmitQuestionTextStyle),
                                         ],
                                       ),

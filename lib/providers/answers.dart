@@ -28,7 +28,7 @@ class Answers with ChangeNotifier {
   }
 
   Future<void> fetchAnswers() async {
-    final url =
+    var url =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/answers.json?auth=$authToken';
 
     try {
@@ -44,6 +44,25 @@ class Answers with ChangeNotifier {
         return;
       }
 
+      url =
+          'https://solveshare-7acaf-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+
+      final favoriteResponse = await http.get(url);
+
+      final favoriteResponseData = json.decode(favoriteResponse.body);
+
+      url =
+          'https://solveshare-7acaf-default-rtdb.firebaseio.com/usersVotes.json?auth=$authToken';
+
+      final voteResponse = await http.get(url);
+
+      final voteResponseData = json.decode(voteResponse.body);
+
+      print('$voteResponseData vote Data');
+
+      print('$favoriteResponseData fav dATA');
+      print('$answersData answers DATAAAT');
+
       final List<Answer> loadedAnswers = [];
       answersData.forEach((answerId, singleAnswerData) {
         loadedAnswers.insert(
@@ -52,7 +71,10 @@ class Answers with ChangeNotifier {
             answerId: answerId,
             answerText: singleAnswerData['answerText'],
             questionAnswerId: singleAnswerData['questionAnswerId'],
-
+            isFav: favoriteResponseData == null
+                ? false
+                : favoriteResponseData[answerId] ?? false,
+            votes: voteResponseData == null ? 0 : voteResponseData[answerId],
             // isAccepted: singleAnswerData['isAccepted'],
           ),
         );
@@ -77,7 +99,6 @@ class Answers with ChangeNotifier {
             'questionAnswerId': answer.questionAnswerId,
             'answerText': answer.answerText,
             "creatorId": userId,
-            'votes': answer.votes,
           },
         ),
       );
@@ -85,7 +106,6 @@ class Answers with ChangeNotifier {
         answerId: json.decode(response.body)['name'],
         questionAnswerId: answer.questionAnswerId,
         answerText: answer.answerText,
-        votes: answer.votes,
         // isAccepted: answer.isAccepted,
       );
 

@@ -75,7 +75,7 @@ class _AnswerItemState extends State<AnswerItem> {
       });
       Future.delayed(Duration.zero).then((_) async {
         authToken = Provider.of<Auth>(context, listen: false).token;
-        await Provider.of<Answer>(context, listen: false).getVotes(authToken);
+        // await Provider.of<Answer>(context, listen: false).getVotes(authToken);
         // answerId = Provider.of<Answer>(context).answerId;
         setState(() {
           _isLoading = false;
@@ -90,17 +90,19 @@ class _AnswerItemState extends State<AnswerItem> {
   //   await Provider.of<Answer>(context).getVotes(authToken);
   // }
 
-  // void _addNewReply(BuildContext context) {
+  // void _addNewReply(BuildContext context, answer) {
+  //   Navigator.of(context).pushNamed(
+  //     RepliesScreen.routeName,
+  //     arguments: answer.answerId,
+  //   );
+  //
   //   showModalBottomSheet(
   //     context: context,
-  //     builder: (_) => CreateReplyScreen(),
+  //     builder: (_) => RepliesScreen(),
   //     // isScrollControlled: true,
   //     isDismissible: true,
   //     enableDrag: true,
   //     backgroundColor: Colors.white,
-  //     // shape: RoundedRectangleBorder(
-  //     //   borderRadius: BorderRadius.circular(20.0),
-  //     // ),
   //   );
   // }
 
@@ -129,20 +131,6 @@ class _AnswerItemState extends State<AnswerItem> {
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    // Colors.pinkAccent,
-                    // Colors.amber,
-                    // Colors.blue,
-                    Color.fromRGBO(215, 17, 225, 1).withOpacity(0.6),
-                    Color.fromRGBO(255, 188, 17, 1).withOpacity(0.7),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [0, 1],
-                ),
-              ),
               width: double.infinity,
               // decoration: BoxDecoration(
               //   border: Border(
@@ -158,7 +146,7 @@ class _AnswerItemState extends State<AnswerItem> {
                   Row(
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.only(left: 5.0),
+                        margin: EdgeInsets.only(left: 5.0, top: 5.0),
                         width: 60.0,
                         height: 60.0,
                         alignment: Alignment.center,
@@ -240,34 +228,36 @@ class _AnswerItemState extends State<AnswerItem> {
                         margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
                         child: Container(
                           child: IconButton(
-                            onPressed: () async {
-                              setState(() {
-                                _isLiking = true;
-                              });
-                              _isLiked == false
-                                  ? await Provider.of<Answer>(context,
-                                          listen: false)
-                                      .upVote(authData.token, authData.userId)
-                                      .then((_) {
-                                      setState(() {
-                                        _isLiked = true;
-                                        _isLiking = false;
-                                      });
-                                    })
-                                  : await Provider.of<Answer>(context,
-                                          listen: false)
-                                      .downVote(authData.token, authData.userId)
-                                      .then((_) {
-                                      setState(() {
-                                        _isLiked = false;
-                                        _isLiking = false;
-                                      });
+                            onPressed: _isLiking
+                                ? null
+                                : () async {
+                                    setState(() {
+                                      _isLiking = true;
                                     });
-                              // answer.acceptAnswer();
-                              // answer.upVote();
-                            },
+                                    answer.isFav == false
+                                        ? await Provider.of<Answer>(context,
+                                                listen: false)
+                                            .upVote(
+                                                authData.token, authData.userId)
+                                            .then((_) {
+                                            setState(() {
+                                              _isLiking = false;
+                                            });
+                                          })
+                                        : await Provider.of<Answer>(context,
+                                                listen: false)
+                                            .downVote(
+                                                authData.token, authData.userId)
+                                            .then((_) {
+                                            setState(() {
+                                              _isLiking = false;
+                                            });
+                                          });
+                                    // answer.acceptAnswer();
+                                    // answer.upVote();
+                                  },
                             icon: Consumer<Answer>(
-                              builder: (ctx, answer, _) => _isLiked
+                              builder: (ctx, answer, _) => answer.isFav
                                   ? _isLiking
                                       ? Container(
                                           child: Center(
@@ -288,26 +278,11 @@ class _AnswerItemState extends State<AnswerItem> {
                                           size: 20.0,
                                           color: Colors.greenAccent,
                                         )
-                                  : _isLiking
-                                      ? Container(
-                                          child: Center(
-                                            heightFactor: 2.0,
-                                            widthFactor: 2,
-                                            child: Container(
-                                              width: 30.0,
-                                              child: LoadingIndicator(
-                                                indicatorType:
-                                                    Indicator.ballPulse,
-                                                color: Colors.amber,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      : Icon(
-                                          Icons.favorite_border,
-                                          size: 20.0,
-                                          color: Colors.greenAccent,
-                                        ),
+                                  : Icon(
+                                      Icons.favorite_border,
+                                      size: 20.0,
+                                      color: Colors.greenAccent,
+                                    ),
                             ),
                           ),
                         ),
@@ -331,33 +306,53 @@ class _AnswerItemState extends State<AnswerItem> {
                           ),
                         ),
                       ),
-                      Container(
-                        child: IconButton(
-                          onPressed: () {
-                            // setState(() {
-                            //   _showReplies = !_showReplies;
-                            // });
-                            Navigator.of(context).pushNamed(
-                              RepliesScreen.routeName,
-                              arguments: answer.answerId,
-                            );
-                          },
-                          icon: Icon(
-                            Icons.remove_red_eye,
+                      Card(
+                        elevation: 7.0,
+                        color: Colors.greenAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Container(
+                          child: IconButton(
+                            onPressed: () {
+                              // setState(() {
+                              //   _showReplies = !_showReplies;
+                              // });
+                              Navigator.of(context).pushNamed(
+                                RepliesScreen.routeName,
+                                arguments: answer.answerId,
+                              );
+                              // _addNewReply(context, answer);
+                            },
+                            icon: Icon(
+                              Icons.remove_red_eye,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(
-                              CreateReplyScreen.routeName,
-                              arguments: answer.answerId,
-                            );
-                            // _addNewReply(context);
-                          },
-                          icon: Icon(
-                            Icons.reply,
+                      Card(
+                        margin: EdgeInsets.only(bottom: 5.0),
+                        elevation: 10.0,
+                        color: Colors.amber,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(8.0),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                CreateReplyScreen.routeName,
+                                arguments: answer.answerId,
+                              );
+                              // _addNewReply(context);
+                            },
+                            icon: Icon(
+                              Icons.reply,
+                              size: 25,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
