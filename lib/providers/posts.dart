@@ -156,14 +156,17 @@ class Posts with ChangeNotifier {
   }
 
   Future<void> fetchPostsBasedOnFilters() async {
-    final urlI =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters/filterId/filters.json?auth=$authToken';
+    var url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters/filterId/filters/$userId.json?auth=$authToken';
 
-    final response = await http.get(urlI);
+    final response = await http.get(url);
     // List<Post> availablePosts = [];
 
     filters = json.decode(response.body) as Map<String, dynamic>;
-    final url =
+    if (filters == null) {
+      return;
+    }
+    url =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json?auth=$authToken';
 
     try {
@@ -781,7 +784,7 @@ class Posts with ChangeNotifier {
 
   Future<void> saveFilters(Map<String, bool> filterData) async {
     final url =
-        'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters/filterId/filters.json?auth=$authToken';
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters/filterId/filters/$userId.json?auth=$authToken';
 
     const urlForInterests =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/interests.json';

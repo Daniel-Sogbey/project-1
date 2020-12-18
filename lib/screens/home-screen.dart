@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       Future.delayed(Duration.zero).then((_) async {
         await Provider.of<Posts>(context, listen: false)
-            .fetchPosts()
+            .fetchPostsBasedOnFilters()
             .then((_) async {
           await Provider.of<Answers>(context, listen: false).fetchAnswers();
         });

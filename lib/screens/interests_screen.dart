@@ -37,6 +37,11 @@ class _InterestsScreenState extends State<InterestsScreen> {
   void didChangeDependencies() {
     if (_isInit) {
       final currentState = Provider.of<Posts>(context, listen: false).filters;
+
+      if (currentState == null) {
+        return;
+      }
+
       print('$currentState current State');
       _science = currentState['science'];
       _life = currentState['life'];
