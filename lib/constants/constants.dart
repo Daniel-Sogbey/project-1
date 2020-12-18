@@ -175,13 +175,13 @@ const kOnStartTextStyle = TextStyle(
 
 const kPickInterestTextStyle = TextStyle(
   fontFamily: 'Montserrat',
-  fontSize: 16.0,
+  fontSize: 20.0,
   fontWeight: FontWeight.w900,
 );
 
 const kPickInterestSubTextStyle = TextStyle(
   fontFamily: 'Montserrat',
-  fontSize: 14.0,
+  fontSize: 18.0,
   fontWeight: FontWeight.w900,
   color: Colors.black45,
 );
