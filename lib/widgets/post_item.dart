@@ -11,13 +11,14 @@ import '../widgets/countBadge.dart';
 
 class PostItem extends StatelessWidget {
   final Post posts;
+  final answersCount;
 
-  PostItem({this.posts});
+  PostItem({this.posts, this.answersCount});
   @override
   Widget build(BuildContext context) {
-    final answersCount = Provider.of<Answers>(context).answers.length;
-    // .findAnswersByQuestionId(posts.postId)
-    // .length;
+    final answersCount = Provider.of<Answers>(context)
+        .findAnswersByQuestionId(posts.postId)
+        .length;
 
     return Card(
       color: Colors.white,
