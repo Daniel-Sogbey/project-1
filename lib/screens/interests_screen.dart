@@ -113,45 +113,82 @@ class _InterestsScreenState extends State<InterestsScreen> {
               ],
             ),
             Divider(),
-            Column(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(left: 5.0),
-                  child: Text(
-                    'Pick your Interests',
-                    style: kPickInterestTextStyle,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                    left: 5.0,
-                    bottom: 15.0,
-                    top: 2.0,
-                  ),
-                  child: Text(
-                    'Don\'t forget to save your interests',
-                    style: kPickInterestSubTextStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-            Consumer<Auth>(
-              builder: (ctx, auth, _) => InkWell(
-                child: IconButton(
-                  onPressed: () {
-                    posts.saveFilters(_filters);
-                    Navigator.of(context).pushNamed(TabsScreen.routeName);
-                  },
-                  icon: Icon(
-                    Icons.save_alt,
-                    color: Colors.pinkAccent,
-                    size: 30.0,
+            Container(
+              width: double.infinity,
+              child: Card(
+                elevation: 10.0,
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: 5.0),
+                        child: Text(
+                          'Pick your Interests',
+                          style: kPickInterestTextStyle,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          left: 5.0,
+                          bottom: 15.0,
+                          top: 2.0,
+                        ),
+                        child: Text(
+                          'Don\'t forget to save your interests',
+                          style: kPickInterestSubTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-            Divider(),
+            Consumer<Auth>(
+              builder: (ctx, auth, _) => InkWell(
+                child: InkWell(
+                  onTap: () {
+                    posts.saveFilters(_filters);
+                    Navigator.of(context).pushNamed(TabsScreen.routeName);
+                  },
+                  child: Card(
+                    elevation: 10.0,
+                    color: Colors.greenAccent,
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(6.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.save_alt,
+                              color: Colors.white,
+                              size: 30.0,
+                            ),
+                          ),
+                          Text(
+                            'Save',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w900,
+                              fontSize: 25.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // icon: Icon(
+                  //   Icons.save_alt,
+                  //   color: Colors.pinkAccent,
+                  //   size: 30.0,
+                  // ),
+                ),
+              ),
+            ),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -329,7 +366,7 @@ Widget _buildSwitchListTile(
   return Card(
     elevation: 6.0,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(15.0),
+      borderRadius: BorderRadius.circular(8.0),
     ),
     child: Container(
       padding: EdgeInsets.all(8.0),

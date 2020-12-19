@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -74,6 +75,7 @@ class _CreateReplyScreenState extends State<CreateReplyScreen> {
                   child: Text(
                     'Waiting for your incredible reply',
                     style: kWaitingForAnswerTextStyle,
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 _isLoading

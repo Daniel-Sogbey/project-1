@@ -136,8 +136,9 @@ class Auth with ChangeNotifier {
 
     print('$expiryDate null auth');
 
-    notifyListeners();
     _autoLogout();
+
+    notifyListeners();
 
     return true;
   }
@@ -146,6 +147,7 @@ class Auth with ChangeNotifier {
     _token = null;
     _userId = null;
     _expiryDate = null;
+
     if (_authTimer != null) {
       _authTimer.cancel();
       _authTimer = null;
@@ -159,11 +161,12 @@ class Auth with ChangeNotifier {
   void _autoLogout() {
     if (_authTimer != null) {
       _authTimer.cancel();
+      _authTimer = null;
     }
 
-    final _timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
-    _authTimer = Timer(Duration(seconds: _timeToExpiry), logout);
-    print('$_timeToExpiry tttt');
+    final timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
+    _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
+
     notifyListeners();
   }
 }

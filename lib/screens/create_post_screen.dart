@@ -203,19 +203,20 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                         children: [
                                           DropdownButtonFormField(
                                             value: category,
-                                            onSaved: (selectedCategory) {
-                                              _editedPost = Post(
-                                                category: selectedCategory,
-                                                postText: _editedPost.postText,
-                                                postId: _editedPost.postId,
-                                              );
-                                            },
                                             onChanged: (selectedCategory) {
                                               setState(() {
                                                 category = selectedCategory;
                                                 print(category);
                                               });
                                             },
+                                            onSaved: (selectedCategory) {
+                                              _editedPost = Post(
+                                                category: category,
+                                                postText: _editedPost.postText,
+                                                postId: _editedPost.postId,
+                                              );
+                                            },
+
                                             icon: Icon(
                                               Icons.arrow_downward,
                                               color: Colors.black54,

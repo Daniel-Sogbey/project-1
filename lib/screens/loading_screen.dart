@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:loading_indicator/loading_indicator.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../constants/constants.dart';
@@ -99,10 +99,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 ),
               ),
               Container(
-                width: 30,
-                child: LoadingIndicator(
-                  indicatorType: Indicator.ballPulse,
+                child: JumpingDotsProgressIndicator(
+                  color: Colors.white,
+                  fontSize: 45,
                 ),
+                // LoadingIndicator(
+                //   indicatorType: Indicator.ballPulse,
+                // ),
               ),
             ],
           )

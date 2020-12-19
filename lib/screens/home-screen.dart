@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
@@ -106,6 +107,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    final fbm = FirebaseMessaging();
+
+    fbm.configure(onMessage: (msg) {
+      print(msg);
+      return;
+    }, onLaunch: (msg) {
+      print(msg);
+      return;
+    }, onResume: (msg) {
+      print(msg);
+      return;
+    });
+
     setState(() {
       _isLoading = true;
     });

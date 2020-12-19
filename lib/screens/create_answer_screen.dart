@@ -120,6 +120,7 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
                   child: Text(
                     'Waiting for your incredible comment',
                     style: kWaitingForAnswerTextStyle,
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 _isLoading

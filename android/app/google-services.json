@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "613449259369",
+    "firebase_url": "https://solveshare-7acaf-default-rtdb.firebaseio.com",
+    "project_id": "solveshare-7acaf",
+    "storage_bucket": "solveshare-7acaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613449259369:android:66ff0a1070f65d45adc5f8",
+        "android_client_info": {
+          "package_name": "com.example.SolveShare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613449259369-5jkg6p8v5i90ro2ce5abdfs7k6josrd3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvlserHs01u7hV59F3bC634wuwIFdTt3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613449259369-5jkg6p8v5i90ro2ce5abdfs7k6josrd3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

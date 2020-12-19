@@ -205,7 +205,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       )
                     : Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 20.0),
+                        margin: EdgeInsets.only(top: 10.0),
                         child: Text(
                           'Create An Account Now',
                           style: TextStyle(
@@ -217,106 +217,71 @@ class _AuthScreenState extends State<AuthScreen> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                Container(
-                  margin: EdgeInsets.only(top: 50),
-                  child: Form(
-                    key: _form,
-                    child: Container(
-                      padding: EdgeInsets.only(
-                        left: 20.0,
-                        right: 20.0,
-                        bottom: 5.0,
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.only(
-                              left: 20.0,
-                              right: 20.0,
-                              bottom: 15.0,
-                              top: 10.0,
-                            ),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  // Icons.email,
-                                  FontAwesomeIcons.envelope,
-                                ),
-                                labelText: 'Enter your email',
-                                labelStyle: TextStyle(
-                                  color: FocusNode().hasFocus
-                                      ? Colors.black26
-                                      : Colors.black26,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.black26,
-                                    width: 1.5,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
+                Card(
+                  elevation: 20.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0)),
+                  margin: EdgeInsets.only(
+                    top: 30,
+                    left: 5.0,
+                    right: 5.0,
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Form(
+                      key: _form,
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          left: 20.0,
+                          right: 20.0,
+                          bottom: 5.0,
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.only(
+                                left: 20.0,
+                                right: 20.0,
+                                bottom: 15.0,
+                                top: 10.0,
                               ),
-                              style: kPostTextFieldStyle,
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Please enter an email';
-                                }
-                                if (!value.contains('@')) {
-                                  return 'Enter a valid email';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _authData['email'] = value;
-                              },
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(
-                              left: 20.0,
-                              right: 20.0,
-                              bottom: 20.0,
-                              top: 15.0,
-                            ),
-                            child: TextFormField(
-                              obscureText: true,
-                              controller: _passwordController,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.lock_outline,
-                                ),
-                                labelText: 'Enter your password',
-                                labelStyle: TextStyle(
-                                  color: FocusNode().hasFocus
-                                      ? Colors.black26
-                                      : Colors.black26,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.black26,
-                                    width: 1.5,
+                              margin: EdgeInsets.only(top: 10.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    // Icons.email,
+                                    FontAwesomeIcons.envelope,
                                   ),
-                                  borderRadius: BorderRadius.circular(15.0),
+                                  labelText: 'Enter your email',
+                                  labelStyle: TextStyle(
+                                    color: FocusNode().hasFocus
+                                        ? Colors.black26
+                                        : Colors.black26,
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.black26,
+                                      width: 1.5,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
                                 ),
+                                style: kPostTextFieldStyle,
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter an email';
+                                  }
+                                  if (!value.contains('@')) {
+                                    return 'Enter a valid email';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _authData['email'] = value;
+                                },
                               ),
-                              style: kPostTextFieldStyle,
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Please enter a password';
-                                }
-                                if (value.length < 5) {
-                                  return 'Password must include more than 5 characters';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _authData['password'] =
-                                    _passwordController.text;
-                              },
                             ),
-                          ),
-                          if (_authMode == AuthMode.Signup)
                             Container(
                               padding: EdgeInsets.only(
                                 left: 20.0,
@@ -326,12 +291,12 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                               child: TextFormField(
                                 obscureText: true,
+                                controller: _passwordController,
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(
-                                    // Icons.confirmation_number,
-                                    FontAwesomeIcons.lock,
+                                    Icons.lock_outline,
                                   ),
-                                  labelText: 'Confirm your password',
+                                  labelText: 'Enter your password',
                                   labelStyle: TextStyle(
                                     color: FocusNode().hasFocus
                                         ? Colors.black26
@@ -348,43 +313,97 @@ class _AuthScreenState extends State<AuthScreen> {
                                 style: kPostTextFieldStyle,
                                 validator: (value) {
                                   if (value.isEmpty) {
-                                    return 'Please enter a password to confirm';
+                                    return 'Please enter a password';
                                   }
-                                  if (value != _passwordController.text) {
-                                    return 'Passwords do not much';
+                                  if (value.length < 5) {
+                                    return 'Password must include more than 5 characters';
                                   }
                                   return null;
                                 },
+                                onSaved: (value) {
+                                  _authData['password'] =
+                                      _passwordController.text;
+                                },
+                                // onEditingComplete: () {
+                                //   _submit();
+                                // },
                               ),
                             ),
-                        ],
+                            if (_authMode == AuthMode.Signup)
+                              Container(
+                                padding: EdgeInsets.only(
+                                  left: 20.0,
+                                  right: 20.0,
+                                  bottom: 20.0,
+                                  top: 15.0,
+                                ),
+                                child: TextFormField(
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(
+                                      // Icons.confirmation_number,
+                                      FontAwesomeIcons.lock,
+                                    ),
+                                    labelText: 'Confirm your password',
+                                    labelStyle: TextStyle(
+                                      color: FocusNode().hasFocus
+                                          ? Colors.black26
+                                          : Colors.black26,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.black26,
+                                        width: 1.5,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                  ),
+                                  style: kPostTextFieldStyle,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please enter a password to confirm';
+                                    }
+                                    if (value != _passwordController.text) {
+                                      return 'Passwords do not much';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
                 _isLoading
-                    ? CircularProgressIndicator()
-                    : InkWell(
-                        onTap: _submit,
-                        splashColor: Colors.pink,
-                        borderRadius: BorderRadius.circular(15.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15.0),
-                            color: Colors.blue,
-                          ),
-                          alignment: Alignment.center,
-                          height: 40,
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          child: Text(
-                            _authMode == AuthMode.Login ? 'LOGIN' : 'SIGNUP',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w900,
-                              fontFamily: 'Montserrat',
-                              color: Colors.white,
+                    ? Container(
+                        margin: EdgeInsets.all(20),
+                        child: CircularProgressIndicator(),
+                      )
+                    : Card(
+                        elevation: 10,
+                        color: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        margin: EdgeInsets.only(top: 20),
+                        child: InkWell(
+                          onTap: _submit,
+                          splashColor: Colors.pink,
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 40,
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Text(
+                              _authMode == AuthMode.Login ? 'LOGIN' : 'SIGNUP',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w900,
+                                fontFamily: 'Montserrat',
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),

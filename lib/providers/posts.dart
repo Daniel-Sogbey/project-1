@@ -94,13 +94,13 @@ class Posts with ChangeNotifier {
                 .contains(searchTerm.toLowerCase()) ||
             (searchedPost['postText'] as String)
                 .toLowerCase()
-                .contains(searchTerm)) {
+                .contains(searchTerm.toLowerCase())) {
           searchedPosts.insert(
             0,
             Post(
               postId: postId,
               category: searchedPost['category'],
-              postText: searchedPost['postText'],
+              postText: searchedPost['postText'] as String,
               creator: searchedPost['creator'],
             ),
           );

@@ -190,7 +190,8 @@ const kSwitchSubtitleTextStyle = TextStyle(
   fontSize: 13.0,
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w900,
-  color: Colors.black45,
+  // color: Colors.black45,
+  color: Colors.greenAccent,
 );
 const kSwitchTitleTextStyle = TextStyle(
   fontSize: 16.0,

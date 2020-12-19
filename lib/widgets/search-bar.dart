@@ -32,7 +32,7 @@ class _SearchBarState extends State<SearchBar> {
       });
     });
     FocusScope.of(context).requestFocus(FocusNode());
-    _searchTerm.text = '';
+    // _searchTerm.text = '';
     print(_searchTerm.text);
   }
 
