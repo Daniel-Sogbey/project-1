@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 const kTitleStyle = TextStyle(
   fontSize: 35.0,
-  letterSpacing: 4.0,
-  fontWeight: FontWeight.w400,
+  letterSpacing: 1.0,
+  fontWeight: FontWeight.w900,
   fontFamily: 'Sacramento',
 );
 
@@ -222,7 +222,7 @@ const kErrorOccurredContentTextStyle = TextStyle(
 const kLoadingText = TextStyle(
   fontWeight: FontWeight.w900,
   fontSize: 40.0,
-  fontFamily: 'Sacramento',
+  fontFamily: 'Montserrat',
   height: 2.0,
   letterSpacing: 5.0,
 );

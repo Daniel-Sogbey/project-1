@@ -5,20 +5,21 @@ import '../constants/constants.dart';
 import '../models/post.dart';
 import '../providers/answers.dart';
 import '../providers/auth.dart';
+import '../providers/posts.dart';
 import '../screens/answers_screen.dart';
 import '../screens/create_answer_screen.dart';
 import '../widgets/countBadge.dart';
 
 class PostItem extends StatelessWidget {
-  final Post posts;
-  final answersCount;
-
-  PostItem({this.posts, this.answersCount});
   @override
   Widget build(BuildContext context) {
+    final post = Provider.of<Post>(context, listen: false);
     final answersCount = Provider.of<Answers>(context)
-        .findAnswersByQuestionId(posts.postId)
+        .findAnswersByQuestionId(post.postId)
         .length;
+
+    final auth = Provider.of<Auth>(context);
+    final posts = Provider.of<Posts>(context);
 
     return Card(
       color: Colors.white,
@@ -69,7 +70,15 @@ class PostItem extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: Text(
-                    'DS',
+                    post.creator == null
+                        ? 'DS'
+                        : post.creator
+                            .replaceRange(2, post.creator.length, '...'),
+                    // 'DS',
+                    // auth.token.replaceRange(3, auth.token.length, 'fs'),
+                    // posts.creatorId
+                    //     .replaceRange(5, posts.creatorId.length, 'fs'),
+                    // auth.userId.replaceRange(7, auth.userId.length, 'fs'),
                     style: kNameTextStyle,
                   ),
                 ),
@@ -83,7 +92,12 @@ class PostItem extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      'Uni. of Cape Coast',
+                      post.creator == null
+                          ? 'Uni. of Cape Coast'
+                          : post.creator
+                              .replaceRange(10, post.creator.length, '...'),
+                      // auth.email.replaceRange(6, auth.email.length, 'fs'),
+                      // 'Uni. of Cape Coast',
                       style: kInfoStyle,
                     ),
                   ),
@@ -107,7 +121,7 @@ class PostItem extends StatelessWidget {
                     //   ),
                     // ),
                     child: Text(
-                      posts.category.toUpperCase(),
+                      post.category.toUpperCase(),
                       style: kCategoryInfoStyle,
                       softWrap: true,
                     ),
@@ -118,7 +132,7 @@ class PostItem extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 8.0, left: 60.0, right: 60.0),
               child: Text(
-                posts.postText,
+                post.postText,
                 style: kPostTextStyle,
               ),
             ),
@@ -130,24 +144,54 @@ class PostItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    color: Colors.amber,
-                    child: Container(
-                      padding: EdgeInsets.all(8.0),
-                      child: IconButton(
-                        splashColor: Colors.lightBlue,
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.favorite_border,
-                          color: Colors.white,
-                          size: 20.0,
+                  Row(
+                    children: [
+                      Consumer<Post>(
+                        builder: (ctx, post, _) => Container(
+                          padding: EdgeInsets.all(5.0),
+                          child: Text(
+                            post.likes == 1
+                                ? '${post.likes.toString()} like'
+                                : '${post.likes.toString()} likes',
+                            style: TextStyle(
+                              color: Colors.black38,
+                              fontSize: 13,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      Card(
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        color: Colors.amber,
+                        child: Container(
+                          padding: EdgeInsets.all(8.0),
+                          child: Consumer<Post>(
+                            builder: (ctx, post, _) => IconButton(
+                              splashColor: Colors.greenAccent,
+                              onPressed: () {
+                                post.isFav
+                                    ? post.unlike(auth.userId, auth.token)
+                                    : post.like(auth.userId, auth.token);
+                              },
+                              icon: post.isFav
+                                  ? Icon(
+                                      Icons.favorite,
+                                      color: Colors.white,
+                                      size: 20.0,
+                                    )
+                                  : Icon(
+                                      Icons.favorite_border,
+                                      color: Colors.white,
+                                      size: 20.0,
+                                    ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Row(
                     children: <Widget>[
@@ -172,7 +216,7 @@ class PostItem extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).pushNamed(
                             AnswersScreen.routeName,
-                            arguments: posts.postId,
+                            arguments: post.postId,
                           );
                         },
                         child: Container(
@@ -192,7 +236,7 @@ class PostItem extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).pushNamed(
                           CreateAnswerScreen.routeName,
-                          arguments: posts.postId,
+                          arguments: post.postId,
                         );
                       },
                       child: Card(

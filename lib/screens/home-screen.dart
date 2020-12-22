@@ -134,7 +134,6 @@ class _HomeScreenState extends State<HomeScreen> {
           _isLoading = false;
         });
       });
-      Future.delayed(Duration(seconds: 10), () {});
     } catch (error) {
       _showErrorDialog('No Internet Connection');
     }

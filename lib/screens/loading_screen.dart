@@ -80,7 +80,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   horizontal: 30.0,
                 ),
                 child: Text(
-                  'SolveShare',
+                  'ShareSpace',
                   style: kLoadingText,
                   textAlign: TextAlign.center,
                 ),

@@ -119,25 +119,15 @@ class _AnswersScreenState extends State<AnswersScreen> {
                               .map(
                                 (answer) => ChangeNotifierProvider.value(
                                   value: answer,
-                                  child: Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          // Colors.pinkAccent,
-                                          // Colors.amber,
-                                          // Colors.blue,
-                                          Color.fromRGBO(215, 17, 225, 1)
-                                              .withOpacity(0.6),
-                                          Color.fromRGBO(255, 188, 17, 1)
-                                              .withOpacity(0.7),
-                                        ],
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        stops: [0, 1],
+                                  child: Column(
+                                    children: [
+                                      Divider(),
+                                      AnswerItem(),
+                                      Divider(),
+                                      SizedBox(
+                                        height: 8.0,
                                       ),
-                                    ),
-                                    child: AnswerItem(),
+                                    ],
                                   ),
                                 ),
                               )

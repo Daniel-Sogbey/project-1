@@ -51,7 +51,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => Replies(),
-        )
+        ),
+        // ChangeNotifierProvider(
+        //   create: (context) => Post(),
+        // )
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
@@ -66,7 +69,7 @@ class MyApp extends StatelessWidget {
               // auth.tryAutoLogin() != null ? LoadingScreen() : AuthScreen(),
               FutureBuilder(
                   future:
-                      Future.delayed(Duration(seconds: 10), auth.tryAutoLogin),
+                      Future.delayed(Duration(seconds: 0), auth.tryAutoLogin),
                   builder: (ctx, snapshot) =>
                       snapshot.connectionState == ConnectionState.waiting
                           ? LoadingScreen()

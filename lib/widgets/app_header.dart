@@ -10,7 +10,7 @@ class AppHeader extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(top: 3.0, left: 5.0),
           child: Text(
-            'SolveShare',
+            'ShareSpace',
             style: kTitleStyle,
           ),
         ),

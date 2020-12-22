@@ -366,7 +366,7 @@ Widget _buildSwitchListTile(
   return Card(
     elevation: 6.0,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(0.0),
     ),
     child: Container(
       padding: EdgeInsets.all(8.0),

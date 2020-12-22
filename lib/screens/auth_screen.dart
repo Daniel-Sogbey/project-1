@@ -152,7 +152,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -194,7 +193,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ? Container(
                         margin: EdgeInsets.only(top: 20.0),
                         child: Text(
-                          'WELCOME BACK',
+                          'Login',
                           style: TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 30.0,
@@ -218,9 +217,10 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       ),
                 Card(
-                  elevation: 20.0,
+                  elevation: 100.0,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
+                      borderRadius: BorderRadius.circular(8.0)),
+                  shadowColor: Colors.pink[400],
                   margin: EdgeInsets.only(
                     top: 30,
                     left: 5.0,

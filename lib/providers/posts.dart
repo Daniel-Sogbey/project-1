@@ -42,6 +42,7 @@ class Posts with ChangeNotifier {
   String authToken;
   String userId;
   String email;
+  String creatorId;
 
   Posts(this.authToken, this.userId, this._posts, this.email);
 
@@ -72,7 +73,7 @@ class Posts with ChangeNotifier {
   };
 
   Future<void> getSearchForPosts(String searchTerm) async {
-    final url =
+    var url =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json?auth=$authToken';
 
     if (searchTerm == '' || searchTerm == null) {
@@ -86,6 +87,24 @@ class Posts with ChangeNotifier {
       final response = await http.get(url);
 
       final data = json.decode(response.body) as Map<String, dynamic>;
+
+      if (data == null) {
+        return;
+      }
+
+      url =
+          'https://solveshare-7acaf-default-rtdb.firebaseio.com/userFavoritesPosts/$userId.json?auth=$authToken';
+
+      final favoriteResponse = await http.get(url);
+
+      final favoriteResponseData = json.decode(favoriteResponse.body);
+
+      url =
+          'https://solveshare-7acaf-default-rtdb.firebaseio.com/usersLikesForPost.json?auth=$authToken';
+
+      final likeResponse = await http.get(url);
+
+      final likeResponseData = json.decode(likeResponse.body);
       List<Post> searchedPosts = [];
 
       data.forEach((postId, searchedPost) {
@@ -101,7 +120,12 @@ class Posts with ChangeNotifier {
               postId: postId,
               category: searchedPost['category'],
               postText: searchedPost['postText'] as String,
-              creator: searchedPost['creator'],
+              creator: searchedPost['creatorId'],
+              isFav: favoriteResponseData == null
+                  ? false
+                  : favoriteResponseData[postId] ?? false,
+              likes:
+                  likeResponseData == null ? 0 : likeResponseData[postId] ?? 0,
             ),
           );
         }
@@ -124,17 +148,32 @@ class Posts with ChangeNotifier {
     final appendedString =
         userPosts ? 'orderBy="creatorId"&equalTo="$userId"' : '';
 
-    final url =
+    var url =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json?auth=$authToken&$appendedString';
 
+    final response = await http.get(url);
+    // print('${json.decode(response.body)} auuutththt  1');
+    final postsData = json.decode(response.body) as Map<String, dynamic>;
+    // print('$postsData auutttttttttttthhhhhhhhh 2');
+    if (postsData == null) {
+      return;
+    }
+
+    url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/userFavoritesPosts/$userId.json?auth=$authToken';
+
+    final favoriteResponse = await http.get(url);
+
+    final favoriteResponseData = json.decode(favoriteResponse.body);
+
+    url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/usersLikesForPost.json?auth=$authToken';
+
+    final likeResponse = await http.get(url);
+
+    final likeResponseData = json.decode(likeResponse.body);
+
     try {
-      final response = await http.get(url);
-      // print('${json.decode(response.body)} auuutththt  1');
-      final postsData = json.decode(response.body) as Map<String, dynamic>;
-      // print('$postsData auutttttttttttthhhhhhhhh 2');
-      if (postsData == null) {
-        return;
-      }
       final List<Post> loadedPosts = [];
       postsData.forEach((postId, singlePostData) {
         loadedPosts.insert(
@@ -144,6 +183,10 @@ class Posts with ChangeNotifier {
             postText: singlePostData['postText'],
             category: singlePostData['category'],
             creator: singlePostData['creatorId'],
+            isFav: favoriteResponseData == null
+                ? false
+                : favoriteResponseData[postId] ?? false,
+            likes: likeResponseData == null ? 0 : likeResponseData[postId] ?? 0,
           ),
         );
       });
@@ -159,23 +202,46 @@ class Posts with ChangeNotifier {
     var url =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/filters/filterId/filters/$userId.json?auth=$authToken';
 
-    final response = await http.get(url);
+    var response = await http.get(url);
     // List<Post> availablePosts = [];
 
     filters = json.decode(response.body) as Map<String, dynamic>;
+    print(filters);
+
     if (filters == null) {
       return;
     }
+
+    print('filter fetching worked');
     url =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts.json?auth=$authToken';
 
-    try {
-      final response = await http.get(url);
-      final postsData = json.decode(response.body) as Map<String, dynamic>;
+    response = await http.get(url);
+    final postsData = json.decode(response.body) as Map<String, dynamic>;
 
-      if (postsData == null) {
-        return;
-      }
+    if (postsData == null) {
+      return;
+    }
+
+    url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/userFavoritesPosts/$userId.json?auth=$authToken';
+
+    final favoriteResponse = await http.get(url);
+
+    final favoriteResponseData = json.decode(favoriteResponse.body);
+
+    url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/usersLikesForPost.json?auth=$authToken';
+
+    final likeResponse = await http.get(url);
+
+    final likeResponseData = json.decode(likeResponse.body);
+
+    if (likeResponseData == null) {
+      return 0;
+    }
+
+    try {
       final List<Post> loadedPosts = [];
       postsData.forEach(
         (postId, singlePostData) {
@@ -186,6 +252,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -208,6 +281,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -229,6 +309,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -250,6 +337,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -271,6 +365,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -292,6 +393,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -313,6 +421,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -335,6 +450,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -356,6 +478,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -377,6 +506,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -398,6 +534,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -420,6 +563,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -442,6 +592,13 @@ class Posts with ChangeNotifier {
                 postId: postId,
                 postText: singlePostData['postText'],
                 category: singlePostData['category'],
+                creator: singlePostData['creatorId'],
+                isFav: favoriteResponseData == null
+                    ? false
+                    : favoriteResponseData[postId] ?? false,
+                likes: likeResponseData == null
+                    ? 0
+                    : likeResponseData[postId] ?? 0,
               ),
             );
             // http.post(
@@ -495,7 +652,6 @@ class Posts with ChangeNotifier {
         postId: json.decode(response.body)['name'],
         category: post.category,
         postText: post.postText,
-        creator: email,
       );
       _posts.insert(0, newPost);
       print(newPost.postId);
