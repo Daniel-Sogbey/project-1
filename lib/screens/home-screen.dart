@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/constants.dart';
 import '../providers/auth.dart';
 import '../screens/create_post_screen.dart';
 import '../widgets/app_header.dart';
@@ -141,8 +142,53 @@ Widget _buildMenuBar() {
                 height: 150,
                 color: Colors.white,
                 width: double.infinity,
-                child: Column(
-                  children: <Widget>[],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.all(20.0),
+                        decoration: BoxDecoration(
+                          color: Colors.pinkAccent,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Text(
+                          'Rate Us',
+                          style: kRateUsTextStyle,
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.all(20.0),
+                        decoration: BoxDecoration(
+                          color: Colors.pinkAccent,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Text(
+                          'Share App',
+                          style: kRateUsTextStyle,
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      splashColor: Colors.amber,
+                      child: Container(
+                        padding: EdgeInsets.all(20.0),
+                        decoration: BoxDecoration(
+                          color: Colors.pinkAccent,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Text(
+                          'Report An Issue',
+                          style: kRateUsTextStyle,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             );

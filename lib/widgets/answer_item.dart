@@ -162,7 +162,7 @@ class _AnswerItemState extends State<AnswerItem> {
                       padding: EdgeInsets.only(left: 5.0, top: 5.0, right: 5.0),
                       child: Text(
                         answer.creator == null
-                            ? 'DS'
+                            ? 'A'
                             : answer.creator
                                 .replaceRange(10, answer.creator.length, '...'),
                         style: kNameTextStyle,
@@ -172,7 +172,7 @@ class _AnswerItemState extends State<AnswerItem> {
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
                         answer.creator == null
-                            ? 'Uni. of cape coast'
+                            ? 'Anonymous'
                             : answer.creator
                                 .replaceRange(10, answer.creator.length, '...'),
                         style: TextStyle(

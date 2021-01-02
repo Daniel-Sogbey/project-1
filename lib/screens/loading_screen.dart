@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:provider/provider.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -98,10 +99,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
               child: SafeArea(
                 child: Center(
                     child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Center(
                       heightFactor: 2.0,
-                      child: slider,
+                      child: Container(
+                        width: 90,
+                        child: LoadingIndicator(
+                          indicatorType: Indicator.lineScalePulseOutRapid,
+                        ),
+                      ),
                     ),
                     Container(
                       width: double.infinity,
@@ -110,7 +117,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                         horizontal: 30.0,
                       ),
                       child: Text(
-                        'ShareSpace',
+                        'Share Anonymously',
                         style: kLoadingText,
                         textAlign: TextAlign.center,
                       ),
@@ -123,7 +130,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                         horizontal: 30.0,
                       ),
                       child: Text(
-                        'A SolveShare Production @2020',
+                        'A SolveShare Production @2021',
                         style: kCiteTextStyle,
                         textAlign: TextAlign.center,
                       ),

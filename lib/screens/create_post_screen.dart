@@ -91,7 +91,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       });
     } else {
       try {
-        await Provider.of<Posts>(context, listen: false).addPost(_editedPost);
+        await Provider.of<Posts>(context, listen: false)
+            .addPost(_editedPost);
       } catch (error) {
         await showDialog(
           context: context,

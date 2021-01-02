@@ -65,6 +65,7 @@ class Answers with ChangeNotifier {
 
       final List<Answer> loadedAnswers = [];
       answersData.forEach((answerId, singleAnswerData) {
+        print('${singleAnswerData['creatorId']}  CI');
         loadedAnswers.insert(
           0,
           Answer(
@@ -103,6 +104,7 @@ class Answers with ChangeNotifier {
           },
         ),
       );
+      print('$userId userId');
       final newAnswer = Answer(
         answerId: json.decode(response.body)['name'],
         questionAnswerId: answer.questionAnswerId,

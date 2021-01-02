@@ -71,7 +71,7 @@ class PostItem extends StatelessWidget {
                   ),
                   child: Text(
                     post.creator == null
-                        ? 'DS'
+                        ? 'A'
                         : post.creator
                             .replaceRange(2, post.creator.length, '...'),
                     // 'DS',
@@ -93,7 +93,7 @@ class PostItem extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       post.creator == null
-                          ? 'Uni. of Cape Coast'
+                          ? 'Anonymous'
                           : post.creator
                               .replaceRange(10, post.creator.length, '...'),
                       style: kInfoStyle,

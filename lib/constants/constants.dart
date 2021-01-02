@@ -221,9 +221,9 @@ const kErrorOccurredContentTextStyle = TextStyle(
 
 const kLoadingText = TextStyle(
   fontWeight: FontWeight.w900,
-  fontSize: 20.0,
+  fontSize: 25.0,
   fontFamily: 'Montserrat',
-  height: 2.0,
+  height: 3.0,
   letterSpacing: 5.0,
 );
 
@@ -234,4 +234,9 @@ const kCiteTextStyle = TextStyle(
   color: Colors.black26,
   height: 2.0,
   letterSpacing: 2.0,
+);
+
+const kRateUsTextStyle = TextStyle(
+  fontSize: 16.0,
+  color: Colors.white,
 );
