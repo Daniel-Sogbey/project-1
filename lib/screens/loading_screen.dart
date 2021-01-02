@@ -85,6 +85,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           ? Container(
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
+                // color: Colors.white,
                 gradient: LinearGradient(
                   colors: [
                     Color.fromRGBO(215, 17, 225, 1).withOpacity(0.7),
@@ -112,13 +113,21 @@ class _LoadingScreenState extends State<LoadingScreen> {
                     Container(
                       width: double.infinity,
                       padding: EdgeInsets.symmetric(
-                        vertical: 5.0,
                         horizontal: 30.0,
                       ),
-                      child: Text(
-                        'Share Anonymously',
-                        style: kLoadingText,
-                        textAlign: TextAlign.center,
+                      child: Column(
+                        children: [
+                          Text(
+                            'Solve And Share',
+                            style: kLoadingText,
+                            textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            'Anonymously',
+                            style: kLoadingText,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
                     Container(

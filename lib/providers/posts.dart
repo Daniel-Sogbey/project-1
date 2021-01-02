@@ -43,6 +43,7 @@ class Posts with ChangeNotifier {
   String userId;
   String email;
   String creatorId;
+  DateTime timeStamp = DateTime.now();
 
   Posts(this.authToken, this.userId, this._posts, this.email);
 
@@ -176,6 +177,7 @@ class Posts with ChangeNotifier {
     try {
       final List<Post> loadedPosts = [];
       postsData.forEach((postId, singlePostData) {
+        print('${singlePostData['timeStamp']} TimeStamp');
         loadedPosts.insert(
           0,
           Post(
@@ -187,6 +189,7 @@ class Posts with ChangeNotifier {
                 ? false
                 : favoriteResponseData[postId] ?? false,
             likes: likeResponseData == null ? 0 : likeResponseData[postId] ?? 0,
+            timeStamp: singlePostData['timeStamp'],
           ),
         );
       });
@@ -645,6 +648,7 @@ class Posts with ChangeNotifier {
             'category': post.category,
             'postText': post.postText,
             'creatorId': userId,
+            'timeStamp': timeStamp,
           },
         ),
       );

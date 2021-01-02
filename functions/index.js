@@ -15,21 +15,8 @@ exports.makeUppercase = functions.database.ref('/posts/{pushId}/postText')
       // Grab the current value of what was written to the Realtime Database.
       const original = snapshot.val();
       console.log(original);
-      console.log('Uppercasing', context.params.pushId, original);
-      const uppercase = original.toUpperCase();
-      // You must return a Promise when performing asynchronous tasks inside a Functions such as
-      // writing to the Firebase Realtime Database.
-      // Setting an "uppercase" sibling in the Realtime Database returns a Promise.
- if (context.authType === 'ADMIN') {
-         return admin.messaging().sendToTopic('posts', {notification:
+      console.log('Uppercasing', context.params.pushId, postText);
+       return admin.messaging().sendToTopic('posts', {notification:
              {title: 'Hello SolveSharer, have an opinion on this post?', body:original
             }});
-      } else if (context.authType === 'USER') {
-        return console.log(snap.val(), 'written by', context.auth.uid);
-      }
-
-
-
-
-      return snapshot.ref.parent.child('uppercase').set(uppercase);
     });

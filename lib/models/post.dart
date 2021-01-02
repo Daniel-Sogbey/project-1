@@ -13,6 +13,7 @@ class Post with ChangeNotifier {
   final String creator;
   bool isFav;
   int likes;
+  DateTime timeStamp;
 
   Post({
     this.postId,
@@ -21,6 +22,7 @@ class Post with ChangeNotifier {
     this.creator,
     this.isFav = false,
     this.likes = 0,
+    this.timeStamp,
   });
 
   Future<void> like(String userId, String authToken) async {

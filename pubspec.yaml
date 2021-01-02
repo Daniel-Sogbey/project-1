@@ -38,6 +38,7 @@ dependencies:
   progress_indicators: ^0.1.5
   firebase_messaging: ^7.0.3
   share: ^0.6.5+4
+  timeago: 2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -76,9 +77,9 @@ flutter:
        fonts:
          - asset: fonts/Sacramento-Regular.ttf
   #         style: italic
-     - family: JosefinSlab
+     - family: Pacifico
        fonts:
-         - asset: fonts/JosefinSlab-VariableFont_wght.ttf
+         - asset: fonts/Pacifico-Regular.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
            weight: 700
      - family: Montserrat
@@ -86,6 +87,8 @@ flutter:
          - asset: fonts/Montserrat-Light.ttf
            # - asset: fonts/TrajanPro_Bold.ttf
            weight: 700
-  #
+     - family: Staatliches
+       fonts:
+          - asset: fonts/Staatliches-Regular.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

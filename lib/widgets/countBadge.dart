@@ -13,16 +13,6 @@ class CountBadge extends StatelessWidget {
       margin: EdgeInsets.all(2.0),
       padding: EdgeInsets.all(5.0),
       child: Container(
-        padding: EdgeInsets.all(6.0),
-        decoration: BoxDecoration(
-          color: Colors.greenAccent,
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: Colors.greenAccent,
-            width: 1.0,
-            style: BorderStyle.solid,
-          ),
-        ),
         child: Text(
           number.toString(),
           style: kCountBadgeStyle,

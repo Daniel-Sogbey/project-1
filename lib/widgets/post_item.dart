@@ -138,12 +138,7 @@ class PostItem extends StatelessWidget {
                             post.likes == 1
                                 ? '${post.likes.toString()} like'
                                 : '${post.likes.toString()} likes',
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 13,
-                              fontFamily: "Montserrat",
-                              fontWeight: FontWeight.w900,
-                            ),
+                            style: kLikeTextStyle,
                           ),
                         ),
                       ),
@@ -180,38 +175,40 @@ class PostItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    children: <Widget>[
-                      Card(
-                        color: Colors.greenAccent,
-                        elevation: 7.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: Container(
-                          child: CountBadge(
-                            number: answersCount,
+                  Card(
+                    elevation: 0.01,
+                    color: Colors.white70,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Container(
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            child: CountBadge(
+                              number: answersCount,
+                            ),
                           ),
-                        ),
-                      ),
-                      InkWell(
-                        borderRadius: BorderRadius.circular(15.0),
-                        splashColor: Colors.lightBlue,
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                            AnswersScreen.routeName,
-                            arguments: post.postId,
-                          );
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(5.0),
-                          child: Text(
-                            'Comments',
-                            style: kAnswerTextStyle,
+                          InkWell(
+                            borderRadius: BorderRadius.circular(15.0),
+                            splashColor: Colors.lightBlue,
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                AnswersScreen.routeName,
+                                arguments: post.postId,
+                              );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(5.0),
+                              child: Text(
+                                'Comments',
+                                style: kAnswerTextStyle,
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                   Consumer<Auth>(
                     builder: (ctx, auth, _) => InkWell(

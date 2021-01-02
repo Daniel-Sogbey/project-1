@@ -55,6 +55,8 @@ const kPostTextStyle = TextStyle(
 const kAnswerTextStyle = TextStyle(
   color: Colors.black26,
   fontSize: 16.0,
+  fontFamily: "Staatliches",
+  letterSpacing: 1.8,
 );
 
 const kAppBarTextStyle = TextStyle(
@@ -70,7 +72,8 @@ const kAppBarTextStyle = TextStyle(
 
 const kCountBadgeStyle = TextStyle(
   fontSize: 15.0,
-  color: Colors.white,
+  color: Colors.black54,
+  fontFamily: "Staatliches",
 );
 
 const kPostTextFieldStyle = TextStyle(
@@ -223,7 +226,7 @@ const kLoadingText = TextStyle(
   fontWeight: FontWeight.w900,
   fontSize: 23.0,
   fontFamily: 'Montserrat',
-  height: 3.0,
+  height: 1.0,
   letterSpacing: 5.0,
 );
 
@@ -245,4 +248,13 @@ const kTabTextTitle = TextStyle(
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w600,
   color: Colors.black45,
+);
+
+const kLikeTextStyle = TextStyle(
+  color: Colors.black54,
+  fontSize: 13,
+  fontFamily: "Staatliches",
+  fontWeight: FontWeight.w900,
+  letterSpacing: 1.2,
+  height: 2.0,
 );
