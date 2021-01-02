@@ -38,7 +38,6 @@ dependencies:
   progress_indicators: ^0.1.5
   firebase_messaging: ^7.0.3
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -58,6 +57,7 @@ flutter:
   assets:
      - images/wait.png
      - images/welcome.png
+     - assets/auth_screen_vid.mp4
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

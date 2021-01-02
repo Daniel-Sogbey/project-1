@@ -12,6 +12,7 @@ class Answer with ChangeNotifier {
   final String answerText;
   int votes;
   bool isFav;
+  final String creator;
 
   Answer({
     this.answerId,
@@ -19,6 +20,7 @@ class Answer with ChangeNotifier {
     this.answerText,
     this.votes = 0,
     this.isFav = false,
+    this.creator,
   });
 
   // void acceptAnswer() {

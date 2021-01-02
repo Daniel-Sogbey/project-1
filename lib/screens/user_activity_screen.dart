@@ -3,10 +3,8 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
-import '../providers/answers.dart';
 import '../providers/posts.dart';
 import '../screens/create_post_screen.dart';
-import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
 import '../widgets/user_activity_item.dart';
 
@@ -22,38 +20,37 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
   var _isLoading = false;
 
   @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-      Future.delayed(Duration.zero).then((_) async {
-        await Provider.of<Posts>(context, listen: false)
-            .fetchPosts(true)
-            .then((_) async {
-          await Provider.of<Answers>(context, listen: false)
-              .fetchAnswers()
-              .then((_) {
-            setState(() {
-              _isLoading = false;
-            });
-          });
-        });
-      });
-
-      // Future.delayed(Duration(seconds: 0), () {
-      //
-      // });
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
+  // void didChangeDependencies() {
+  //   if (_isInit) {
+  //     setState(() {
+  //       _isLoading = true;
+  //     });
+  //     Future.delayed(Duration.zero).then((_) async {
+  //       await Provider.of<Posts>(context, listen: false)
+  //           .fetchPosts(true)
+  //           .then((_) async {
+  //         await Provider.of<Answers>(context, listen: false)
+  //             .fetchAnswers()
+  //             .then((_) {
+  //           setState(() {
+  //             _isLoading = false;
+  //           });
+  //         });
+  //       });
+  //     });
+  //
+  //     // Future.delayed(Duration(seconds: 0), () {
+  //     //
+  //     // });
+  //   }
+  //   _isInit = false;
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
     final postsData = Provider.of<Posts>(context);
     return Scaffold(
-      drawer: AppDrawer(),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -167,6 +164,7 @@ Widget _buildMenuBar() {
         Scaffold.of(context).openDrawer();
       },
       child: Container(
+        margin: EdgeInsets.only(top: 20.0),
         child: Column(
           children: <Widget>[
             Row(

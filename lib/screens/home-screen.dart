@@ -1,13 +1,9 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/answers.dart';
 import '../providers/auth.dart';
-import '../providers/posts.dart';
 import '../screens/create_post_screen.dart';
-import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
 import '../widgets/post_list.dart';
 import '../widgets/search-bar.dart';
@@ -21,9 +17,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var _isLoading = false;
-  var _isInit = true;
 
-  void _addNewPost(BuildContext context) {
+  void _showLittleMenu(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (_) => CreatePostScreen(),
@@ -31,9 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
       isDismissible: true,
       enableDrag: true,
       backgroundColor: Colors.white,
-      // shape: RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.circular(20.0),
-      // ),
     );
   }
 
@@ -76,80 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // @override
-  // void didChangeDependencies() async {
-  //   if (_isInit) {
-  //     setState(() {
-  //       _isLoading = true;
-  //     });
-  //
-  //     try {
-  //       await Provider.of<Posts>(context, listen: false)
-  //           .fetchPosts()
-  //           .then((_) async {
-  //         await Provider.of<Answers>(context).fetchAnswers();
-  //       });
-  //
-  //       // print('$auth   auth');
-  //     } catch (error) {
-  //       // _showErrorDialog('Connection to server failed');
-  //
-  //       // print('$error autttthh 3');
-  //     }
-  //   }
-  //
-  //   setState(() {
-  //     _isLoading = false;
-  //   });
-  //   _isInit = false;
-  //   super.didChangeDependencies();
-  // }
-
-  @override
-  void initState() {
-    final fbm = FirebaseMessaging();
-
-    fbm.configure(onMessage: (msg) {
-      print(msg);
-      return;
-    }, onLaunch: (msg) {
-      print(msg);
-      return;
-    }, onResume: (msg) {
-      print(msg);
-      return;
-    });
-
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      Future.delayed(Duration.zero).then((_) async {
-        await Provider.of<Posts>(context, listen: false)
-            .fetchPostsBasedOnFilters()
-            .then((_) async {
-          await Provider.of<Answers>(context, listen: false).fetchAnswers();
-        });
-        setState(() {
-          _isLoading = false;
-        });
-      });
-    } catch (error) {
-      _showErrorDialog('No Internet Connection');
-    }
-
-    super.initState();
-  }
-
-  //
-  // Future<void> _refresh() async {
-  //   await Provider.of<Posts>(context, listen: false).fetchPosts();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(),
       body: SafeArea(
         child: Column(
           children: [
@@ -193,8 +114,9 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 30.0,
           splashColor: Colors.pinkAccent,
           backgroundColor: Colors.amber,
-          onPressed: () => _addNewPost(context),
-          // Navigator.of(context).pushNamed(CreatePostScreen.routeName);
+          onPressed: () {
+            Navigator.of(context).pushNamed(CreatePostScreen.routeName);
+          },
           child: Icon(
             Icons.add,
             size: 35.0,
@@ -211,9 +133,24 @@ Widget _buildMenuBar() {
       splashColor: Colors.red,
       // borderRadius: BorderRadius.circular(20),
       onPressed: () {
-        Scaffold.of(context).openDrawer();
+        Scaffold.of(context).showBottomSheet<void>(
+          (BuildContext context) {
+            return Card(
+              elevation: 10,
+              child: Container(
+                height: 150,
+                color: Colors.white,
+                width: double.infinity,
+                child: Column(
+                  children: <Widget>[],
+                ),
+              ),
+            );
+          },
+        );
       },
       child: Container(
+        margin: EdgeInsets.only(top: 20),
         child: Column(
           children: <Widget>[
             Row(

@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 import '../models/answer.dart';
 import '../providers/auth.dart';
-import '../screens/create_reply_screen.dart';
-import '../screens/replies_screen.dart';
 import '../widgets/countBadge.dart';
 
 class AnswerItem extends StatefulWidget {
@@ -163,14 +161,20 @@ class _AnswerItemState extends State<AnswerItem> {
                       ),
                       padding: EdgeInsets.only(left: 5.0, top: 5.0, right: 5.0),
                       child: Text(
-                        'DS',
+                        answer.creator == null
+                            ? 'DS'
+                            : answer.creator
+                                .replaceRange(10, answer.creator.length, '...'),
                         style: kNameTextStyle,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
-                        'Uni. of Cape Coast',
+                        answer.creator == null
+                            ? 'Uni. of cape coast'
+                            : answer.creator
+                                .replaceRange(10, answer.creator.length, '...'),
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: Colors.blue,
@@ -281,48 +285,6 @@ class _AnswerItemState extends State<AnswerItem> {
                             // ),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 30.0),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                child: IconButton(
-                                  onPressed: () {
-                                    // setState(() {
-                                    //   _showReplies = !_showReplies;
-                                    // });
-                                    Navigator.of(context).pushNamed(
-                                      RepliesScreen.routeName,
-                                      arguments: answer.answerId,
-                                    );
-                                    // _addNewReply(context, answer);
-                                  },
-                                  icon: Icon(
-                                    Icons.remove_red_eye,
-                                    color: Colors.black26,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(8.0),
-                                child: IconButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pushNamed(
-                                      CreateReplyScreen.routeName,
-                                      arguments: answer.answerId,
-                                    );
-                                    // _addNewReply(context);
-                                  },
-                                  icon: Icon(
-                                    Icons.reply,
-                                    size: 25,
-                                    color: Colors.black26,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
                       ],
                     ),
                   ),

@@ -1,10 +1,13 @@
-import 'dart:io';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:provider/provider.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../constants/constants.dart';
+import '../providers/answers.dart';
+import '../providers/posts.dart';
+import '../screens/tabs_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -12,18 +15,47 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  var _isLoading = false;
+  var _isInit = true;
+
   @override
   void initState() {
+    final fbm = FirebaseMessaging();
+
+    fbm.configure(onMessage: (msg) {
+      print(msg);
+      return;
+    }, onLaunch: (msg) {
+      print(msg);
+      return;
+    }, onResume: (msg) {
+      print(msg);
+      return;
+    });
+
+    setState(() {
+      _isLoading = true;
+    });
     try {
-      Future.delayed(Duration.zero).then((_) async {
-        final result = await InternetAddress.lookup('google.com');
-        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-          print('connected');
-        }
+      Future.delayed(Duration(seconds: 3)).then((_) async {
+        await Provider.of<Posts>(context, listen: false)
+            .fetchPosts()
+            .then((_) async {
+          await Provider.of<Answers>(context, listen: false).fetchAnswers();
+        }).then((_) async {
+          await Provider.of<Posts>(context, listen: false)
+              .fetchPosts(true)
+              .then((_) async {
+            await Provider.of<Answers>(context, listen: false).fetchAnswers();
+
+            setState(() {
+              _isLoading = false;
+            });
+          });
+        });
       });
-    } on SocketException catch (error) {
-      print('not connected');
-    }
+    } catch (error) {}
+
     super.initState();
   }
 
@@ -49,96 +81,64 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              // Colors.pinkAccent,
-              // Colors.amber,
-              // Colors.blue,
-              Color.fromRGBO(215, 17, 225, 1).withOpacity(0.7),
-              Color.fromRGBO(255, 188, 17, 1).withOpacity(1.0),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0, 1],
-          ),
-        ),
-        child: SafeArea(
-          child: Center(
-              child: Column(
-            children: <Widget>[
-              Center(
-                heightFactor: 2.0,
-                child: slider,
-              ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(
-                  vertical: 5.0,
-                  horizontal: 30.0,
-                ),
-                child: Text(
-                  'ShareSpace',
-                  style: kLoadingText,
-                  textAlign: TextAlign.center,
+      body: _isLoading
+          ? Container(
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromRGBO(215, 17, 225, 1).withOpacity(0.7),
+                    Color.fromRGBO(255, 188, 17, 1).withOpacity(1.0),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0, 1],
                 ),
               ),
-              Container(
-                alignment: Alignment.bottomCenter,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(
-                  vertical: 5.0,
-                  horizontal: 30.0,
-                ),
-                child: Text(
-                  'A SolveShare Production @2020',
-                  style: kCiteTextStyle,
-                  textAlign: TextAlign.center,
-                ),
+              child: SafeArea(
+                child: Center(
+                    child: Column(
+                  children: <Widget>[
+                    Center(
+                      heightFactor: 2.0,
+                      child: slider,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 5.0,
+                        horizontal: 30.0,
+                      ),
+                      child: Text(
+                        'ShareSpace',
+                        style: kLoadingText,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 5.0,
+                        horizontal: 30.0,
+                      ),
+                      child: Text(
+                        'A SolveShare Production @2020',
+                        style: kCiteTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      child: JumpingDotsProgressIndicator(
+                        color: Colors.white,
+                        fontSize: 45,
+                      ),
+                    ),
+                  ],
+                )),
               ),
-              Container(
-                child: JumpingDotsProgressIndicator(
-                  color: Colors.white,
-                  fontSize: 45,
-                ),
-                // LoadingIndicator(
-                //   indicatorType: Indicator.ballPulse,
-                // ),
-              ),
-            ],
-          )
-              // child: Column(
-              //   children: [
-              //     Center(
-              //       heightFactor: 2.0,
-              //       child: Container(
-              //         width: 150.0,
-              //         height: 150.0,
-              //         child: LoadingIndicator(
-              //           indicatorType: Indicator.orbit,
-              //           color: Colors.pinkAccent,
-              //         ),
-              //       ),
-              //     ),
-              //     Container(
-              //       width: double.infinity,
-              //       padding: EdgeInsets.symmetric(
-              //         vertical: 30.0,
-              //         horizontal: 30.0,
-              //       ),
-              //       child: Text(
-              //         'SolveShare',
-              //         style: kLoadingText,
-              //         textAlign: TextAlign.center,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              ),
-        ),
-      ),
+            )
+          : TabsScreen(),
     );
   }
 }

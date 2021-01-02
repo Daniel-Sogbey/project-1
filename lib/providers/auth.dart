@@ -90,22 +90,22 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<void> fetchUserData() async {
-    const url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAnds_2pZvb6cdqfitU4BB2z3GhaLBsy78';
-
-    final response = await http.post(
-      url,
-      body: json.encode(
-        {
-          'idToken': _token,
-        },
-      ),
-    );
-
-    notifyListeners();
-    print('${json.decode(response.body)} userData');
-  }
+  // Future<void> fetchUserData() async {
+  //   const url =
+  //       'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAnds_2pZvb6cdqfitU4BB2z3GhaLBsy78';
+  //
+  //   final response = await http.post(
+  //     url,
+  //     body: json.encode(
+  //       {
+  //         'idToken': _token,
+  //       },
+  //     ),
+  //   );
+  //
+  //   notifyListeners();
+  //   print('${json.decode(response.body)} userData');
+  // }
 
   Future<void> signup(String email, String password) async {
     return _authenticate(email, password, 'signUp');

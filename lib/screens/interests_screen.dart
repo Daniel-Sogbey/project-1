@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
+import '../providers/answers.dart';
 import '../providers/auth.dart';
 import '../providers/posts.dart';
 import '../screens/tabs_screen.dart';
-import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
 
 class InterestsScreen extends StatefulWidget {
@@ -17,6 +18,8 @@ class InterestsScreen extends StatefulWidget {
 }
 
 class _InterestsScreenState extends State<InterestsScreen> {
+  var _isLoading = false;
+
   var _science = false;
   var _life = false;
   var _movies = false;
@@ -102,7 +105,6 @@ class _InterestsScreenState extends State<InterestsScreen> {
     };
     final posts = Provider.of<Posts>(context);
     return Scaffold(
-      drawer: AppDrawer(),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -147,9 +149,23 @@ class _InterestsScreenState extends State<InterestsScreen> {
             Consumer<Auth>(
               builder: (ctx, auth, _) => InkWell(
                 child: InkWell(
-                  onTap: () {
+                  onTap: () async {
                     posts.saveFilters(_filters);
-                    Navigator.of(context).pushNamed(TabsScreen.routeName);
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    await Provider.of<Posts>(context, listen: false)
+                        .fetchPostsBasedOnFilters()
+                        .then((_) async {
+                      await Provider.of<Answers>(context, listen: false)
+                          .fetchAnswers()
+                          .then((_) {
+                        Navigator.of(context).pushNamed(TabsScreen.routeName);
+                      });
+                      setState(() {
+                        _isLoading = false;
+                      });
+                    });
                   },
                   child: Card(
                     elevation: 10.0,
@@ -189,171 +205,174 @@ class _InterestsScreenState extends State<InterestsScreen> {
                 ),
               ),
             ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      // Colors.pinkAccent,
-                      // Colors.amber,
-                      // Colors.blue,
-                      Color.fromRGBO(215, 17, 225, 1).withOpacity(0.8),
-                      Color.fromRGBO(255, 188, 17, 1).withOpacity(1.0),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [0, 1],
-                  ),
-                ),
-                child: ListView(
-                  children: <Widget>[
-                    _buildSwitchListTile(
-                      'Science',
-                      'Only topics related to Science',
-                      (newValue) {
-                        setState(() {
-                          _science = newValue;
-                        });
-                      },
-                      _science,
+            _isLoading
+                ? Container(
+                    child: Center(
+                      heightFactor: 2.0,
+                      widthFactor: 2,
+                      child: Container(
+                        width: 50.0,
+                        child: LoadingIndicator(
+                          indicatorType: Indicator.ballPulse,
+                          color: Colors.amber,
+                        ),
+                      ),
                     ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Life',
-                      'Only topics related to daily life experiences',
-                      (newValue) {
-                        setState(() {
-                          _life = newValue;
-                        });
-                      },
-                      _life,
+                  )
+                : Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            // Colors.pinkAccent,
+                            // Colors.amber,
+                            // Colors.blue,
+                            Color.fromRGBO(215, 17, 225, 1).withOpacity(0.8),
+                            Color.fromRGBO(255, 188, 17, 1).withOpacity(1.0),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0, 1],
+                        ),
+                      ),
+                      child: ListView(
+                        children: <Widget>[
+                          Divider(),
+                          _buildSwitchListTile(
+                            'Science',
+                            'Only topics related to Science',
+                            (newValue) {
+                              setState(() {
+                                _science = newValue;
+                              });
+                            },
+                            _science,
+                          ),
+                          _buildSwitchListTile(
+                            'Life',
+                            'Only topics related to daily life experiences',
+                            (newValue) {
+                              setState(() {
+                                _life = newValue;
+                              });
+                            },
+                            _life,
+                          ),
+                          _buildSwitchListTile(
+                            'Technology',
+                            'Only topics related to Technology',
+                            (newValue) {
+                              setState(() {
+                                _technology = newValue;
+                              });
+                            },
+                            _technology,
+                          ),
+                          _buildSwitchListTile(
+                            'Religion',
+                            'Only topics related to Religion',
+                            (newValue) {
+                              setState(() {
+                                _religion = newValue;
+                              });
+                            },
+                            _religion,
+                          ),
+                          _buildSwitchListTile(
+                            'Music',
+                            'Only topics related to Music',
+                            (newValue) {
+                              setState(() {
+                                _music = newValue;
+                              });
+                            },
+                            _music,
+                          ),
+                          _buildSwitchListTile(
+                            'Society',
+                            'Only topics related to Society',
+                            (newValue) {
+                              setState(() {
+                                _society = newValue;
+                              });
+                            },
+                            _society,
+                          ),
+                          _buildSwitchListTile(
+                            'Art',
+                            'Only topics related to Art',
+                            (newValue) {
+                              setState(() {
+                                _art = newValue;
+                              });
+                            },
+                            _art,
+                          ),
+                          _buildSwitchListTile(
+                            'Entertainment',
+                            'Only topics related to Entertainment',
+                            (newValue) {
+                              setState(() {
+                                _entertainment = newValue;
+                              });
+                            },
+                            _entertainment,
+                          ),
+                          _buildSwitchListTile(
+                            'Sports',
+                            'Only topics related to Sports',
+                            (newValue) {
+                              setState(() {
+                                _sports = newValue;
+                              });
+                            },
+                            _sports,
+                          ),
+                          _buildSwitchListTile(
+                            'Politics',
+                            'Only topics related to Politics',
+                            (newValue) {
+                              setState(() {
+                                _politics = newValue;
+                              });
+                            },
+                            _politics,
+                          ),
+                          _buildSwitchListTile(
+                            'Education',
+                            'Only topics related to Education',
+                            (newValue) {
+                              setState(() {
+                                _education = newValue;
+                              });
+                            },
+                            _education,
+                          ),
+                          _buildSwitchListTile(
+                            'Engineering',
+                            'Only topics related to Engineering',
+                            (newValue) {
+                              setState(() {
+                                _engineering = newValue;
+                              });
+                            },
+                            _engineering,
+                          ),
+                          _buildSwitchListTile(
+                            'Movies',
+                            'Only topics related to Movies',
+                            (newValue) {
+                              setState(() {
+                                _movies = newValue;
+                              });
+                            },
+                            _movies,
+                          ),
+                          Divider(),
+                        ],
+                      ),
                     ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Technology',
-                      'Only topics related to Technology',
-                      (newValue) {
-                        setState(() {
-                          _technology = newValue;
-                        });
-                      },
-                      _technology,
-                    ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Religion',
-                      'Only topics related to Religion',
-                      (newValue) {
-                        setState(() {
-                          _religion = newValue;
-                        });
-                      },
-                      _religion,
-                    ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Music',
-                      'Only topics related to Music',
-                      (newValue) {
-                        setState(() {
-                          _music = newValue;
-                        });
-                      },
-                      _music,
-                    ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Society',
-                      'Only topics related to Society',
-                      (newValue) {
-                        setState(() {
-                          _society = newValue;
-                        });
-                      },
-                      _society,
-                    ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Art',
-                      'Only topics related to Art',
-                      (newValue) {
-                        setState(() {
-                          _art = newValue;
-                        });
-                      },
-                      _art,
-                    ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Entertainment',
-                      'Only topics related to Entertainment',
-                      (newValue) {
-                        setState(() {
-                          _entertainment = newValue;
-                        });
-                      },
-                      _entertainment,
-                    ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Sports',
-                      'Only topics related to Sports',
-                      (newValue) {
-                        setState(() {
-                          _sports = newValue;
-                        });
-                      },
-                      _sports,
-                    ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Politics',
-                      'Only topics related to Politics',
-                      (newValue) {
-                        setState(() {
-                          _politics = newValue;
-                        });
-                      },
-                      _politics,
-                    ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Education',
-                      'Only topics related to Education',
-                      (newValue) {
-                        setState(() {
-                          _education = newValue;
-                        });
-                      },
-                      _education,
-                    ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Engineering',
-                      'Only topics related to Engineering',
-                      (newValue) {
-                        setState(() {
-                          _engineering = newValue;
-                        });
-                      },
-                      _engineering,
-                    ),
-                    Divider(),
-                    _buildSwitchListTile(
-                      'Movies',
-                      'Only topics related to Movies',
-                      (newValue) {
-                        setState(() {
-                          _movies = newValue;
-                        });
-                      },
-                      _movies,
-                    ),
-                    Divider(),
-                  ],
-                ),
-              ),
-            )
+                  )
           ],
         ),
       ),
@@ -399,6 +418,7 @@ Widget _buildMenuBar() {
         Scaffold.of(context).openDrawer();
       },
       child: Container(
+        margin: EdgeInsets.only(top: 20.0),
         child: Column(
           children: <Widget>[
             Row(

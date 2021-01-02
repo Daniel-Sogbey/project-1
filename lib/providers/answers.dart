@@ -71,6 +71,7 @@ class Answers with ChangeNotifier {
             answerId: answerId,
             answerText: singleAnswerData['answerText'],
             questionAnswerId: singleAnswerData['questionAnswerId'],
+            creator: singleAnswerData['creatorId'],
             isFav: favoriteResponseData == null
                 ? false
                 : favoriteResponseData[answerId] ?? false,

@@ -101,32 +101,15 @@ class _TrendingScreenState extends State<TrendingScreen> {
                 ? Column(
                     children: [
                       Center(
-                        heightFactor: 2.0,
+                        heightFactor: 1.0,
                         widthFactor: 4,
                         child: Container(
-                          width: 150.0,
-                          height: 130.0,
+                          width: 100.0,
+                          height: 100.0,
                           child: LoadingIndicator(
                             indicatorType: Indicator.orbit,
                             color: Colors.pinkAccent,
                           ),
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                          vertical: 30.0,
-                          horizontal: 30.0,
-                        ),
-                        child: Text(
-                          'Make sure you are connected to the internet',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontSize: 15.0,
-                            letterSpacing: 1.2,
-                            fontWeight: FontWeight.w900,
-                          ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
                     ],
@@ -167,6 +150,7 @@ Widget _buildMenuBar() {
         Scaffold.of(context).openDrawer();
       },
       child: Container(
+        margin: EdgeInsets.only(top:20.0),
         child: Column(
           children: <Widget>[
             Row(

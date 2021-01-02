@@ -96,8 +96,6 @@ class PostItem extends StatelessWidget {
                           ? 'Uni. of Cape Coast'
                           : post.creator
                               .replaceRange(10, post.creator.length, '...'),
-                      // auth.email.replaceRange(6, auth.email.length, 'fs'),
-                      // 'Uni. of Cape Coast',
                       style: kInfoStyle,
                     ),
                   ),
@@ -111,15 +109,6 @@ class PostItem extends StatelessWidget {
                   ),
                   child: Container(
                     padding: EdgeInsets.all(5.0),
-                    // decoration: BoxDecoration(
-                    //   color: Colors.greenAccent,
-                    //   borderRadius: BorderRadius.circular(5.0),
-                    //   border: Border.all(
-                    //     width: 1.0,
-
-                    //     style: BorderStyle.solid,
-                    //   ),
-                    // ),
                     child: Text(
                       post.category.toUpperCase(),
                       style: kCategoryInfoStyle,
@@ -137,10 +126,6 @@ class PostItem extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(
-                left: 24.0,
-                right: 24.0,
-              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -154,8 +139,10 @@ class PostItem extends StatelessWidget {
                                 ? '${post.likes.toString()} like'
                                 : '${post.likes.toString()} likes',
                             style: TextStyle(
-                              color: Colors.black38,
+                              color: Colors.black54,
                               fontSize: 13,
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w900,
                             ),
                           ),
                         ),
@@ -207,9 +194,6 @@ class PostItem extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Container(
-                      //   child: Text(answersCount.toString()),
-                      // ),
                       InkWell(
                         borderRadius: BorderRadius.circular(15.0),
                         splashColor: Colors.lightBlue,
@@ -220,7 +204,7 @@ class PostItem extends StatelessWidget {
                           );
                         },
                         child: Container(
-                          padding: EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(5.0),
                           child: Text(
                             'Comments',
                             style: kAnswerTextStyle,
@@ -252,10 +236,6 @@ class PostItem extends StatelessWidget {
                             color: Colors.white,
                             size: 22.0,
                           ),
-                          // Text(
-                          //   'Answer',
-                          //   style: kAnswerTextStyle,
-                          // ),
                         ),
                       ),
                     ),

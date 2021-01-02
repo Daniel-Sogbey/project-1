@@ -221,7 +221,7 @@ const kErrorOccurredContentTextStyle = TextStyle(
 
 const kLoadingText = TextStyle(
   fontWeight: FontWeight.w900,
-  fontSize: 40.0,
+  fontSize: 20.0,
   fontFamily: 'Montserrat',
   height: 2.0,
   letterSpacing: 5.0,
