@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 import '../constants/constants.dart';
 import '../providers/auth.dart';
@@ -145,49 +146,13 @@ Widget _buildMenuBar() {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.all(20.0),
-                        decoration: BoxDecoration(
-                          color: Colors.pinkAccent,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Text(
-                          'Rate Us',
-                          style: kRateUsTextStyle,
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.all(20.0),
-                        decoration: BoxDecoration(
-                          color: Colors.pinkAccent,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Text(
-                          'Share App',
-                          style: kRateUsTextStyle,
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      splashColor: Colors.amber,
-                      child: Container(
-                        padding: EdgeInsets.all(20.0),
-                        decoration: BoxDecoration(
-                          color: Colors.pinkAccent,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Text(
-                          'Report An Issue',
-                          style: kRateUsTextStyle,
-                        ),
-                      ),
-                    ),
+                    _buildBottomPanel(() {}, 'Rate Us'),
+                    _buildBottomPanel(() async {
+                      await Share.share(
+                        'https://github.com/flutter/flutter/issues/12264',
+                      );
+                    }, 'Share App'),
+                    _buildBottomPanel(() {}, 'Report An Issue'),
                   ],
                 ),
               ),
@@ -253,6 +218,24 @@ Widget _buildMenuBar() {
             ),
           ],
         ),
+      ),
+    ),
+  );
+}
+
+Widget _buildBottomPanel(Function onTapHandler, String title) {
+  return InkWell(
+    onTap: onTapHandler,
+    splashColor: Colors.amber,
+    child: Container(
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: Colors.pinkAccent,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Text(
+        title,
+        style: kRateUsTextStyle,
       ),
     ),
   );

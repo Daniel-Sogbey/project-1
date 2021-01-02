@@ -21,6 +21,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   void initState() {
+    super.initState();
     final fbm = FirebaseMessaging();
 
     fbm.configure(onMessage: (msg) {
@@ -33,7 +34,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       print(msg);
       return;
     });
-
+    fbm.subscribeToTopic('posts');
     setState(() {
       _isLoading = true;
     });
@@ -56,8 +57,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
         });
       });
     } catch (error) {}
-
-    super.initState();
   }
 
   final slider = SleekCircularSlider(
@@ -106,7 +105,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                       child: Container(
                         width: 90,
                         child: LoadingIndicator(
-                          indicatorType: Indicator.lineScalePulseOutRapid,
+                          indicatorType: Indicator.lineScale,
                         ),
                       ),
                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../constants/constants.dart';
 import '../screens/home-screen.dart';
 import '../screens/interests_screen.dart';
 import '../screens/user_activity_screen.dart';
@@ -42,21 +43,30 @@ class _TabsScreenState extends State<TabsScreen> {
         currentIndex: _selectedPageIndex,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            title: Text('Home'),
+            title: Text(
+              'Home',
+              style: kTabTextTitle,
+            ),
             icon: Icon(
               FontAwesomeIcons.home,
               color: Colors.amber,
             ),
           ),
           BottomNavigationBarItem(
-            title: Text('My Posts'),
+            title: Text(
+              'My Posts',
+              style: kTabTextTitle,
+            ),
             icon: Icon(
               FontAwesomeIcons.solidEdit,
               color: Colors.greenAccent,
             ),
           ),
           BottomNavigationBarItem(
-            title: Text('Explore'),
+            title: Text(
+              'Explore',
+              style: kTabTextTitle,
+            ),
             icon: Icon(
               FontAwesomeIcons.globe,
               color: Colors.blue,

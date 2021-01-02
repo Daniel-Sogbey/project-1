@@ -37,6 +37,7 @@ dependencies:
   sleek_circular_slider: ^1.2.0+web
   progress_indicators: ^0.1.5
   firebase_messaging: ^7.0.3
+  share: ^0.6.5+4
 
 dev_dependencies:
   flutter_test:

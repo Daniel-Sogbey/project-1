@@ -221,7 +221,7 @@ const kErrorOccurredContentTextStyle = TextStyle(
 
 const kLoadingText = TextStyle(
   fontWeight: FontWeight.w900,
-  fontSize: 25.0,
+  fontSize: 23.0,
   fontFamily: 'Montserrat',
   height: 3.0,
   letterSpacing: 5.0,
@@ -239,4 +239,10 @@ const kCiteTextStyle = TextStyle(
 const kRateUsTextStyle = TextStyle(
   fontSize: 16.0,
   color: Colors.white,
+);
+
+const kTabTextTitle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w600,
+  color: Colors.black45,
 );
