@@ -38,12 +38,11 @@ class Posts with ChangeNotifier {
     //   category: 'society',
     // ),
   ];
-
+  List<Post> _userPosts = [];
   String authToken;
   String userId;
   String email;
   String creatorId;
-  DateTime timeStamp = DateTime.now();
 
   Posts(this.authToken, this.userId, this._posts, this.email);
 
@@ -51,6 +50,10 @@ class Posts with ChangeNotifier {
 
   List<Post> get posts {
     return [..._posts];
+  }
+
+  List<Post> get userPosts {
+    return [..._userPosts];
   }
 
   Post findPostById(String postId) {
@@ -177,6 +180,7 @@ class Posts with ChangeNotifier {
     try {
       final List<Post> loadedPosts = [];
       postsData.forEach((postId, singlePostData) {
+        print('${DateTime.parse(singlePostData['timeStamp'])} time');
         print('${singlePostData['timeStamp']} TimeStamp');
         loadedPosts.insert(
           0,
@@ -189,12 +193,16 @@ class Posts with ChangeNotifier {
                 ? false
                 : favoriteResponseData[postId] ?? false,
             likes: likeResponseData == null ? 0 : likeResponseData[postId] ?? 0,
-            timeStamp: singlePostData['timeStamp'],
+            timeStamp: singlePostData['timeStamp'] == null
+                ? DateTime.now()
+                : DateTime.parse(
+                    singlePostData['timeStamp'],
+                  ),
           ),
         );
       });
 
-      _posts = loadedPosts;
+      _userPosts = loadedPosts;
       notifyListeners();
     } catch (error) {
       throw error;
@@ -262,6 +270,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -291,6 +304,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -319,6 +337,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -347,6 +370,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -375,6 +403,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -403,6 +436,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -431,6 +469,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -460,6 +503,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -488,6 +536,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -516,6 +569,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -544,6 +602,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -573,6 +636,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -602,6 +670,11 @@ class Posts with ChangeNotifier {
                 likes: likeResponseData == null
                     ? 0
                     : likeResponseData[postId] ?? 0,
+                timeStamp: singlePostData['timeStamp'] == null
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        singlePostData['timeStamp'],
+                      ),
               ),
             );
             // http.post(
@@ -648,25 +721,29 @@ class Posts with ChangeNotifier {
             'category': post.category,
             'postText': post.postText,
             'creatorId': userId,
-            'timeStamp': timeStamp,
+            'timeStamp': DateTime.now().toString(),
           },
         ),
       );
+      final responseData = json.decode(response.body);
+      print('$responseData datau');
       final newPost = Post(
         postId: json.decode(response.body)['name'],
         category: post.category,
         postText: post.postText,
+        timeStamp: DateTime.now(),
       );
       _posts.insert(0, newPost);
       print(newPost.postId);
       print(post.category);
       print(post.postText);
       print(newPost.creator);
+      print('${post.timeStamp} qajsj');
 
       print('$email email');
       notifyListeners();
     } catch (error) {
-      throw error;
+      print(error);
     }
   }
 

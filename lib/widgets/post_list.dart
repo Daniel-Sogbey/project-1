@@ -7,7 +7,12 @@ import '../providers/answers.dart';
 import '../providers/posts.dart';
 import '../widgets/post_item.dart';
 
-class PostList extends StatelessWidget {
+class PostList extends StatefulWidget {
+  @override
+  _PostListState createState() => _PostListState();
+}
+
+class _PostListState extends State<PostList> {
   Future<void> _refresh(BuildContext context) async {
     await Provider.of<Posts>(context, listen: false)
         .fetchPostsBasedOnFilters()

@@ -107,7 +107,7 @@ class _UserActivityItemState extends State<UserActivityItem> {
               setState(() {
                 _isLoading = true;
               });
-              await Provider.of<Posts>(context, listen: false)
+              await Provider.of<Posts>(context)
                   .deletePost(widget.postId)
                   .then((_) {
                 setState(() {

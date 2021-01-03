@@ -1,7 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:provider/provider.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -39,9 +38,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
       _isLoading = true;
     });
     try {
-      Future.delayed(Duration(seconds: 3)).then((_) async {
+      Future.delayed(Duration.zero).then((_) async {
         await Provider.of<Posts>(context, listen: false)
-            .fetchPosts()
+            .fetchPostsBasedOnFilters()
             .then((_) async {
           await Provider.of<Answers>(context, listen: false).fetchAnswers();
         }).then((_) async {
@@ -49,7 +48,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
               .fetchPosts(true)
               .then((_) async {
             await Provider.of<Answers>(context, listen: false).fetchAnswers();
-
             setState(() {
               _isLoading = false;
             });
@@ -99,7 +97,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               child: SafeArea(
                 child: Center(
                     child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Center(
                       heightFactor: 2.0,
@@ -118,8 +116,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
                       child: Column(
                         children: [
                           Text(
-                            'Solve And Share',
-                            style: kLoadingText,
+                            'Ask :: Solve :: Share',
+                            style: kLoadingTextAlt,
                             textAlign: TextAlign.center,
                           ),
                           Text(
@@ -128,25 +126,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
                             textAlign: TextAlign.center,
                           ),
                         ],
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.bottomCenter,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(
-                        vertical: 5.0,
-                        horizontal: 30.0,
-                      ),
-                      child: Text(
-                        'A SolveShare Production @2021',
-                        style: kCiteTextStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Container(
-                      child: JumpingDotsProgressIndicator(
-                        color: Colors.white,
-                        fontSize: 45,
                       ),
                     ),
                   ],

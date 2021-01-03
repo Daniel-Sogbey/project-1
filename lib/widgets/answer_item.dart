@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 import '../models/answer.dart';
 import '../providers/auth.dart';
-import '../widgets/countBadge.dart';
 
 class AnswerItem extends StatefulWidget {
   @override
@@ -202,8 +201,29 @@ class _AnswerItemState extends State<AnswerItem> {
                 Center(
                   child: Container(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
+                        Consumer<Answer>(
+                          builder: (ctx, answer, _) => Container(
+                            padding: EdgeInsets.all(5.0),
+                            child: Text(
+                              answer.votes == 1
+                                  ? '${answer.votes.toString()} like'
+                                  : '${answer.votes.toString()} likes',
+                              style: kLikeTextStyle,
+                            ),
+                            // Text(
+                            //   answer.votes.toString(),
+                            //   style: TextStyle(
+                            //     fontFamily: 'Montserrat',
+                            //     fontSize: 10.0,
+                            //     fontWeight: FontWeight.w900,
+                            //     letterSpacing: 1.0,
+                            //     color: Colors.white,
+                            //   ),
+                            // ),
+                          ),
+                        ),
                         Card(
                           elevation: 2.0,
                           margin:
@@ -267,22 +287,6 @@ class _AnswerItemState extends State<AnswerItem> {
                                       ),
                               ),
                             ),
-                          ),
-                        ),
-                        Consumer<Answer>(
-                          builder: (ctx, answer, _) => Container(
-                            padding: EdgeInsets.all(5.0),
-                            child: CountBadge(number: answer.votes),
-                            // Text(
-                            //   answer.votes.toString(),
-                            //   style: TextStyle(
-                            //     fontFamily: 'Montserrat',
-                            //     fontSize: 10.0,
-                            //     fontWeight: FontWeight.w900,
-                            //     letterSpacing: 1.0,
-                            //     color: Colors.white,
-                            //   ),
-                            // ),
                           ),
                         ),
                       ],

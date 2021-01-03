@@ -43,6 +43,12 @@ const kNameTextStyle = TextStyle(
   color: Colors.white,
 );
 
+const kTimeTextStyle = TextStyle(
+  fontSize: 12.0,
+  fontWeight: FontWeight.w900,
+  color: Colors.black45,
+);
+
 const kPostTextStyle = TextStyle(
   fontSize: 14.0,
   color: Colors.black87,
@@ -228,6 +234,16 @@ const kLoadingText = TextStyle(
   fontFamily: 'Montserrat',
   height: 1.0,
   letterSpacing: 5.0,
+  color: Colors.black54,
+);
+
+const kLoadingTextAlt = TextStyle(
+  fontWeight: FontWeight.w900,
+  fontSize: 23.0,
+  fontFamily: 'Montserrat',
+  height: 1.0,
+  letterSpacing: 2.5,
+  color: Colors.black54,
 );
 
 const kCiteTextStyle = TextStyle(

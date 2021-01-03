@@ -129,17 +129,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+var _onTap = false;
+
 Widget _buildMenuBar() {
   return Builder(
     builder: (context) => Container(
       margin: EdgeInsets.only(left: 20.0, right: 10.0),
-      child: GestureDetector(
-        // borderRadius: BorderRadius.circular(20),
+      child: InkWell(
+        splashColor: Colors.white,
         onTap: () {
+          _onTap = !_onTap;
+          print(_onTap);
           Scaffold.of(context).showBottomSheet<void>(
             (BuildContext context) {
               return Card(
-
                 elevation: 10,
                 child: Container(
                   height: 150,

@@ -39,10 +39,19 @@ dependencies:
   firebase_messaging: ^7.0.3
   share: ^0.6.5+4
   timeago: 2.0.0
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_launcher_icons: ^0.8.1
+
+flutter_icons:
+  android: true
+  image_path: "dev_assets/share_space_logo.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "dev_assets/share_space_logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -56,10 +65,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-     - images/wait.png
-     - images/welcome.png
-     - assets/auth_screen_vid.mp4
+#  assets:
+#     - images/wait.png
+#     - images/welcome.png
+#     - assets/auth_screen_vid.mp4
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

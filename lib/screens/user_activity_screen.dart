@@ -19,7 +19,7 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
   var _isInit = true;
   var _isLoading = false;
 
-  @override
+  // @override
   // void didChangeDependencies() {
   //   if (_isInit) {
   //     setState(() {
@@ -39,9 +39,7 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
   //       });
   //     });
   //
-  //     // Future.delayed(Duration(seconds: 0), () {
-  //     //
-  //     // });
+  //     Future.delayed(Duration(seconds: 0), () {});
   //   }
   //   _isInit = false;
   //   super.didChangeDependencies();
@@ -115,7 +113,7 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                       ),
                     ),
                   )
-                : postsData.posts.length == 0
+                : postsData.userPosts.length == 0
                     ? Container(
                         child: Center(
                           child: Text(
@@ -128,10 +126,10 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                     : Container(
                         child: Expanded(
                           child: ListView.builder(
-                            itemCount: postsData.posts.length,
+                            itemCount: postsData.userPosts.length,
                             itemBuilder: (ctx, i) => UserActivityItem(
-                              post: postsData.posts[i],
-                              postId: postsData.posts[i].postId,
+                              post: postsData.userPosts[i],
+                              postId: postsData.userPosts[i].postId,
                             ),
                           ),
                         ),

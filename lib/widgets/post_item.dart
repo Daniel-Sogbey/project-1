@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import '../constants/constants.dart';
 import '../models/post.dart';
@@ -49,6 +51,7 @@ class PostItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   width: 60.0,
@@ -116,6 +119,18 @@ class PostItem extends StatelessWidget {
                     ),
                   ),
                 ),
+                Text(
+                  DateFormat('dd/MM').format(post.timeStamp),
+                  style: kTimeTextStyle,
+                ),
+                // Text(
+                //   '${DateFormat.H().format(posts.timeStamp)} Hrs ago',
+                //   style: kTimeTextStyle,
+                // ),
+                Text(
+                  '${timeago.format(post.timeStamp, locale: 'en_short')}',
+                  style: kTimeTextStyle,
+                ),
               ],
             ),
             Container(
@@ -176,7 +191,7 @@ class PostItem extends StatelessWidget {
                     ],
                   ),
                   Card(
-                    elevation: 0.01,
+                    elevation: 0.000000000000001,
                     color: Colors.white70,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
