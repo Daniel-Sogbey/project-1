@@ -43,14 +43,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
             .fetchPostsBasedOnFilters()
             .then((_) async {
           await Provider.of<Answers>(context, listen: false).fetchAnswers();
-        }).then((_) async {
-          await Provider.of<Posts>(context, listen: false)
-              .fetchPosts(true)
-              .then((_) async {
-            await Provider.of<Answers>(context, listen: false).fetchAnswers();
-            setState(() {
-              _isLoading = false;
-            });
+        });
+
+        await Provider.of<Posts>(context, listen: false)
+            .fetchPosts(true)
+            .then((_) async {
+          await Provider.of<Answers>(context, listen: false).fetchAnswers();
+          setState(() {
+            _isLoading = false;
           });
         });
       });
