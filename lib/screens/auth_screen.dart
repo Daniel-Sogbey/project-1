@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -87,7 +88,7 @@ class _AuthScreenState extends State<AuthScreen> {
     try {
       if (_authMode == AuthMode.Login) {
         //login in user
-        await Provider.of<Auth>(context, listen: false).login(
+        await Provider.of<Auth>(context, listen: false).signin(
           _authData['email'],
           _authData['password'],
         );
@@ -274,6 +275,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                   }
                                   if (!value.contains('@')) {
                                     return 'Enter a valid email';
+                                  }
+
+                                  if (!EmailValidator.validate(value)) {
+                                    return 'Please enter a valid email';
                                   }
                                   return null;
                                 },

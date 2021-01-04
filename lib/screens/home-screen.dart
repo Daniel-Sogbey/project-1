@@ -145,19 +145,21 @@ Widget _buildMenuBar() {
               return Card(
                 elevation: 10,
                 child: Container(
-                  height: 150,
+                  height: 100,
                   color: Colors.white,
                   width: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       _buildBottomPanel(() {}, 'Rate Us'),
-                      _buildBottomPanel(() async {
-                        await Share.share(
-                          'https://github.com/flutter/flutter/issues/12264',
-                        );
-                      }, 'Share App'),
-                      _buildBottomPanel(() {}, 'Report An Issue'),
+                      _buildBottomPanel(
+                        () async {
+                          await Share.share(
+                            'https://github.com/flutter/flutter/issues/12264',
+                          );
+                        },
+                        'Share App',
+                      ),
                     ],
                   ),
                 ),
@@ -234,7 +236,7 @@ Widget _buildBottomPanel(Function onTapHandler, String title) {
     onTap: onTapHandler,
     splashColor: Colors.amber,
     child: Container(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         color: Colors.pinkAccent,
         borderRadius: BorderRadius.circular(10.0),

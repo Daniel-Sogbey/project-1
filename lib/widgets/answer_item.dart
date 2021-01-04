@@ -206,12 +206,14 @@ class _AnswerItemState extends State<AnswerItem> {
                         Consumer<Answer>(
                           builder: (ctx, answer, _) => Container(
                             padding: EdgeInsets.all(5.0),
-                            child: Text(
-                              answer.votes == 1
-                                  ? '${answer.votes.toString()} like'
-                                  : '${answer.votes.toString()} likes',
-                              style: kLikeTextStyle,
-                            ),
+                            child: answer.votes == null
+                                ? Text((answer.votes = 0).toString())
+                                : Text(
+                                    answer.votes == 1
+                                        ? '${answer.votes.toString()} like'
+                                        : '${answer.votes.toString()} likes',
+                                    style: kLikeTextStyle,
+                                  ),
                             // Text(
                             //   answer.votes.toString(),
                             //   style: TextStyle(

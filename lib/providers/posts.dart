@@ -41,10 +41,9 @@ class Posts with ChangeNotifier {
   List<Post> _userPosts = [];
   String authToken;
   String userId;
-  String email;
   String creatorId;
 
-  Posts(this.authToken, this.userId, this._posts, this.email);
+  Posts(this.authToken, this.userId, this._posts);
 
   //
 
@@ -57,7 +56,7 @@ class Posts with ChangeNotifier {
   }
 
   Post findPostById(String postId) {
-    return _posts.firstWhere((post) => post.postId == postId);
+    return _userPosts.firstWhere((post) => post.postId == postId);
   }
 
   Map<String, dynamic> filters = {
@@ -130,6 +129,11 @@ class Posts with ChangeNotifier {
                   : favoriteResponseData[postId] ?? false,
               likes:
                   likeResponseData == null ? 0 : likeResponseData[postId] ?? 0,
+              timeStamp: searchedPost['timeStamp'] == null
+                  ? DateTime.now()
+                  : DateTime.parse(
+                      searchedPost['timeStamp'],
+                    ),
             ),
           );
         }
@@ -733,22 +737,24 @@ class Posts with ChangeNotifier {
         postText: post.postText,
         timeStamp: DateTime.now(),
       );
+
       _posts.insert(0, newPost);
+      _userPosts.insert(0, newPost);
+
+      notifyListeners();
+
       print(newPost.postId);
       print(post.category);
       print(post.postText);
       print(newPost.creator);
       print('${post.timeStamp} qajsj');
-
-      print('$email email');
-      notifyListeners();
     } catch (error) {
       print(error);
     }
   }
 
   Future<void> updatePost(String postId, Post newPost) async {
-    final postIndex = _posts.indexWhere((post) => post.postId == postId);
+    final postIndex = _userPosts.indexWhere((post) => post.postId == postId);
     final url =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts/$postId.json?auth=$authToken';
     if (postIndex >= 0) {
@@ -763,6 +769,7 @@ class Posts with ChangeNotifier {
             },
           ),
         );
+        _userPosts[postIndex] = newPost;
         _posts[postIndex] = newPost;
         notifyListeners();
         print(postIndex);
@@ -780,6 +787,7 @@ class Posts with ChangeNotifier {
       final response = await http.delete(url);
 
       if (response.statusCode == 200) {
+        _userPosts.removeWhere((post) => post.postId == postId);
         _posts.removeWhere((post) => post.postId == postId);
       }
 

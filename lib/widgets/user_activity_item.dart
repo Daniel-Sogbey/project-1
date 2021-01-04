@@ -50,9 +50,12 @@ class _UserActivityItemState extends State<UserActivityItem> {
               color: Colors.blue,
             ),
           ),
-          title: Text(
-            widget.post.postText,
-            style: kUpdatePostTextStyle,
+          title: Container(
+            width: double.infinity,
+            child: Text(
+              widget.post.postText,
+              style: kUpdatePostTextStyle,
+            ),
           ),
           subtitle: Container(
             child: InkWell(
@@ -107,7 +110,7 @@ class _UserActivityItemState extends State<UserActivityItem> {
               setState(() {
                 _isLoading = true;
               });
-              await Provider.of<Posts>(context)
+              await Provider.of<Posts>(context, listen: false)
                   .deletePost(widget.postId)
                   .then((_) {
                 setState(() {

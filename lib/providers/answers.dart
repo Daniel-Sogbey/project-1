@@ -76,7 +76,8 @@ class Answers with ChangeNotifier {
             isFav: favoriteResponseData == null
                 ? false
                 : favoriteResponseData[answerId] ?? false,
-            votes: voteResponseData == null ? 0 : voteResponseData[answerId],
+            votes:
+                voteResponseData == null ? 0 : voteResponseData[answerId] ?? 0,
             // isAccepted: singleAnswerData['isAccepted'],
           ),
         );

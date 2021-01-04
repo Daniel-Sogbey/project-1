@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
             auth.token,
             auth.userId,
             previousPosts == null ? [] : previousPosts.posts,
-            auth.email,
           ),
         ),
         ChangeNotifierProxyProvider<Auth, Answers>(

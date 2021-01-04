@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -51,7 +52,7 @@ class PostItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Container(
                   width: 60.0,
@@ -98,7 +99,7 @@ class PostItem extends StatelessWidget {
                       post.creator == null
                           ? 'Anonymous'
                           : post.creator
-                              .replaceRange(10, post.creator.length, '...'),
+                              .replaceRange(3, post.creator.length, '...'),
                       style: kInfoStyle,
                     ),
                   ),
@@ -157,34 +158,28 @@ class PostItem extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: Colors.amber,
-                        child: Container(
-                          padding: EdgeInsets.all(8.0),
-                          child: Consumer<Post>(
-                            builder: (ctx, post, _) => IconButton(
-                              splashColor: Colors.greenAccent,
-                              onPressed: () {
-                                post.isFav
-                                    ? post.unlike(auth.userId, auth.token)
-                                    : post.like(auth.userId, auth.token);
-                              },
-                              icon: post.isFav
-                                  ? Icon(
-                                      Icons.favorite,
-                                      color: Colors.white,
-                                      size: 20.0,
-                                    )
-                                  : Icon(
-                                      Icons.favorite_border,
-                                      color: Colors.white,
-                                      size: 20.0,
-                                    ),
-                            ),
+                      Container(
+                        padding: EdgeInsets.all(8.0),
+                        child: Consumer<Post>(
+                          builder: (ctx, post, _) => IconButton(
+                            splashColor: Colors.greenAccent,
+                            onPressed: () {
+                              post.isFav
+                                  ? post.unlike(auth.userId, auth.token)
+                                  : post.like(auth.userId, auth.token);
+                            },
+                            icon: post.isFav
+                                ? Icon(
+                                    // Icons.arrow_downward,
+                                    FontAwesomeIcons.solidArrowAltCircleDown,
+                                    color: Colors.black12,
+                                    size: 30.0,
+                                  )
+                                : Icon(
+                                    FontAwesomeIcons.solidArrowAltCircleUp,
+                                    color: Colors.blue,
+                                    size: 30.0,
+                                  ),
                           ),
                         ),
                       ),

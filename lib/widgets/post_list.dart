@@ -7,15 +7,16 @@ import '../providers/answers.dart';
 import '../providers/posts.dart';
 import '../widgets/post_item.dart';
 
-class PostList extends StatefulWidget {
-  @override
-  _PostListState createState() => _PostListState();
-}
-
-class _PostListState extends State<PostList> {
+class PostList extends StatelessWidget {
   Future<void> _refresh(BuildContext context) async {
     await Provider.of<Posts>(context, listen: false)
         .fetchPostsBasedOnFilters()
+        .then((_) async {
+      await Provider.of<Answers>(context, listen: false).fetchAnswers();
+    });
+
+    await Provider.of<Posts>(context, listen: false)
+        .fetchPosts(true)
         .then((_) async {
       await Provider.of<Answers>(context, listen: false).fetchAnswers();
     });
