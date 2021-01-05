@@ -56,7 +56,7 @@ class Posts with ChangeNotifier {
   }
 
   Post findPostById(String postId) {
-    return _posts.firstWhere((post) => post.postId == postId);
+    return _userPosts.firstWhere((post) => post.postId == postId);
   }
 
   Map<String, dynamic> filters = {
@@ -208,8 +208,7 @@ class Posts with ChangeNotifier {
         );
       });
 
-      // _userPosts = loadedPosts;
-      _posts = loadedPosts;
+      _userPosts = loadedPosts;
       notifyListeners();
     } catch (error) {
       throw error;
@@ -770,10 +769,12 @@ class Posts with ChangeNotifier {
   }
 
   Future<void> updatePost(String postId, Post newPost) async {
+    final userPostIndex =
+        _userPosts.indexWhere((post) => post.postId == postId);
     final postIndex = _posts.indexWhere((post) => post.postId == postId);
     final url =
         'https://solveshare-7acaf-default-rtdb.firebaseio.com/posts/$postId.json?auth=$authToken';
-    if (postIndex >= 0) {
+    if (postIndex >= 0 && userPostIndex >= 0) {
       try {
         await http.patch(
           url,
@@ -786,7 +787,7 @@ class Posts with ChangeNotifier {
             },
           ),
         );
-        // _userPosts[postIndex] = newPost;
+        _userPosts[userPostIndex] = newPost;
         _posts[postIndex] = newPost;
         notifyListeners();
         print(postIndex);
@@ -804,7 +805,7 @@ class Posts with ChangeNotifier {
       final response = await http.delete(url);
 
       if (response.statusCode == 200) {
-        // _userPosts.removeWhere((post) => post.postId == postId);
+        _userPosts.removeWhere((post) => post.postId == postId);
         _posts.removeWhere((post) => post.postId == postId);
       }
 

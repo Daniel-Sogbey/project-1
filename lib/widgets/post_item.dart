@@ -120,18 +120,36 @@ class PostItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(
-                  DateFormat('dd/MM').format(post.timeStamp),
-                  style: kTimeTextStyle,
-                ),
+                post.timeStamp == null
+                    ? Text(
+                        DateFormat('dd/MM').format(DateTime.now()),
+                        style: kTimeTextStyle,
+                      )
+                    : Text(
+                          DateFormat('dd/MM').format(post.timeStamp),
+                          style: kTimeTextStyle,
+                        ) ??
+                        Text(
+                          DateFormat('dd/MM').format(DateTime.now()),
+                          style: kTimeTextStyle,
+                        ),
                 // Text(
                 //   '${DateFormat.H().format(posts.timeStamp)} Hrs ago',
                 //   style: kTimeTextStyle,
                 // ),
-                Text(
-                  '${timeago.format(post.timeStamp, locale: 'en_short')}',
-                  style: kTimeTextStyle,
-                ),
+                post.timeStamp == null
+                    ? Text(
+                        '${timeago.format(DateTime.now(), locale: 'en_short')}',
+                        style: kTimeTextStyle,
+                      )
+                    : Text(
+                          '${timeago.format(post.timeStamp, locale: 'en_short')}',
+                          style: kTimeTextStyle,
+                        ) ??
+                        Text(
+                          '${timeago.format(DateTime.now(), locale: 'en_short')}',
+                          style: kTimeTextStyle,
+                        ),
               ],
             ),
             Container(

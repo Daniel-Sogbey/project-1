@@ -48,9 +48,8 @@ class _TabsScreenState extends State<TabsScreen> {
               style: kTabTextTitle,
             ),
             icon: Icon(
-              Icons.home,
-              color: Colors.black,
-              size: 20.0,
+              FontAwesomeIcons.home,
+              color: Colors.amber,
             ),
           ),
           BottomNavigationBarItem(
@@ -60,8 +59,7 @@ class _TabsScreenState extends State<TabsScreen> {
             ),
             icon: Icon(
               FontAwesomeIcons.solidEdit,
-              color: Colors.black,
-              size: 16.0,
+              color: Colors.greenAccent,
             ),
           ),
           BottomNavigationBarItem(
@@ -71,8 +69,7 @@ class _TabsScreenState extends State<TabsScreen> {
             ),
             icon: Icon(
               FontAwesomeIcons.globe,
-              color: Colors.black,
-              size: 16.0,
+              color: Colors.blue,
             ),
           ),
         ],
