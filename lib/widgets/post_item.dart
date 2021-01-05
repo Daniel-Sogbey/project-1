@@ -185,16 +185,25 @@ class PostItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Card(
-                    elevation: 0.000000000000001,
-                    color: Colors.white70,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Container(
+                  Container(
+                    // decoration: BoxDecoration(
+                    //   border: Border.all(
+                    //     width: 1.0,
+                    //     color: Colors.black12,
+                    //   ),
+                    //   color: Colors.black12,
+                    //   borderRadius: BorderRadius.circular(5.0),
+                    // ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 3.0, right: 3.0),
                       child: Row(
                         children: <Widget>[
                           Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.black12,
+                            ),
+                            padding: EdgeInsets.all(5.0),
                             child: CountBadge(
                               number: answersCount,
                             ),
@@ -209,7 +218,7 @@ class PostItem extends StatelessWidget {
                               );
                             },
                             child: Container(
-                              padding: EdgeInsets.all(5.0),
+                              padding: EdgeInsets.all(6.0),
                               child: Text(
                                 'Comments',
                                 style: kAnswerTextStyle,

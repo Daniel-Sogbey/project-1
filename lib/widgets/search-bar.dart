@@ -42,9 +42,6 @@ class _SearchBarState extends State<SearchBar> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            // Colors.pinkAccent,
-            // Colors.amber,
-            // Colors.blue,
             Color.fromRGBO(215, 17, 225, 1).withOpacity(0.8),
             Color.fromRGBO(255, 188, 17, 1).withOpacity(1.0),
           ],
@@ -58,7 +55,7 @@ class _SearchBarState extends State<SearchBar> {
         margin:
             EdgeInsets.only(left: 10.0, right: 10.0, bottom: 15.0, top: 15.0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(5.0),
         ),
         child: Container(
           // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),

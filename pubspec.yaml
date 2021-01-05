@@ -52,9 +52,9 @@ dev_dependencies:
 
 flutter_icons:
   android: true
-  image_path: "dev_assets/share_space_logo.png"
+  image_path: "dev_assets/icon.png"
   adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "dev_assets/share_space_logo.png"
+  adaptive_icon_foreground: "dev_assets/icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -102,5 +102,13 @@ flutter:
      - family: Staatliches
        fonts:
           - asset: fonts/Staatliches-Regular.ttf
+
+     - family: IndieFlower
+       fonts:
+         - asset: fonts/IndieFlower-Regular.ttf
+
+     - family: WireOne
+       fonts:
+         - asset: fonts/WireOne-Regular.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

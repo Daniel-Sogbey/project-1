@@ -111,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Consumer<Auth>(
         builder: (ctx, auth, _) => FloatingActionButton(
           elevation: 30.0,

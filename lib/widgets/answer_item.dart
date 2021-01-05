@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
@@ -198,101 +199,102 @@ class _AnswerItemState extends State<AnswerItem> {
                     style: kPostTextStyle,
                   ),
                 ),
-                Center(
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Consumer<Answer>(
-                          builder: (ctx, answer, _) => Container(
-                            padding: EdgeInsets.all(5.0),
-                            child: answer.votes == null
-                                ? Text((answer.votes = 0).toString())
-                                : Text(
-                                    answer.votes == 1
-                                        ? '${answer.votes.toString()} like'
-                                        : '${answer.votes.toString()} likes',
-                                    style: kLikeTextStyle,
-                                  ),
-                            // Text(
-                            //   answer.votes.toString(),
-                            //   style: TextStyle(
-                            //     fontFamily: 'Montserrat',
-                            //     fontSize: 10.0,
-                            //     fontWeight: FontWeight.w900,
-                            //     letterSpacing: 1.0,
-                            //     color: Colors.white,
-                            //   ),
-                            // ),
+                Container(
+                  padding: EdgeInsets.only(left: 5, right: 5),
+                  child: Row(
+                    children: <Widget>[
+                      Consumer<Answer>(
+                        builder: (ctx, answer, _) => Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1.0,
+                              color: Colors.black12,
+                            ),
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                        ),
-                        Card(
-                          elevation: 2.0,
-                          margin:
-                              EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0),
-                          child: Container(
-                            child: IconButton(
-                              onPressed: _isLiking
-                                  ? null
-                                  : () async {
-                                      setState(() {
-                                        _isLiking = true;
-                                      });
-                                      answer.isFav == false
-                                          ? await Provider.of<Answer>(context,
-                                                  listen: false)
-                                              .upVote(authData.token,
-                                                  authData.userId)
-                                              .then((_) {
-                                              setState(() {
-                                                _isLiking = false;
-                                              });
-                                            })
-                                          : await Provider.of<Answer>(context,
-                                                  listen: false)
-                                              .downVote(authData.token,
-                                                  authData.userId)
-                                              .then((_) {
-                                              setState(() {
-                                                _isLiking = false;
-                                              });
-                                            });
-                                      // answer.acceptAnswer();
-                                      // answer.upVote();
-                                    },
-                              icon: Consumer<Answer>(
-                                builder: (ctx, answer, _) => answer.isFav
-                                    ? _isLiking
-                                        ? Container(
-                                            child: Center(
-                                              heightFactor: 2.0,
-                                              widthFactor: 2,
-                                              child: Container(
-                                                width: 30.0,
-                                                child: LoadingIndicator(
-                                                  indicatorType:
-                                                      Indicator.ballPulse,
-                                                  color: Colors.amber,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        : Icon(
-                                            Icons.favorite,
-                                            size: 20.0,
-                                            color: Colors.greenAccent,
-                                          )
-                                    : Icon(
-                                        Icons.favorite_border,
-                                        size: 20.0,
-                                        color: Colors.black26,
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(5.0),
+                                child: answer.votes == null
+                                    ? Text((answer.votes = 0).toString())
+                                    : Text(
+                                        answer.votes == 1
+                                            ? '${answer.votes.toString()} like'
+                                            : '${answer.votes.toString()} likes',
+                                        style: kLikeTextStyle,
                                       ),
                               ),
-                            ),
+                              Container(
+                                child: IconButton(
+                                  onPressed: _isLiking
+                                      ? null
+                                      : () async {
+                                          setState(() {
+                                            _isLiking = true;
+                                          });
+                                          answer.isFav == false
+                                              ? await Provider.of<Answer>(
+                                                      context,
+                                                      listen: false)
+                                                  .upVote(authData.token,
+                                                      authData.userId)
+                                                  .then((_) {
+                                                  setState(() {
+                                                    _isLiking = false;
+                                                  });
+                                                })
+                                              : await Provider.of<Answer>(
+                                                      context,
+                                                      listen: false)
+                                                  .downVote(authData.token,
+                                                      authData.userId)
+                                                  .then((_) {
+                                                  setState(() {
+                                                    _isLiking = false;
+                                                  });
+                                                });
+                                          // answer.acceptAnswer();
+                                          // answer.upVote();
+                                        },
+                                  icon: Consumer<Answer>(
+                                    builder: (ctx, answer, _) => answer.isFav
+                                        ? _isLiking
+                                            ? Container(
+                                                child: Center(
+                                                  heightFactor: 2.0,
+                                                  widthFactor: 2,
+                                                  child: Container(
+                                                    width: 30.0,
+                                                    child: LoadingIndicator(
+                                                      indicatorType:
+                                                          Indicator.ballPulse,
+                                                      color: Colors.amber,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : Icon(
+                                                FontAwesomeIcons
+                                                    .solidArrowAltCircleDown,
+                                                size: 20.0,
+                                                color: Colors.black26,
+                                              )
+                                        : Icon(
+                                            FontAwesomeIcons
+                                                .solidArrowAltCircleUp,
+                                            size: 20.0,
+                                            color: Colors.blue,
+                                          ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 // if (_showReplies)

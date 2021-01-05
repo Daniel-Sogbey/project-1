@@ -60,9 +60,10 @@ const kPostTextStyle = TextStyle(
 
 const kAnswerTextStyle = TextStyle(
   color: Colors.black26,
-  fontSize: 16.0,
-  fontFamily: "Staatliches",
+  fontSize: 12.0,
+  fontFamily: "Montserrat",
   letterSpacing: 1.8,
+  fontWeight: FontWeight.w900,
 );
 
 const kAppBarTextStyle = TextStyle(
@@ -264,6 +265,7 @@ const kTabTextTitle = TextStyle(
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w600,
   color: Colors.black45,
+  fontSize: 12.0,
 );
 
 const kLikeTextStyle = TextStyle(

@@ -113,7 +113,7 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                       ),
                     ),
                   )
-                : postsData.userPosts.length == 0
+                : postsData.posts.length == 0
                     ? Container(
                         child: Center(
                           child: Text(
@@ -126,10 +126,10 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                     : Container(
                         child: Expanded(
                           child: ListView.builder(
-                            itemCount: postsData.userPosts.length,
+                            itemCount: postsData.posts.length,
                             itemBuilder: (ctx, i) => UserActivityItem(
-                              post: postsData.userPosts[i],
-                              postId: postsData.userPosts[i].postId,
+                              post: postsData.posts[i],
+                              postId: postsData.posts[i].postId,
                             ),
                           ),
                         ),

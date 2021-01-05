@@ -158,13 +158,12 @@ class _InterestsScreenState extends State<InterestsScreen> {
                         .fetchPostsBasedOnFilters()
                         .then((_) async {
                       await Provider.of<Answers>(context, listen: false)
-                          .fetchAnswers()
-                          .then((_) {
-                        Navigator.of(context).pushNamed(TabsScreen.routeName);
-                      });
+                          .fetchAnswers();
+
                       setState(() {
                         _isLoading = false;
                       });
+                      Navigator.of(context).pushNamed(TabsScreen.routeName);
                     });
                   },
                   child: Card(

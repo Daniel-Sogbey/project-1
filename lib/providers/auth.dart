@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -75,14 +74,14 @@ class Auth with ChangeNotifier {
       );
       prefs.setString('userData', userData);
 
-      final MailOptions mailOptions = MailOptions(
-        body: 'a long body for the email <br> with a subset of HTML',
-        subject: 'the Email Subject',
-        recipients: [email],
-        isHTML: true,
-      );
-
-      await FlutterMailer.send(mailOptions);
+      // final MailOptions mailOptions = MailOptions(
+      //   body: 'a long body for the email <br> with a subset of HTML',
+      //   subject: 'the Email Subject',
+      //   recipients: [email],
+      //   isHTML: true,
+      // );
+      //
+      // await FlutterMailer.send(mailOptions);
     } catch (error) {
       throw error;
     }
