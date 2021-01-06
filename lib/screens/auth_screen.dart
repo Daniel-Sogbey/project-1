@@ -172,6 +172,7 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
           child: SafeArea(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -190,33 +191,33 @@ class _AuthScreenState extends State<AuthScreen> {
                 //     // color: Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9),
                 //   ),
                 // ),
-                _authMode == AuthMode.Login
-                    ? Container(
-                        margin: EdgeInsets.only(top: 20.0),
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 30.0,
-                            fontFamily: 'Montserrat',
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
-                    : Container(
-                        width: double.infinity,
-                        margin: EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'Create An Account Now',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 30.0,
-                            fontFamily: 'Montserrat',
-                            color: Colors.white,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                // _authMode == AuthMode.Login
+                //     ? Container(
+                //         margin: EdgeInsets.only(top: 20.0),
+                //         child: Text(
+                //           'Login',
+                //           style: TextStyle(
+                //             fontWeight: FontWeight.w900,
+                //             fontSize: 30.0,
+                //             fontFamily: 'Montserrat',
+                //             color: Colors.white,
+                //           ),
+                //         ),
+                //       )
+                //     : Container(
+                //         width: double.infinity,
+                //         margin: EdgeInsets.only(top: 10.0),
+                //         child: Text(
+                //           'Create An Account Now',
+                //           style: TextStyle(
+                //             fontWeight: FontWeight.w900,
+                //             fontSize: 30.0,
+                //             fontFamily: 'Montserrat',
+                //             color: Colors.white,
+                //           ),
+                //           textAlign: TextAlign.center,
+                //         ),
+                //       ),
                 Card(
                   elevation: 100.0,
                   shape: RoundedRectangleBorder(
@@ -412,9 +413,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                         ),
                       ),
-                SizedBox(
-                  height: 15.0,
-                ),
+
                 Container(
                   child: Text(
                     'OR',
@@ -458,9 +457,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 //     ),
                 //   ],
                 // ),
-                SizedBox(
-                  height: 8.0,
-                ),
+
                 InkWell(
                   onTap: _switchAuthMode,
                   splashColor: Colors.pink,
@@ -477,9 +474,6 @@ class _AuthScreenState extends State<AuthScreen> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 20.0,
                 ),
               ],
             ),

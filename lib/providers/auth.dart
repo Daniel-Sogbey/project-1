@@ -112,10 +112,10 @@ class Auth with ChangeNotifier {
     _token = extractedUserData['token'];
     _userId = extractedUserData['userId'];
     _expiryDate = expiryDate;
-
+    //
+    _autoLogout();
     notifyListeners();
 
-    _autoLogout();
     return true;
   }
 

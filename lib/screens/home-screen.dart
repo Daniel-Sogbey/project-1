@@ -137,7 +137,6 @@ Widget _buildMenuBar() {
     builder: (context) => Container(
       margin: EdgeInsets.only(left: 20.0, right: 10.0),
       child: InkWell(
-        splashColor: Colors.white,
         onTap: () {
           _onTap = !_onTap;
           print(_onTap);

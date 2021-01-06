@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../providers/answers.dart';
 import '../widgets/answer_item.dart';
-import '../widgets/app-drawer.dart';
 import '../widgets/app_header.dart';
 
 class AnswersScreen extends StatefulWidget {
@@ -22,7 +21,6 @@ class _AnswersScreenState extends State<AnswersScreen> {
     final answers =
         Provider.of<Answers>(context).findAnswersByQuestionId(questionAnswerId);
     return Scaffold(
-      drawer: AppDrawer(),
       body: SafeArea(
         child: Container(
           child: SingleChildScrollView(

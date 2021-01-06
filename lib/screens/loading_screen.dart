@@ -54,7 +54,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
           });
         });
       });
-    } catch (error) {}
+    } catch (error) {
+      print(
+          'ERROR CAUGHT------------------------------------------------ my posts');
+    }
   }
 
   final slider = SleekCircularSlider(

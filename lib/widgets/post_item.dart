@@ -263,8 +263,8 @@ class PostItem extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0),
                         ),
-                        child: Container(
-                          padding: EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(2.0),
                           child: Icon(
                             Icons.add,
                             color: Colors.white,

@@ -212,6 +212,7 @@ class Posts with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       throw error;
+      // print('$error ERORORORORORORORORORORORORORORORORORORORORO');
     }
   }
 
@@ -723,7 +724,8 @@ class Posts with ChangeNotifier {
       print(json.decode(response.body));
       print(loadedPosts);
     } catch (error) {
-      throw error;
+      // throw error;
+      print('$error ERROROROROROROROROROROROORORORORORRORRORORO');
     }
   }
 

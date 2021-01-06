@@ -86,7 +86,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         setState(() {
           _isLoading = false;
         });
-
         Navigator.of(context).pop();
       });
     } else {
@@ -133,20 +132,20 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              // Colors.pinkAccent,
-              // Colors.amber,
-              // Colors.blue,
-              Color.fromRGBO(215, 17, 225, 1).withOpacity(0.6),
-              Color.fromRGBO(255, 188, 17, 1).withOpacity(0.9),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0, 1],
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   gradient: LinearGradient(
+        //     colors: [
+        //       // Colors.pinkAccent,
+        //       // Colors.amber,
+        //       // Colors.blue,
+        //       Color.fromRGBO(215, 17, 225, 1).withOpacity(0.6),
+        //       Color.fromRGBO(255, 188, 17, 1).withOpacity(0.9),
+        //     ],
+        //     begin: Alignment.topLeft,
+        //     end: Alignment.bottomRight,
+        //     stops: [0, 1],
+        //   ),
+        // ),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -159,11 +158,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         heightFactor: 4.0,
                         widthFactor: 2,
                         child: Container(
-                          width: 150.0,
-                          height: 130.0,
+                          width: 50.0,
+                          height: 50.0,
                           child: LoadingIndicator(
                             indicatorType: Indicator.ballBeat,
-                            color: Colors.pinkAccent,
+                            color: Colors.amber,
                           ),
                         ),
                       )
