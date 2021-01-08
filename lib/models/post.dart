@@ -4,11 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class Post with ChangeNotifier {
-  @required
   final String postId;
-  @required
-  String category;
-  @required
+
+  final String category;
+
   final String postText;
   final String creator;
   bool isFav;

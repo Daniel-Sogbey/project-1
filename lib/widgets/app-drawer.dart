@@ -240,8 +240,8 @@ class AppDrawer extends StatelessWidget {
             InkWell(
               splashColor: Colors.black12,
               onTap: () {
-                Navigator.of(context).pop();
-                Provider.of<Auth>(context, listen: false).logout();
+                // Navigator.of(context).pop();
+                // Provider.of<Auth>(context, listen: false).logout();
               },
               child: Container(
                 padding: EdgeInsets.all(10.0),

@@ -211,8 +211,8 @@ class Posts with ChangeNotifier {
       _userPosts = loadedPosts;
       notifyListeners();
     } catch (error) {
-      throw error;
-      // print('$error ERORORORORORORORORORORORORORORORORORORORORO');
+      // throw error;
+      print('$error ERORORORORORORORORORORORORORORORORORORORORO');
     }
   }
 
@@ -725,7 +725,7 @@ class Posts with ChangeNotifier {
       print(loadedPosts);
     } catch (error) {
       // throw error;
-      print('$error ERROROROROROROROROROROROORORORORORRORRORORO');
+      print ('$error ERROROROROROROROROROROROORORORORORRORRORORO');
     }
   }
 
