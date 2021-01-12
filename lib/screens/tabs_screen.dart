@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../constants/constants.dart';
 import '../screens/home-screen.dart';
 import '../screens/interests_screen.dart';
+import '../screens/profile_screen.dart';
 import '../screens/user_activity_screen.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -18,6 +18,7 @@ class _TabsScreenState extends State<TabsScreen> {
     HomeScreen(),
     UserActivityScreen(),
     InterestsScreen(),
+    ProfileScreen(),
   ];
 
   int _selectedPageIndex = 0;
@@ -34,6 +35,7 @@ class _TabsScreenState extends State<TabsScreen> {
       body: _pages[_selectedPageIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
+        type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.pinkAccent,
         unselectedItemColor: Colors.black45,
         selectedFontSize: 20,
@@ -43,9 +45,8 @@ class _TabsScreenState extends State<TabsScreen> {
         currentIndex: _selectedPageIndex,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            title: Text(
-              'Home',
-              style: kTabTextTitle,
+            title: Container(
+              height: 0.0,
             ),
             icon: Icon(
               FontAwesomeIcons.home,
@@ -53,9 +54,8 @@ class _TabsScreenState extends State<TabsScreen> {
             ),
           ),
           BottomNavigationBarItem(
-            title: Text(
-              'My Posts',
-              style: kTabTextTitle,
+            title: Container(
+              height: 0.0,
             ),
             icon: Icon(
               FontAwesomeIcons.solidEdit,
@@ -63,13 +63,21 @@ class _TabsScreenState extends State<TabsScreen> {
             ),
           ),
           BottomNavigationBarItem(
-            title: Text(
-              'Explore',
-              style: kTabTextTitle,
+            title: Container(
+              height: 0.0,
             ),
             icon: Icon(
               FontAwesomeIcons.globe,
               color: Colors.blue,
+            ),
+          ),
+          BottomNavigationBarItem(
+            title: Container(
+              height: 0.0,
+            ),
+            icon: Icon(
+              FontAwesomeIcons.user,
+              color: Colors.pinkAccent,
             ),
           ),
         ],

@@ -12,6 +12,7 @@ import './screens/create_answer_screen.dart';
 import './screens/create_post_screen.dart';
 import './screens/interests_screen.dart';
 import './screens/loading_screen.dart';
+import './screens/profile_screen.dart';
 import './screens/tabs_screen.dart';
 import './screens/trending_screen.dart';
 import './screens/user_activity_screen.dart';
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
             TrendingScreen.routeName: (context) => TrendingScreen(),
             TabsScreen.routeName: (context) => TabsScreen(),
             AuthScreen.routeName: (context) => AuthScreen(),
+            ProfileScreen.routeName: (context) => ProfileScreen(),
           },
         ),
       ),

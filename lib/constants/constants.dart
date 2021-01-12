@@ -276,3 +276,17 @@ const kLikeTextStyle = TextStyle(
   letterSpacing: 1.2,
   height: 2.0,
 );
+
+const kUserProfileId = TextStyle(
+  color: Colors.white,
+  fontSize: 15.0,
+  fontWeight: FontWeight.w900,
+  fontFamily: 'Montserrat',
+);
+
+const kEditUserProfile = TextStyle(
+  color: Colors.black,
+  fontSize: 20.0,
+  fontWeight: FontWeight.w900,
+  fontFamily: 'Montserrat',
+);
