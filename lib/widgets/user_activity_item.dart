@@ -25,7 +25,7 @@ class _UserActivityItemState extends State<UserActivityItem> {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(8.0),
       ),
       margin: EdgeInsets.only(
         left: 10,

@@ -177,7 +177,7 @@ class PostItem extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(5.0),
                         child: Consumer<Post>(
                           builder: (ctx, post, _) => IconButton(
                             splashColor: Colors.greenAccent,
