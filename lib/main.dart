@@ -15,6 +15,7 @@ import './screens/loading_screen.dart';
 import './screens/profile_screen.dart';
 import './screens/tabs_screen.dart';
 import './screens/trending_screen.dart';
+import './screens/update_profile_screen.dart';
 import './screens/user_activity_screen.dart';
 
 void main() {
@@ -75,6 +76,7 @@ class MyApp extends StatelessWidget {
             TabsScreen.routeName: (context) => TabsScreen(),
             AuthScreen.routeName: (context) => AuthScreen(),
             ProfileScreen.routeName: (context) => ProfileScreen(),
+            UpdateProfileScreen.routeName: (context) => UpdateProfileScreen(),
           },
         ),
       ),

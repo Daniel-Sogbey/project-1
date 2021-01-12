@@ -21,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
                 radius: 80.0,
                 child: Text(
                   userId.replaceRange(
-                    3,
+                    2,
                     userId.length,
                     '...',
                   ),
