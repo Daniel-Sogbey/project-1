@@ -11,6 +11,7 @@ class Auth with ChangeNotifier {
   String _token;
   DateTime _expiryDate;
   String _userId;
+  String _email;
   Timer _authTimer;
 
   bool get isAuth {
@@ -19,6 +20,10 @@ class Auth with ChangeNotifier {
 
   String get userId {
     return _userId;
+  }
+
+  String get email {
+    return _email;
   }
 
   String get token {
@@ -60,6 +65,10 @@ class Auth with ChangeNotifier {
         ),
       );
       _userId = responseData['localId'];
+      _email = responseData['email'];
+
+      print(
+          '$_email  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmiiiiiiiiiiiiiiiiiiiiilllllllllll');
 
       _autoLogout();
       notifyListeners();

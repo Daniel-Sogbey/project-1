@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
+import './models/user.dart';
 import './providers/answers.dart';
 import './providers/auth.dart';
 import './providers/newsTrends.dart';
@@ -43,6 +44,14 @@ class MyApp extends StatelessWidget {
             auth.userId,
             previousAnswers == null ? [] : previousAnswers.answers,
           ),
+        ),
+        // ChangeNotifierProxyProvider<Auth, Users>(
+        //   update: (ctx, auth, previousUser) => Users(
+        //     userId: auth.userId,
+        //   ),
+        //
+        ChangeNotifierProvider(
+          create: (context) => User(),
         ),
         ChangeNotifierProvider(
           create: (context) => NewsTrends(),
