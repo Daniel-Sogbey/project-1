@@ -28,7 +28,6 @@ class _AnswersScreenState extends State<AnswersScreen> {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    _buildMenuBar(),
                     AppHeader(),
                   ],
                 ),

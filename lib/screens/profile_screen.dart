@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:project_1/constants/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -8,12 +11,19 @@ import '../providers/auth.dart';
 import '../screens/update_profile_screen.dart';
 import '../widgets/app_header.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   static const routeName = '/profile';
+
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  File _pickedImage;
+
   @override
   Widget build(BuildContext context) {
     final userDetails = Provider.of<Auth>(context);
-
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -29,19 +39,45 @@ class ProfileScreen extends StatelessWidget {
               builder: (ctx, user, _) => Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(20.0),
-                child: CircleAvatar(
-                  radius: 80.0,
-                  child: user.getUsername == null
-                      ? Text(
-                          userDetails.userId.replaceRange(
-                            2,
-                            userDetails.userId.length,
-                            '...',
-                          ),
-                        )
-                      : Text(
-                          user.getUsername,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 80.0,
+                      backgroundImage:
+                          _pickedImage == null ? null : FileImage(_pickedImage),
+                      // user.getUsername == null
+                      //     ? Text(
+                      //   userDetails.userId.replaceRange(
+                      //     2,
+                      //     userDetails.userId.length,
+                      //     '...',
+                      //   ),
+                      // )
+                      //     : Text(
+                      //   user.getUsername,
+                      // ):
+                    ),
+                    Container(
+                      child: IconButton(
+                        onPressed: () async {
+                          final picker = ImagePicker();
+                          final pickedImageFile = await picker.getImage(
+                            source: ImageSource.gallery,
+                          );
+
+                          setState(() {
+                            _pickedImage = pickedImageFile as File;
+                          });
+                        },
+                        icon: Icon(
+                          Icons.linked_camera,
+                          color: Colors.black26,
+                          size: 50.0,
                         ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -84,18 +120,18 @@ class UserDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Card(shadowColor: Colors.white,
       elevation: 100.0,
-      color: Colors.amber,
+      color: Colors.blue,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      shadowColor: Colors.white,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 50.0),
         child: Column(
           children: [
             Row(
+
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
@@ -130,6 +166,30 @@ class UserDetails extends StatelessWidget {
                         ? ''
                         : userDetails.email.toUpperCase(),
                     style: kUserProfileId,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  child: Text(
+                    'username: '.toUpperCase(),
+                    style: kUserProfileId,
+                  ),
+                ),
+                Consumer<User>(
+                  builder: (ctx, user, _) => Container(
+                    child: Text(
+                      user.getUsername == null
+                          ? ''
+                          : user.getUsername.toUpperCase(),
+                      style: kUserProfileId,
+                    ),
                   ),
                 ),
               ],

@@ -715,7 +715,6 @@ class Posts with ChangeNotifier {
           //   urlForInterests,
           //   body:json.encode()
           // );
-
           return false;
         },
       );
@@ -725,7 +724,7 @@ class Posts with ChangeNotifier {
       print(loadedPosts);
     } catch (error) {
       // throw error;
-      print ('$error ERROROROROROROROROROROROORORORORORRORRORORO');
+      print('$error ERROROROROROROROROROROROORORORORORRORRORORO');
     }
   }
 
