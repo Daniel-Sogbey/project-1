@@ -8,6 +8,7 @@ import '../constants/constants.dart';
 import '../http_exception/http_exception.dart';
 import '../providers/auth.dart';
 import '../widgets/app_header.dart';
+import '../widgets/separator.dart';
 
 enum AuthMode {
   Signup,
@@ -155,21 +156,22 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
+          color: Colors.lightBlue,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                // Colors.pinkAccent,
-                // Colors.amber,
-                // Colors.blue,
-                Color.fromRGBO(215, 17, 225, 1).withOpacity(0.8),
-                Color.fromRGBO(255, 188, 17, 1).withOpacity(1.0),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              stops: [0, 1],
-            ),
-          ),
+          // decoration: BoxDecoration(
+          //   gradient: LinearGradient(
+          //     colors: [
+          //       // Colors.pinkAccent,
+          //       // Colors.amber,
+          //       // Colors.blue,
+          //       Color.fromRGBO(215, 17, 225, 1).withOpacity(0.8),
+          //       Color.fromRGBO(255, 188, 17, 1).withOpacity(1.0),
+          //     ],
+          //     begin: Alignment.topLeft,
+          //     end: Alignment.bottomRight,
+          //     stops: [0, 1],
+          //   ),
+          // ),
           child: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -177,9 +179,25 @@ class _AuthScreenState extends State<AuthScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    AppHeader(),
+                    AppHeader(color: Colors.white),
                   ],
                 ),
+                Separator(color: Colors.white),
+                // Container(
+                //   child: Text(
+                //     'hello sharer!',
+                //     style: TextStyle(
+                //       color: Colors.white70,
+                //       fontSize: 17.0,
+                //       fontFamily: 'Montserrat',
+                //       letterSpacing: 3.0,
+                //       fontStyle: FontStyle.italic,
+                //       fontWeight: FontWeight.w900,
+                //       wordSpacing: 2.0,
+                //     ),
+                //   ),
+                // ),
+                // Separator(color: Colors.white),
                 // Container(
                 //
                 //   padding: EdgeInsets.only(
@@ -222,7 +240,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   elevation: 100.0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0)),
-                  shadowColor: Colors.pink[400],
+                  shadowColor: Colors.lightBlue,
                   margin: EdgeInsets.only(
                     top: 30,
                     left: 5.0,
@@ -253,16 +271,17 @@ class _AuthScreenState extends State<AuthScreen> {
                                   prefixIcon: Icon(
                                     // Icons.email,
                                     FontAwesomeIcons.envelope,
+                                    color: Colors.blue,
                                   ),
                                   labelText: 'Enter your email',
                                   labelStyle: TextStyle(
                                     color: FocusNode().hasFocus
                                         ? Colors.black26
-                                        : Colors.black26,
+                                        : Colors.blue,
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Colors.black26,
+                                      color: Colors.blue,
                                       width: 1.5,
                                     ),
                                     borderRadius: BorderRadius.circular(15.0),
@@ -301,16 +320,17 @@ class _AuthScreenState extends State<AuthScreen> {
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.lock_outline,
+                                    color: Colors.blue,
                                   ),
                                   labelText: 'Enter your password',
                                   labelStyle: TextStyle(
                                     color: FocusNode().hasFocus
                                         ? Colors.black26
-                                        : Colors.black26,
+                                        : Colors.blue,
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Colors.black26,
+                                      color: Colors.blue,
                                       width: 1.5,
                                     ),
                                     borderRadius: BorderRadius.circular(15.0),
@@ -349,16 +369,17 @@ class _AuthScreenState extends State<AuthScreen> {
                                     prefixIcon: Icon(
                                       // Icons.confirmation_number,
                                       FontAwesomeIcons.lock,
+                                      color: Colors.blue,
                                     ),
                                     labelText: 'Confirm your password',
                                     labelStyle: TextStyle(
                                       color: FocusNode().hasFocus
                                           ? Colors.black26
-                                          : Colors.black26,
+                                          : Colors.blue,
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Colors.black26,
+                                        color: Colors.blue,
                                         width: 1.5,
                                       ),
                                       borderRadius: BorderRadius.circular(15.0),
@@ -414,16 +435,16 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       ),
 
-                Container(
-                  child: Text(
-                    'OR',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ),
+                // Container(
+                //   child: Text(
+                //     'OR',
+                //     style: TextStyle(
+                //       fontFamily: 'Montserrat',
+                //       fontSize: 18.0,
+                //       fontWeight: FontWeight.w900,
+                //     ),
+                //   ),
+                // ),
                 // Row(
                 //   crossAxisAlignment: CrossAxisAlignment.center,
                 //   children: <Widget>[
@@ -469,9 +490,24 @@ class _AuthScreenState extends State<AuthScreen> {
                         fontSize: 20.0,
                         fontWeight: FontWeight.w900,
                         fontFamily: 'Montserrat',
-                        color: Colors.blue,
+                        color: Colors.white,
                       ),
                       textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  // splashColor: Colors.amber,
+                  child: Container(
+                    child: Text(
+                      'forgot password?',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w900,
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

@@ -9,6 +9,7 @@ import '../screens/create_post_screen.dart';
 import '../widgets/app_header.dart';
 import '../widgets/post_list.dart';
 import '../widgets/search-bar.dart';
+import '../widgets/separator.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/';
@@ -85,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 AppHeader(),
               ],
             ),
-            Divider(),
+            Separator(),
             SearchBar(),
             _isLoading
                 ? Container(
@@ -117,8 +118,15 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 30.0,
           splashColor: Colors.pinkAccent,
           backgroundColor: Colors.amber,
-          onPressed: () {
-            Navigator.of(context).pushNamed(CreatePostScreen.routeName);
+          onPressed: () async {
+            try {
+              await Provider.of<Auth>(context, listen: false).confirm();
+              // _showErrorDialog('Verify your email');
+              Navigator.of(context).pushNamed(CreatePostScreen.routeName);
+            } catch (error) {
+              print(error);
+              // _showErrorDialog('Verify your email');
+            }
           },
           child: Icon(
             Icons.add,

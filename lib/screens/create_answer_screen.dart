@@ -96,20 +96,21 @@ class _CreateAnswerScreenState extends State<CreateAnswerScreen> {
             )
           : Container(
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    // Colors.pinkAccent,
-                    // Colors.amber,
-                    // Colors.blue,
-                    Color.fromRGBO(215, 17, 225, 1).withOpacity(0.6),
-                    Color.fromRGBO(255, 188, 17, 1).withOpacity(0.9),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [0, 1],
-                ),
-              ),
+              color: Colors.lightBlue,
+              // decoration: BoxDecoration(
+              // gradient: LinearGradient(
+              // colors: [
+              // Colors.pinkAccent,
+              // Colors.amber,
+              // Colors.blue,
+              // Color.fromRGBO(215, 17, 225, 1).withOpacity(0.6),
+              // Color.fromRGBO(255, 188, 17, 1).withOpacity(0.9),
+              // ],
+              // begin: Alignment.topLeft,
+              // end: Alignment.bottomRight,
+              // stops: [0, 1],
+              // ),
+              // ),
               child: SafeArea(
                 child: SingleChildScrollView(
                   child: Column(

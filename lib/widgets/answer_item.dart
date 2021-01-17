@@ -193,7 +193,7 @@ class _AnswerItemState extends State<AnswerItem> {
                   ],
                 ),
                 Container(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.only(left:50.0),
                   child: Text(
                     answer.answerText,
                     style: kPostTextStyle,

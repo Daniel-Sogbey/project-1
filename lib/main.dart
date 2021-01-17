@@ -60,21 +60,23 @@ class MyApp extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'SolveShare',
+          title: 'ShareSpace',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: auth.isAuth
-              ? LoadingScreen()
-              :
-              // auth.tryAutoLogin() != null ? LoadingScreen() : AuthScreen(),
-              FutureBuilder(
-                  future: Future.delayed(Duration.zero, auth.tryAutoLogin),
-                  builder: (ctx, snapshot) =>
-                      snapshot.connectionState == ConnectionState.waiting
-                          ? LoadingScreen()
-                          : AuthScreen(),
-                ),
+          home:
+              //TabsScreen(),
+              auth.isAuth
+                  ? LoadingScreen()
+                  :
+                  //auth.tryAutoLogin() != null ? LoadingScreen() : AuthScreen(),
+                  FutureBuilder(
+                      future: Future.delayed(Duration.zero, auth.tryAutoLogin),
+                      builder: (ctx, snapshot) =>
+                          snapshot.connectionState == ConnectionState.waiting
+                              ? LoadingScreen()
+                              : AuthScreen(),
+                    ),
           routes: {
             CreatePostScreen.routeName: (context) => CreatePostScreen(),
             CreateAnswerScreen.routeName: (context) => CreateAnswerScreen(),

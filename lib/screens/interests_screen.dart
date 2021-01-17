@@ -9,6 +9,7 @@ import '../providers/auth.dart';
 import '../providers/posts.dart';
 import '../screens/tabs_screen.dart';
 import '../widgets/app_header.dart';
+import '../widgets/separator.dart';
 
 class InterestsScreen extends StatefulWidget {
   static const routeName = '/interests';
@@ -109,12 +110,13 @@ class _InterestsScreenState extends State<InterestsScreen> {
         child: Column(
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _buildMenuBar(),
+                // _buildMenuBar(),
                 AppHeader(),
               ],
             ),
-            Divider(),
+            Separator(),
             Container(
               width: double.infinity,
               child: Card(
@@ -237,26 +239,33 @@ class _InterestsScreenState extends State<InterestsScreen> {
                       child: ListView(
                         children: <Widget>[
                           Divider(),
-                          _buildSwitchListTile(
-                            'Science',
-                            'Only topics related to Science',
-                            (newValue) {
-                              setState(() {
-                                _science = newValue;
-                              });
-                            },
-                            _science,
-                          ),
-                          _buildSwitchListTile(
-                            'Life',
-                            'Only topics related to daily life experiences',
-                            (newValue) {
-                              setState(() {
-                                _life = newValue;
-                              });
-                            },
-                            _life,
-                          ),
+                          Row(children: <Widget>[
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Science',
+                                'Only topics related to Science',
+                                (newValue) {
+                                  setState(() {
+                                    _science = newValue;
+                                  });
+                                },
+                                _science,
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Life',
+                                'Only topics related to daily life experiences',
+                                (newValue) {
+                                  setState(() {
+                                    _life = newValue;
+                                  });
+                                },
+                                _life,
+                              ),
+                            ),
+                          ]),
+                          //listView of Rows
                           _buildSwitchListTile(
                             'Technology',
                             'Only topics related to Technology',
@@ -382,30 +391,27 @@ class _InterestsScreenState extends State<InterestsScreen> {
 Widget _buildSwitchListTile(
     String title, String subtitle, Function onChangedHandler, bool interest) {
   return Card(
-    elevation: 6.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(0.0),
-    ),
-    child: Container(
-      padding: EdgeInsets.all(8.0),
-      child: SwitchListTile(
-        activeColor: Colors.pinkAccent,
-        activeTrackColor: Colors.amber,
-        inactiveThumbColor: Colors.amber,
-        inactiveTrackColor: Colors.pinkAccent,
-        title: Text(
-          title,
-          style: kSwitchTitleTextStyle,
-        ),
-        subtitle: Text(
-          subtitle,
-          style: kSwitchSubtitleTextStyle,
-        ),
-        onChanged: onChangedHandler,
-        value: interest,
+      elevation: 6.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(0.0),
       ),
-    ),
-  );
+      child: Column(children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(top: 25.0, bottom: 25.0),
+          child: SwitchListTile(
+            activeColor: Colors.pinkAccent,
+            activeTrackColor: Colors.amber,
+            inactiveThumbColor: Colors.amber,
+            inactiveTrackColor: Colors.pinkAccent,
+            title: Text(
+              title,
+              style: kSwitchTitleTextStyle,
+            ),
+            onChanged: onChangedHandler,
+            value: interest,
+          ),
+        ),
+      ]));
 }
 
 Widget _buildMenuBar() {

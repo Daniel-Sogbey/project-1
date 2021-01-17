@@ -6,6 +6,7 @@ import '../constants/constants.dart';
 import '../providers/posts.dart';
 import '../screens/create_post_screen.dart';
 import '../widgets/app_header.dart';
+import '../widgets/separator.dart';
 import '../widgets/user_activity_item.dart';
 
 class UserActivityScreen extends StatefulWidget {
@@ -53,15 +54,16 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
         child: Column(
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _buildMenuBar(),
+                // _buildMenuBar(),
                 SizedBox(
                   width: 15.0,
                 ),
                 AppHeader(),
               ],
             ),
-            Divider(),
+            Separator(),
             Card(
               color: Colors.purpleAccent,
               elevation: 7.0,

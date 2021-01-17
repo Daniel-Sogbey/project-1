@@ -10,6 +10,7 @@ import '../models/user.dart';
 import '../providers/auth.dart';
 import '../screens/update_profile_screen.dart';
 import '../widgets/app_header.dart';
+import '../widgets/separator.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const routeName = '/profile';
@@ -34,16 +35,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 AppHeader(),
               ],
             ),
-            Divider(),
+            Separator(),
             Consumer<User>(
               builder: (ctx, user, _) => Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.only(
+                  left: 10.0,
+                  right: 10,
+                  bottom: 20.0,
+                  top: 10.0,
+                ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CircleAvatar(
-                      radius: 80.0,
+                      radius: 50.0,
                       backgroundImage:
                           _pickedImage == null ? null : FileImage(_pickedImage),
                       // user.getUsername == null
@@ -120,7 +126,8 @@ class UserDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(shadowColor: Colors.white,
+    return Card(
+      shadowColor: Colors.white,
       elevation: 100.0,
       color: Colors.blue,
       shape: RoundedRectangleBorder(
@@ -131,7 +138,6 @@ class UserDetails extends StatelessWidget {
         child: Column(
           children: [
             Row(
-
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
@@ -141,10 +147,12 @@ class UserDetails extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  child: Text(
-                    userDetails.userId.toUpperCase(),
-                    style: kUserProfileId,
-                  ),
+                  child: userDetails.userId == null
+                      ? Text('')
+                      : Text(
+                          userDetails.userId.toUpperCase(),
+                          style: kUserProfileId,
+                        ),
                 ),
               ],
             ),
