@@ -67,14 +67,14 @@ class MyApp extends StatelessWidget {
           home:
               //TabsScreen(),
               auth.isAuth
-                  ? LoadingScreen()
+                  ? LoadingScreen(authToken: auth.token)
                   :
                   //auth.tryAutoLogin() != null ? LoadingScreen() : AuthScreen(),
                   FutureBuilder(
                       future: Future.delayed(Duration.zero, auth.tryAutoLogin),
                       builder: (ctx, snapshot) =>
                           snapshot.connectionState == ConnectionState.waiting
-                              ? LoadingScreen()
+                              ? LoadingScreen(authToken: auth.token)
                               : AuthScreen(),
                     ),
           routes: {

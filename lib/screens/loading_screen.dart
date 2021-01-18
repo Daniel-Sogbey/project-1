@@ -8,8 +8,13 @@ import '../constants/constants.dart';
 import '../providers/answers.dart';
 import '../providers/posts.dart';
 import '../screens/tabs_screen.dart';
+import '../models/user.dart';
 
 class LoadingScreen extends StatefulWidget {
+  String authToken;
+
+  LoadingScreen({this.authToken});
+
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
@@ -44,6 +49,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
             .then((_) async {
           await Provider.of<Answers>(context, listen: false).fetchAnswers();
         });
+
+        await Provider.of<User>(context, listen: false)
+            .fetchUser(widget.authToken);
 
         await Provider.of<Posts>(context, listen: false)
             .fetchPosts(true)

@@ -265,117 +265,152 @@ class _InterestsScreenState extends State<InterestsScreen> {
                               ),
                             ),
                           ]),
+                          Row(children: <Widget>[
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Tech',
+                                'Only topics related to Tech',
+                                (newValue) {
+                                  setState(() {
+                                    _technology = newValue;
+                                  });
+                                },
+                                _technology,
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Religion',
+                                'Only topics related to Religion',
+                                (newValue) {
+                                  setState(() {
+                                    _religion = newValue;
+                                  });
+                                },
+                                _religion,
+                              ),
+                            ),
+                          ]),
+                          Row(children: <Widget>[
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Music',
+                                'Only topics related to Music',
+                                (newValue) {
+                                  setState(() {
+                                    _music = newValue;
+                                  });
+                                },
+                                _music,
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Society',
+                                'Only topics related to Society',
+                                (newValue) {
+                                  setState(() {
+                                    _society = newValue;
+                                  });
+                                },
+                                _society,
+                              ),
+                            ),
+                          ]),
                           //listView of Rows
-                          _buildSwitchListTile(
-                            'Technology',
-                            'Only topics related to Technology',
-                            (newValue) {
-                              setState(() {
-                                _technology = newValue;
-                              });
-                            },
-                            _technology,
-                          ),
-                          _buildSwitchListTile(
-                            'Religion',
-                            'Only topics related to Religion',
-                            (newValue) {
-                              setState(() {
-                                _religion = newValue;
-                              });
-                            },
-                            _religion,
-                          ),
-                          _buildSwitchListTile(
-                            'Music',
-                            'Only topics related to Music',
-                            (newValue) {
-                              setState(() {
-                                _music = newValue;
-                              });
-                            },
-                            _music,
-                          ),
-                          _buildSwitchListTile(
-                            'Society',
-                            'Only topics related to Society',
-                            (newValue) {
-                              setState(() {
-                                _society = newValue;
-                              });
-                            },
-                            _society,
-                          ),
-                          _buildSwitchListTile(
-                            'Art',
-                            'Only topics related to Art',
-                            (newValue) {
-                              setState(() {
-                                _art = newValue;
-                              });
-                            },
-                            _art,
-                          ),
-                          _buildSwitchListTile(
-                            'Entertainment',
-                            'Only topics related to Entertainment',
-                            (newValue) {
-                              setState(() {
-                                _entertainment = newValue;
-                              });
-                            },
-                            _entertainment,
-                          ),
-                          _buildSwitchListTile(
-                            'Sports',
-                            'Only topics related to Sports',
-                            (newValue) {
-                              setState(() {
-                                _sports = newValue;
-                              });
-                            },
-                            _sports,
-                          ),
-                          _buildSwitchListTile(
-                            'Politics',
-                            'Only topics related to Politics',
-                            (newValue) {
-                              setState(() {
-                                _politics = newValue;
-                              });
-                            },
-                            _politics,
-                          ),
-                          _buildSwitchListTile(
-                            'Education',
-                            'Only topics related to Education',
-                            (newValue) {
-                              setState(() {
-                                _education = newValue;
-                              });
-                            },
-                            _education,
-                          ),
-                          _buildSwitchListTile(
-                            'Engineering',
-                            'Only topics related to Engineering',
-                            (newValue) {
-                              setState(() {
-                                _engineering = newValue;
-                              });
-                            },
-                            _engineering,
-                          ),
-                          _buildSwitchListTile(
-                            'Movies',
-                            'Only topics related to Movies',
-                            (newValue) {
-                              setState(() {
-                                _movies = newValue;
-                              });
-                            },
-                            _movies,
-                          ),
+                          Row(children: <Widget>[
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Art',
+                                'Only topics related to Art',
+                                (newValue) {
+                                  setState(() {
+                                    _art = newValue;
+                                  });
+                                },
+                                _art,
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Ent\'tain',
+                                'Only topics related to Entertainment',
+                                (newValue) {
+                                  setState(() {
+                                    _entertainment = newValue;
+                                  });
+                                },
+                                _entertainment,
+                              ),
+                            ),
+                          ]),
+                          Row(children: <Widget>[
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Sports',
+                                'Only topics related to Sports',
+                                (newValue) {
+                                  setState(() {
+                                    _sports = newValue;
+                                  });
+                                },
+                                _sports,
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Politics',
+                                'Only topics related to Politics',
+                                (newValue) {
+                                  setState(() {
+                                    _politics = newValue;
+                                  });
+                                },
+                                _politics,
+                              ),
+                            ),
+                          ]),
+                          Row(children: <Widget>[
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Edu\'tion',
+                                'Only topics related to Education',
+                                (newValue) {
+                                  setState(() {
+                                    _education = newValue;
+                                  });
+                                },
+                                _education,
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Engrng',
+                                'Only topics related to Engineering',
+                                (newValue) {
+                                  setState(() {
+                                    _engineering = newValue;
+                                  });
+                                },
+                                _engineering,
+                              ),
+                            ),
+                          ]),
+
+                          Row(children: <Widget>[
+                            Expanded(
+                              child: _buildSwitchListTile(
+                                'Movies',
+                                'Only topics related to Movies',
+                                (newValue) {
+                                  setState(() {
+                                    _movies = newValue;
+                                  });
+                                },
+                                _movies,
+                              ),
+                            ),
+                          ]),
                           Divider(),
                         ],
                       ),
@@ -393,7 +428,7 @@ Widget _buildSwitchListTile(
   return Card(
       elevation: 6.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0.0),
+        borderRadius: BorderRadius.circular(10.0),
       ),
       child: Column(children: <Widget>[
         Container(

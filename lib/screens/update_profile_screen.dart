@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
-
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import '../constants/constants.dart';
 import '../models/user.dart';
 import '../providers/auth.dart';
 import '../widgets/app_header.dart';
+import '../widgets/separator.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   static const routeName = '/update-profile';
@@ -16,11 +18,24 @@ class UpdateProfileScreen extends StatefulWidget {
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
+  File _pickedImage;
+
+  void _imgFromCamera() async {
+    File image = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 50,
+    );
+
+    setState(() {
+      _pickedImage = image;
+    });
+  }
+
   var _isLoading = false;
 
   var _formKey = GlobalKey<FormState>();
 
-  User _updatedUser = User(userId: '', username: '');
+  User _updatedUser = User(userId: '', username: '', photoUrl: '');
 
   TextEditingController username = TextEditingController();
 
@@ -40,7 +55,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       final authToken = Provider.of<Auth>(context, listen: false).token;
 
       await Provider.of<User>(context, listen: false)
-          .updateUserProfile(_updatedUser, authToken)
+          .updateUserProfile(
+        _updatedUser,
+        authToken,
+      )
           .then((_) {
         setState(() {
           _isLoading = false;
@@ -70,7 +88,40 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   AppHeader(),
                 ],
               ),
-              Divider(),
+              Separator(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 50.0,
+                    // child: Icon(
+                    // Icons.verified_user,
+                    // size: 80.0,
+                    // ),
+                    child: _pickedImage == null
+                        ? Text('')
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.file(
+                              _pickedImage,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ),
+                  ),
+                  Container(
+                    child: IconButton(
+                      onPressed: _imgFromCamera,
+                      icon: Icon(
+                        Icons.linked_camera,
+                        color: Colors.black26,
+                        size: 50.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               _isLoading
                   ? Container(
                       width: 50.0,
@@ -118,6 +169,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                 _updatedUser = User(
                                   userId: userId,
                                   username: value,
+                                  photoUrl: _pickedImage == null
+                                      ? ''
+                                      : _pickedImage.toString(),
                                 );
                               },
                               // controller: postController,

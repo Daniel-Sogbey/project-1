@@ -12,6 +12,7 @@ import '../providers/posts.dart';
 import '../screens/answers_screen.dart';
 import '../screens/create_answer_screen.dart';
 import '../widgets/countBadge.dart';
+import '../models/user.dart';
 
 class PostItem extends StatelessWidget {
   @override
@@ -23,6 +24,7 @@ class PostItem extends StatelessWidget {
 
     final auth = Provider.of<Auth>(context);
     final posts = Provider.of<Posts>(context);
+    final user = Provider.of<User>(context);
 
     return Card(
       color: Colors.white,
@@ -74,10 +76,10 @@ class PostItem extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: Text(
-                    post.creator == null
-                        ? 'A'
-                        : post.creator
-                            .replaceRange(2, post.creator.length, '...'),
+                    user.getUsername == null
+                        ? user.getUsername
+                        : user.getUsername
+                            .replaceRange(3, user.getUsername.length, '..'),
                     // 'DS',
                     // auth.token.replaceRange(3, auth.token.length, 'fs'),
                     // posts.creatorId
@@ -97,9 +99,8 @@ class PostItem extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       post.creator == null
-                          ? 'Anonymous'
-                          : post.creator
-                              .replaceRange(3, post.creator.length, '...'),
+                          ? user.getUsername
+                          : user.getUsername,
                       style: kInfoStyle,
                     ),
                   ),
