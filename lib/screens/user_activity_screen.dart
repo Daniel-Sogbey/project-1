@@ -8,6 +8,7 @@ import '../screens/create_post_screen.dart';
 import '../widgets/app_header.dart';
 import '../widgets/separator.dart';
 import '../widgets/user_activity_item.dart';
+import '../providers/answers.dart';
 
 class UserActivityScreen extends StatefulWidget {
   static const routeName = '/activity';
@@ -20,31 +21,31 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
   var _isInit = true;
   var _isLoading = false;
 
-  // @override
-  // void didChangeDependencies() {
-  //   if (_isInit) {
-  //     setState(() {
-  //       _isLoading = true;
-  //     });
-  //     Future.delayed(Duration.zero).then((_) async {
-  //       await Provider.of<Posts>(context, listen: false)
-  //           .fetchPosts(true)
-  //           .then((_) async {
-  //         await Provider.of<Answers>(context, listen: false)
-  //             .fetchAnswers()
-  //             .then((_) {
-  //           setState(() {
-  //             _isLoading = false;
-  //           });
-  //         });
-  //       });
-  //     });
-  //
-  //     Future.delayed(Duration(seconds: 0), () {});
-  //   }
-  //   _isInit = false;
-  //   super.didChangeDependencies();
-  // }
+  @override
+  void initState() {
+    // if (_isInit) {
+    setState(() {
+      _isLoading = true;
+    });
+    Future.delayed(Duration.zero).then((_) async {
+      await Provider.of<Posts>(context, listen: false)
+          .fetchPosts(true)
+          .then((_) async {
+        await Provider.of<Answers>(context, listen: false)
+            .fetchAnswers()
+            .then((_) {
+          setState(() {
+            _isLoading = false;
+          });
+        });
+      });
+    });
+
+    Future.delayed(Duration(seconds: 0), () {});
+    // }
+    // _isInit = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +58,7 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 // _buildMenuBar(),
-                SizedBox(
-                  width: 15.0,
-                ),
+
                 AppHeader(),
               ],
             ),

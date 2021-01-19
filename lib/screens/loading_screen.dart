@@ -53,14 +53,22 @@ class _LoadingScreenState extends State<LoadingScreen> {
         await Provider.of<User>(context, listen: false)
             .fetchUser(widget.authToken);
 
-        await Provider.of<Posts>(context, listen: false)
-            .fetchPosts(true)
-            .then((_) async {
-          await Provider.of<Answers>(context, listen: false).fetchAnswers();
+        await Provider.of<Answers>(context, listen: false)
+            .fetchMyAnswers()
+            .then((_) {
           setState(() {
             _isLoading = false;
           });
         });
+
+        // await Provider.of<Posts>(context, listen: false)
+        // .fetchPosts(true)
+        // .then((_) async {
+        // await Provider.of<Answers>(context, listen: false).fetchAnswers();
+        // setState(() {
+        // _isLoading = false;
+        // });
+        // });
       });
     } catch (error) {
       print(
@@ -112,11 +120,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Center(
-                      heightFactor: 2.0,
+                      heightFactor: 1.5,
                       child: Container(
-                        width: 90,
+                        width: 60,
                         child: LoadingIndicator(
-                          indicatorType: Indicator.lineScale,
+                          indicatorType: Indicator.ballPulseSync,
                           color: Colors.blue,
                         ),
                       ),

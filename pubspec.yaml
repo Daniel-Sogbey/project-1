@@ -43,6 +43,7 @@ dependencies:
   email_validator: ^1.0.6
   flutter_mailer: ^1.0.0
   image_picker: ^0.6.7+21
+  incrementally_loading_listview: ^0.3.0
 
 
 dev_dependencies:
@@ -69,8 +70,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-#  assets:
-#     - images/wait.png
+  assets:
+    - images/user.png
 #     - images/welcome.png
 #     - assets/auth_screen_vid.mp4
 

@@ -10,6 +10,8 @@ import '../providers/auth.dart';
 import '../screens/update_profile_screen.dart';
 import '../widgets/app_header.dart';
 import '../widgets/separator.dart';
+import '../providers/posts.dart';
+import '../providers/answers.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const routeName = '/profile';
@@ -35,6 +37,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final userDetails = Provider.of<Auth>(context);
+    final userPosts = Provider.of<Posts>(context).userPosts;
+    final myAnswers = Provider.of<Answers>(context).myAnswers;
     return Scaffold(
       drawer: Consumer<User>(
         builder: (ctx, user, _) => AppDrawer(
@@ -108,7 +112,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            UserDetails(userDetails: userDetails),
+            Card(
+              child: Container(
+                height: 200,
+                padding:
+                    EdgeInsets.only(top: 30, bottom: 30, left: 5, right: 5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Row(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Column(children: <Widget>[
+                          Text('Questions'),
+                          Text(userPosts.length.toString()),
+                          Container(
+                            child: Text('View'),
+                          ),
+                        ]),
+                        Column(children: <Widget>[
+                          Text('Answers'),
+                          Text(myAnswers.length.toString()),
+                          Container(
+                            child: Text('View'),
+                          ),
+                        ]),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            //UserDetails(userDetails: userDetails),
             // Row(
             // mainAxisAlignment: MainAxisAlignment.center,
             // children: <Widget>[

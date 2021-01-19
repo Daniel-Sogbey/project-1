@@ -4,12 +4,15 @@ import '../screens/auth_screen.dart';
 import '../screens/update_profile_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'package:share/share.dart';
+
 import '../constants/constants.dart';
 import '../providers/auth.dart';
 import '../screens/interests_screen.dart';
 import '../screens/trending_screen.dart';
 import '../widgets/countBadge.dart';
 import '../providers/auth.dart';
+import '../models/user.dart';
 
 class AppDrawer extends StatelessWidget {
   final String username;
@@ -24,27 +27,48 @@ class AppDrawer extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              height: 200,
-              color: Colors.black12,
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                margin: EdgeInsets.only(top: 30.0, bottom: 5.0),
-                child: CircleAvatar(
-                  backgroundColor: Colors.pinkAccent,
-                  radius: 50.0,
-                  child: Text(
-                    username,
-                    style: kUserInitStyle,
-                  ),
-                ),
-              ),
-            ),
             // Container(
             // child: Text(email),
             // ),
 
+            Container(
+              width: double.infinity,
+              height: 200,
+              color: Colors.lightBlue,
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                margin: EdgeInsets.only(top: 30.0, bottom: 20.0),
+                child: CircleAvatar(
+                  backgroundColor: Colors.pinkAccent,
+                  radius: 20.0,
+                  child: Icon(
+                    FontAwesomeIcons.user,
+                    size: 30,
+                  ),
+                  // Text(
+                  // username,
+                  // style: kUserInitStyle,
+                ),
+              ),
+            ),
+
+            Consumer<User>(
+              builder: (ctx, user, _) => Container(
+                alignment: Alignment.center,
+                width: double.infinity,
+                color: Colors.lightBlue,
+                padding: EdgeInsets.only(bottom: 10.0),
+                child: Text(
+                  user.getUsername,
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Montserrat',
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
             SizedBox(
               height: 20.0,
             ),
@@ -83,34 +107,34 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: 8.0,
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed('/');
-              },
-              child: Container(
-                margin: EdgeInsets.all(2.0),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(left: 5.0),
-                      child: Icon(
-                        Icons.home,
-                        size: 25.0,
-                        color: Colors.pink,
-                      ),
-                    ),
-                    SizedBox(width: 5.0),
-                    Text(
-                      'Home',
-                      style: kAppBarTextStyle,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // SizedBox(
+            // height: 8.0,
+            // ),
+            // InkWell(
+            // onTap: () {
+            // Navigator.of(context).pushNamed('/');
+            // },
+            // child: Container(
+            // margin: EdgeInsets.all(2.0),
+            // child: Row(
+            // children: <Widget>[
+            // Container(
+            // padding: EdgeInsets.only(left: 5.0),
+            // child: Icon(
+            // Icons.home,
+            // size: 25.0,
+            // color: Colors.pink,
+            // ),
+            // ),
+            // SizedBox(width: 5.0),
+            // Text(
+            // 'Home',
+            // style: kAppBarTextStyle,
+            // ),
+            // ],
+            // ),
+            // ),
+            // ),
             SizedBox(
               height: 5.0,
             ),
@@ -232,9 +256,77 @@ class AppDrawer extends StatelessWidget {
             //     ),
             //   ),
             // ),
-            // SizedBox(
-            //   height: 5.0,
-            // ),
+            SizedBox(
+              height: 5.0,
+            ),
+            InkWell(
+              splashColor: Colors.black12,
+              onTap: () {
+                // Navigator.of(context).pushNamed('/');
+                // Provider.of<Auth>(context, listen: false).logout();
+              },
+              child: Container(
+                margin: EdgeInsets.all(2.0),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Icon(
+                        Icons.stars,
+                        size: 25.0,
+                        color: Colors.pink,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Text(
+                      'Rate Us',
+                      style: kAppBarTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            InkWell(
+              splashColor: Colors.black12,
+              onTap: () async {
+                // Navigator.of(context).pop();
+                // Provider.of<Auth>(context, listen: false).logout();
+
+                await Share.share(
+                  'https://github.com/flutter/flutter/issues/12264',
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.all(2.0),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Icon(
+                        Icons.share,
+                        size: 25.0,
+                        color: Colors.pink,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Text(
+                      'Share App',
+                      style: kAppBarTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
 
             SizedBox(
               height: 5.0,

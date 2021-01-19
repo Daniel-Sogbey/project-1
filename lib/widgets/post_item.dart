@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import '../models/answer.dart';
 import '../constants/constants.dart';
 import '../models/post.dart';
 import '../providers/answers.dart';
@@ -13,6 +14,7 @@ import '../screens/answers_screen.dart';
 import '../screens/create_answer_screen.dart';
 import '../widgets/countBadge.dart';
 import '../models/user.dart';
+import '../widgets/answer_item.dart';
 
 class PostItem extends StatelessWidget {
   @override
@@ -21,6 +23,9 @@ class PostItem extends StatelessWidget {
     final answersCount = Provider.of<Answers>(context)
         .findAnswersByQuestionId(post.postId)
         .length;
+
+    final answers =
+        Provider.of<Answers>(context).findAnswersByQuestionId(post.postId);
 
     final auth = Provider.of<Auth>(context);
     final posts = Provider.of<Posts>(context);
@@ -278,6 +283,53 @@ class PostItem extends StatelessWidget {
                 ],
               ),
             ),
+            // if (answersCount > 1)
+            // Consumer<Answers>(
+            // builder: (ctx, answer, _) => ListView.builder(
+            // itemCount: 1,
+            // itemBuilder: (ctx, i) => answers.map((answer) {
+// return Container(child: answer),
+            // }).toList(),
+            //  Column(
+            // children: [
+            // ChangeNotifierProvider.value(
+            // value: answers[i],
+            // child: AnswerItem(),answers[i]
+            // child: Column(
+            // children: [
+            // Divider(),
+            // AnswerItem(),
+            // Divider(),
+            // SizedBox(
+            // height: 8.0,
+            // ),
+            // ],
+            // ),
+            // ),
+            // ],
+            // ),
+            // ),
+
+            // Column(
+            // children: answers
+            // .map(
+            // (answer) =>
+            //  ChangeNotifierProvider.value(
+            // value: answer,
+            // child: Column(
+            // children: [
+            // Divider(),
+            // AnswerItem(),
+            // Divider(),
+            // SizedBox(
+            // height: 8.0,
+            // ),
+            // ],
+            // ),
+            // ),
+            // )
+            // .toList(),
+            // ),
           ],
         ),
       ),

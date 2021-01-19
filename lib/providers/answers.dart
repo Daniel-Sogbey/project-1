@@ -7,6 +7,7 @@ import '../models/answer.dart';
 
 class Answers with ChangeNotifier {
   List<Answer> _answers = [];
+  List<Answer> _myAnswers = [];
 
   String authToken;
   String userId;
@@ -15,6 +16,10 @@ class Answers with ChangeNotifier {
 
   List<Answer> get answers {
     return [..._answers];
+  }
+
+  List<Answer> get myAnswers {
+    return [..._myAnswers];
   }
 
   int get answersCount {
@@ -83,6 +88,70 @@ class Answers with ChangeNotifier {
         );
       });
       _answers = loadedAnswers;
+      // print(json.decode(response.body));
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  Future<void> fetchMyAnswers() async {
+    final appendedString = 'orderBy="creatorId"&equalTo="$userId"';
+    var url =
+        'https://solveshare-7acaf-default-rtdb.firebaseio.com/answers.json?auth=$authToken&$appendedString';
+
+    try {
+      final response = await http.get(url);
+
+      print('${json.decode(response.body)} aauuhththt');
+
+      final answersData = json.decode(response.body) as Map<String, dynamic>;
+
+      print('$answersData auuuuutt');
+
+      if (answersData == null) {
+        return;
+      }
+
+      url =
+          'https://solveshare-7acaf-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+
+      final favoriteResponse = await http.get(url);
+
+      final favoriteResponseData = json.decode(favoriteResponse.body);
+
+      url =
+          'https://solveshare-7acaf-default-rtdb.firebaseio.com/usersVotes.json?auth=$authToken';
+
+      final voteResponse = await http.get(url);
+
+      final voteResponseData = json.decode(voteResponse.body);
+
+      print('$voteResponseData vote Data');
+
+      print('$favoriteResponseData fav dATA');
+      print('$answersData answers DATAAAT');
+
+      final List<Answer> loadedAnswers = [];
+      answersData.forEach((answerId, singleAnswerData) {
+        print('${singleAnswerData['creatorId']}  CI');
+        loadedAnswers.insert(
+          0,
+          Answer(
+            answerId: answerId,
+            answerText: singleAnswerData['answerText'],
+            questionAnswerId: singleAnswerData['questionAnswerId'],
+            creator: singleAnswerData['creatorId'],
+            isFav: favoriteResponseData == null
+                ? false
+                : favoriteResponseData[answerId] ?? false,
+            votes:
+                voteResponseData == null ? 0 : voteResponseData[answerId] ?? 0,
+            // isAccepted: singleAnswerData['isAccepted'],
+          ),
+        );
+      });
+      _myAnswers = loadedAnswers;
       // print(json.decode(response.body));
       notifyListeners();
     } catch (error) {

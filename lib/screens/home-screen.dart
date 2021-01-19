@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import '../widgets/app-drawer.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
+// import 'package:share/share.dart';
 
 import '../constants/constants.dart';
 import '../providers/auth.dart';
@@ -10,6 +11,8 @@ import '../widgets/app_header.dart';
 import '../widgets/post_list.dart';
 import '../widgets/search-bar.dart';
 import '../widgets/separator.dart';
+import '../widgets/user_account.dart';
+import '../models/user.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/';
@@ -74,6 +77,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Consumer<User>(
+        builder: (ctx, user, _) => AppDrawer(
+          email: user.getEmail,
+          username: user.getUsername,
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -84,6 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 15.0,
                 ),
                 AppHeader(),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                ),
+                UserAccount(),
               ],
             ),
             Separator(),
@@ -122,7 +135,11 @@ class _HomeScreenState extends State<HomeScreen> {
             try {
               await Provider.of<Auth>(context, listen: false).confirm();
               // _showErrorDialog('Verify your email');
-              Navigator.of(context).pushNamed(CreatePostScreen.routeName);
+              if (!auth.isAuth) {
+                Navigator.of(context).pushNamed(CreatePostScreen.routeName);
+              } else {
+                _showErrorDialog('Please create an account with us');
+              }
             } catch (error) {
               print(error);
               // _showErrorDialog('Verify your email');
@@ -146,34 +163,33 @@ Widget _buildMenuBar() {
       margin: EdgeInsets.only(left: 20.0, right: 10.0),
       child: InkWell(
         onTap: () {
-          _onTap = !_onTap;
-          print(_onTap);
-          Scaffold.of(context).showBottomSheet<void>(
-            (BuildContext context) {
-              return Card(
-                elevation: 10,
-                child: Container(
-                  height: 100,
-                  color: Colors.white,
-                  width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      _buildBottomPanel(() {}, 'Rate Us'),
-                      _buildBottomPanel(
-                        () async {
-                          await Share.share(
-                            'https://github.com/flutter/flutter/issues/12264',
-                          );
-                        },
-                        'Share App',
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
+          Scaffold.of(context).openDrawer();
+          // _onTap = !_onTap;
+          // print(_onTap);
+          // Scaffold.of(context).showBottomSheet<void>(
+          // (BuildContext context) {
+          // return Card(
+          // elevation: 10,
+          // child: Container(
+          // height: 100,
+          // color: Colors.white,
+          // width: double.infinity,
+          // child: Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // children: <Widget>[
+          // _buildBottomPanel(() {}, 'Rate Us'),
+          // _buildBottomPanel(
+          // () async {
+          // await Share.share(
+          // 'https://github.com/flutter/flutter/issues/12264',
+          // );
+          // },
+          // 'Share App',
+          // ),
+          // ],
+          // ),
+          // ),
+          // );
         },
         child: Container(
           margin: EdgeInsets.only(top: 20),
